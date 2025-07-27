@@ -16,13 +16,12 @@
 }
 
 body {
-    margin-top: 100px;
+    margin-top: 100px; /* Adjust if your fixed header height changes */
     background-color: #333;
     color: #fff;
     font-family: Arial, sans-serif;
     padding-left: 20px; /* Add padding to the left */
     padding-right: 20px; /* Add padding to the right */
-    /* Or use shorthand: padding: 100px 20px 0; for top, sides, bottom */
 }
 
 p {
@@ -79,8 +78,13 @@ svg {
     display: flex;
     align-items: center;
     justify-content: center; /* Changed from space-around to center for single item */
-    /* height: 100px; */ /* Give it a more consistent height, adjust as needed */
-    padding: 20px 0;
+    /* height: 100px; */ /* Removed to allow content to dictate height naturally */
+    padding: 20px; /* Added padding to the logo container itself for breathing room */
+    position: absolute; /* Position logo absolutely within .moreganoooo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .logo2 {
@@ -97,57 +101,6 @@ svg {
     align-items: center; /* Center items when stacked vertically */
   }
 }
-
-/* Responsive Margin Trims for Containers */
-@media (max-width: 768px) {
-    .moreganoooo,
-    .about-box,
-    .news1,
-    .confused1,
-    .confused11,
-    .confused2,
-    .confused22,
-    .confused3,
-    .confused33,
-    .confused4,
-    .confused44,
-    .iluvmorgam {
-        margin-left: 10px; /* Smaller margin on left */
-        margin-right: 10px; /* Smaller margin on right */
-        /* Or you could use margin: 20px 10px; if you want to also adjust top/bottom */
-        padding: 15px; /* Optionally reduce padding too */
-    }
-
-    /* .confused5 has specific margins you might want to adjust separately if needed */
-    .confused5 {
-        margin-left: 10px;
-        margin-right: 10px;
-        padding: 15px;
-        /* Ensure flex behaviors like gap and flex-wrap are still appropriate */
-    }
-}
-
-/* For even smaller screens, like phones in portrait mode */
-@media (max-width: 480px) {
-    .moreganoooo,
-    .about-box,
-    .news1,
-    .confused1,
-    .confused11,
-    .confused2,
-    .confused22,
-    .confused3,
-    .confused33,
-    .confused4,
-    .confused44,
-    .iluvmorgam,
-    .confused5 {
-        margin-left: 5px; /* Even smaller margin for very small screens */
-        margin-right: 5px;
-        padding: 10px; /* Further reduce padding */
-    }
-}
-
 
 .tiptext {
     color:#069;
@@ -173,27 +126,54 @@ svg {
     background-color: rgba(250, 200, 152, 1); /* Light pastel OG bro */
 }
 
-/* Updated .moreganoooo for responsiveness */
+/* Updated .moreganoooo for chalkboard theme and responsiveness */
 .moreganoooo {
-    max-width: 1200px; /* Added max-width for larger screens */
-    margin: 50px auto; /* Center horizontally */
-    background-color: #1a1a1a;
-    border: 3px solid #FFFFFF;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #38404B; /* Dark slate grey chalkboard color */
+    border: 3px solid #A9A9A9; /* Metallic grey border */
     border-radius: 7px; /* Rounded corners */
-    padding: 20px; /* Added padding for internal spacing */
+    padding: 20px;
     box-sizing: border-box;
+    position: relative; /* Needed for absolute positioning of SVG/content later */
+    padding-bottom: 56.25%; /* For a 16:9 aspect ratio (9/16 * 100%) */
+    height: 0; /* Important to collapse height and let padding-bottom define it */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: add a subtle shadow for depth */
 }
 
-/* Updated .about-box for responsiveness */
+/* Styling for equation animations */
+.equation-animation-container {
+    position: absolute;
+    top: 50%; /* Vertically center it */
+    right: 20px; /* Position it on the right side */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    width: 20%; /* Control the width of the equation container */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align equations to the right */
+    gap: 10px; /* Space between equations */
+    pointer-events: none; /* Prevent equations from blocking clicks on elements behind them */
+    z-index: 1; /* Ensure it's above the chalkboard background but below anything critical */
+}
+
+.equation {
+    max-width: 100%; /* Ensure equations scale within their container */
+    height: auto;
+    opacity: 0; /* Start hidden for animation */
+    transform: translateX(50px); /* Start slightly off-screen for slide-in */
+}
+
+
+/* Updated .about-box for responsiveness and vertical alignment */
 .about-box {
     max-width: 1000px; /* Adjust max-width as desired */
     margin: 50px auto; /* Center it horizontally */
     display: flex;
     flex-wrap: wrap; /* Allow items to wrap to the next line */
     justify-content: center; /* Center items when they wrap */
-    align-items: flex-start; /* Align items to the top if they wrap */
+    align-items: center; /* Changed from flex-start to center for vertical alignment */
     gap: 20px; /* Add some space between flex items */
-    box-sizing: border-box;
 }
 
 .oneone {
@@ -203,7 +183,7 @@ svg {
 .oneone img { /* Added responsive image rule */
     max-width: 100%;
     height: auto;
-    display: block; /* Remove extra space below image */
+    display: block;
     vertical-align: middle; /* Ensures image itself is vertically aligned */
 }
 
@@ -221,7 +201,6 @@ svg {
     margin: 20px;
     border: 3px solid #90EE90;
     border-radius: 7px;
-    box-sizing: border-box;
 }
 
 .twothree {
@@ -324,7 +303,7 @@ svg {
     padding: 20px;
     background-color: #d3d3d3;
     margin: 50px auto; /* Center the whole social media box */
-    max-width: 150px; /* Give it a max-width if desired */
+    max-width: 300px; /* Give it a max-width if desired */
 }
 
 .center {
@@ -346,6 +325,28 @@ svg {
     font-family: "Adobe Garamond Pro", serif;
     font-weight: normal;
 }
+
+/* Ensure superscripts render correctly */
+.pedfoot sup { /* Target sup elements directly within .pedfoot */
+    vertical-align: super; /* Explicitly set vertical alignment */
+    font-size: 0.75em;    /* Make the font size smaller, relative to parent */
+    line-height: 0;       /* Sometimes necessary to prevent extra line height issues */
+    position: relative;   /* Helps with positioning */
+    top: -0.5em;          /* Adjust vertical position manually if needed */
+}
+
+/* If you want all superscripts to behave this way, you can just use: */
+/*
+sup {
+    vertical-align: super;
+    font-size: 0.75em;
+    line-height: 0;
+    position: relative;
+    top: -0.5em;
+}
+*/
+
+
 
 /* Updated .confused2 for responsiveness */
 .confused2 {
@@ -387,7 +388,7 @@ svg {
 .confused33 {
     max-width: 1000px; /* Added max-width */
     margin: 20px auto; /* Centered */
-    border: 33px solid #87CEEA; /* Check this! Was it 33px or 3px? Changed to 3px below */
+    border: 3px solid #87CEEA; /* Corrected to 3px */
     border-radius: 7px; /* Rounded corners */
     padding: 20px;
     display: block;
@@ -444,10 +445,9 @@ svg {
 
 
 .iluvmorgam {
-    margin-left: 200px; /* Original fixed margin, reconsider for mobile */
-    margin-right: 200px; /* Original fixed margin, reconsider for mobile */
+    /* Removed fixed margin-left/right, replaced with max-width and auto margins */
     max-width: 800px; /* Added max-width */
-    margin: 50px auto; /* Centered for responsiveness, overriding old margins */
+    margin: 50px auto; /* Centered for responsiveness, overriding old fixed margins */
     background-color: #1a1a1a;
     border: 3px solid #FFFFFF;
     border-radius: 7px; /* Rounded corners */
@@ -496,22 +496,28 @@ svg {
 .headerfull {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Vertically center items in the header */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #262626;
     z-index: 3;
+    padding: 10px 20px; /* Adjust padding for the whole header */
 }
 .header1 {
     display: flex;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 0; /* Adjust padding if needed */
+}
+.header1 .site-logo {
+    font-size: 24px; /* Adjust as needed */
+    padding: 0;
 }
 .header2 {
-    display: flex;
-    justify-content: flex-end;
-    padding: 20px;
+    width: auto; /* Allow header2 to size naturally on large screens */
+    justify-content: flex-end; /* Push nav and hamburger to the right */
+    align-items: center; /* Vertically align nav links and hamburger */
 }
 .header2 a {
     color: #fff;
@@ -546,7 +552,7 @@ svg {
     display: inline-block;
 }
 .buttonh {
-    border: white 2px; /* This is a border-style property, not actual border shorthand */
+    border: 2px solid white; /* Corrected shorthand */
     padding: 10px 20px;
     color: #fff;
     text-decoration: none;
@@ -575,7 +581,6 @@ svg {
     position: relative;
     display: inline-block;
 }
-
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
@@ -610,25 +615,25 @@ svg {
 
 /* Unique colors for each dropdown menu */
 .dropdown:nth-child(1) .dropdown-content {
-    background-color: rgba(144, 238, 144, 0.8); /* Lighter pastel green */
+    background-color: rgba(144, 238, 144, 0.7); /* Lighter pastel green */
 }
 .dropdown:nth-child(2) .dropdown-content {
-    background-color: rgba(255, 192, 203, 0.8); /* Lighter pastel pink */
+    background-color: rgba(255, 192, 203, 0.7); /* Lighter pastel pink */
 }
 .dropdown:nth-child(3) .dropdown-content {
-    background-color: rgba(135, 206, 234, 0.8); /* Lighter pastel blue */
+    background-color: rgba(135, 206, 234, 0.7); /* Lighter pastel blue */
 }
 .dropdown:nth-child(4) .dropdown-content {
-    background-color: rgba(250, 200, 152, 0.8); /* Lighter pastel green */
+    background-color: rgba(250, 200, 152, 0.7); /* Lighter pastel green */
 }
 
-.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.8); /* Lighter pastel green */
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7); /* Lighter pastel green */
 }
-.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.8); /* Lighter pastel green */
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7); /* Lighter pastel green */
 }
-.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.8); /* Lighter pastel green */
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7); /* Lighter pastel green */
 }
-.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.8); /* Lighter pastel green */
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7); /* Lighter pastel green */
 }
 
 /* Contact button with pastel accent and slight transparency */
@@ -652,8 +657,8 @@ svg {
     background-color: rgba(250, 200, 152, 1); /* Light pastel OG bro */
 }
 .hbutt {
+    border: 2px solid white; /* Corrected shorthand */
     background-color: rgba(63, 63, 63, 0.8); /* Light pastel OG bro */
-    border: none;
     padding: 10px;
     border-radius: 1px;
     color: #fff;
@@ -664,7 +669,7 @@ svg {
 }
 .button2 {
     background-color: rgba(255, 0, 0, 0.05); /* red */
-    border: white 2px; /* This is a border-style property, not actual border shorthand */
+    border: 2px solid white; /* Corrected shorthand */
     padding: 10px 20px;
     color: #fff;
     text-decoration: none;
@@ -738,7 +743,7 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
 }
 
 .sext:hover {
-    box-shadow: 0 1px 5px rgba(0,0,0,.1);
+    box-shadow:0 1px 5px rgba(0,0,0,.1);
     border-color: #333;
 }
 
@@ -762,4 +767,137 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
 .iframe-preview iframe {
     transform:scale(.2);
     transform-origin:0 0;
+}
+
+/* Navbar specific styling and media queries */
+.headerfull {
+    padding: 10px 20px; /* Adjust padding for the whole header */
+    align-items: center; /* Vertically center items in the header */
+}
+
+.header1 .site-logo {
+    font-size: 24px; /* Adjust as needed */
+    padding: 0;
+}
+
+.header2 {
+    width: auto; /* Allow header2 to size naturally on large screens */
+    justify-content: flex-end; /* Push nav and hamburger to the right */
+    align-items: center; /* Vertically align nav links and hamburger */
+}
+
+.nav-links {
+    display: flex; /* Default to horizontal for larger screens */
+    list-style: none;
+    gap: 15px; /* Space between nav items */
+    margin: 0; /* Remove default ul/ol margins */
+    padding: 0; /* Remove default ul/ol padding */
+}
+
+/* Hide hamburger button by default */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    padding: 0;
+    z-index: 4;
+}
+
+.hamburger .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Media Query for Mobile/Small Screens */
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    body {
+        margin-top: 70px; /* Adjust body margin for smaller header height on mobile */
+    }
+    .headerfull {
+        flex-wrap: nowrap; /* Prevent wrapping the logo and hamburger */
+        justify-content: space-between; /* Space out logo and hamburger */
+        padding: 10px 20px; /* Ensure padding on mobile */
+        height: 60px; /* Set a fixed height for mobile header */
+    }
+
+    .header1 {
+        padding: 0;
+    }
+
+    .header2 {
+        width: auto; /* Allow header2 to size naturally */
+        order: unset; /* Don't change order unless specifically needed */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger button on small screens */
+    }
+
+    .nav-links {
+        display: none; /* Hide nav links by default on small screens */
+        flex-direction: column; /* Stack vertically */
+        width: 100%;
+        background-color: #262626; /* Same as header background */
+        position: absolute; /* Position relative to headerfull */
+        top: 60px; /* Below the header, adjust based on headerfull height */
+        left: 0;
+        padding: 20px 0;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        z-index: 2; /* Below header but above content */
+        align-items: center; /* Center links when stacked */
+        max-height: calc(100vh - 60px); /* Limit height to viewport - header */
+        overflow-y: auto; /* Add scroll if content is too long */
+    }
+
+    .nav-links.active {
+        display: flex; /* Show nav links when active */
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-links .dropdown {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0; /* Space between stacked dropdowns */
+    }
+
+    .nav-links .dropdown-content {
+        position: static; /* Make dropdown content flow naturally */
+        background-color: transparent; /* Or a darker shade for distinction */
+        box-shadow: none;
+        border: none;
+        min-width: unset;
+        width: 100%;
+        margin-left: 0;
+        padding-top: 5px; /* Space between main link and sub-links */
+    }
+    .nav-links .dropdown-content a {
+        padding: 8px 16px; /* Adjust padding for sub-links */
+        color: #ddd; /* Lighter color for sub-links */
+    }
+    .nav-links .dropdown-content a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hamburger animation (optional) */
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
 }

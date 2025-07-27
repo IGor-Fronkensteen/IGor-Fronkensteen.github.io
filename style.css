@@ -1,0 +1,696 @@
+/* Dark grey background */
+
+@import url('https://fonts.googleapis.com/css?family=Proxima+Nova');
+@import url('https://fonts.googleapis.com/css?family=Adobe+Garamond+Pro');
+@import url('https://fonts.googleapis.com/css?family=Adobe+Myriad+Pro');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    margin-top: 100px;
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+p {
+    margin: 10px 20px;
+}
+
+.main-content {
+}
+
+a:link {
+    text-decoration: none;
+}
+
+g {
+    overflow: hidden;
+    visibility: hidden; /* This might still cause issues with GSAP; consider removing or changing to opacity: 0 */
+}
+
+svg {
+    width: 20vw;
+    overflow: visible;
+}
+
+.container {
+    background: red;
+    width: 250px;
+    height: 100px;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.reveal {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    top: 0;
+    left: 0;
+    z-index: auto;
+    background: #080808;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 60%;
+}
+
+.logo2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* @media (max-width: 768px) { */
+@media (max-width: 1045px) {
+  .logo2 {
+    flex-direction: column;
+  }
+}
+
+
+.tiptext {
+    color:#069;
+    cursor:pointer;
+}
+.description {
+    display:none;
+    position:absolute;
+    border:1px solid #000;
+    width:400px;
+    height:400px;
+}
+
+
+
+pbutt {
+    background-color: rgba(250, 200, 152, 0.8); /* Light pastel OG bro */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt:hover {
+    background-color: rgba(250, 200, 152, 1); /* Light pastel OG bro */
+}
+
+.moreganoooo {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    background-color: #1a1a1a;
+    border: 3px solid #FFFFFF;
+    border-radius: 7px; /* Rounded corners */
+}
+
+.about-box {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+}
+
+.oneone {
+    padding: 25px;
+}
+
+.twotwo {
+    text-align: center;
+    padding: 15px;
+    border: 3px solid #FAC898;
+    border-radius: 7px; /* Rounded corners */
+    background-color: #1a1a1a;
+}
+
+.onetwo {
+    margin: 20px 20px;
+    border: 3px solid #90EE90;
+    border-radius: 7px; /* Rounded corners */
+}
+
+.twothree {
+    text-align: center;
+    padding: 25px;
+    border: 3px solid #90EE90;
+    border-radius: 7px; /* Rounded corners */
+    background-color: #1a1a1a;
+}
+
+.custom1 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: block;
+    text-align: center;
+    height: auto;
+}
+
+.one {
+    flex: 1 1 auto;
+    padding-left: 0px;
+    padding-right: 40px;
+}
+
+.two {
+    flex: 2 1 auto;
+    border: 3px solid #90EE90;
+    border-radius: 7px; /* Rounded corners */
+    padding: 30px;
+    display: block;
+    text-align: center;
+    height: auto;
+}
+
+.five {
+    flex: 5 1 auto;
+    padding-left: 0px;
+    padding-right: 40px;
+}
+
+.confuseddd {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 125px;
+    margin-bottom: 125px;
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+.news1 {
+    margin-left: 225px;
+    margin-right: 225px;
+    margin-top: 115px;
+    border: 5px solid #FAC898;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+
+.confused1 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 3px solid #90EE90;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+.confused11 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 3px solid #90EE90;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+
+.confusedfoot {
+    display: inline-box; /* This should be display: inline-flex or similar if you want children side-by-side */
+    height: auto;
+    width: 150px; /* This width is very restrictive for 2 50px images with padding/border */
+    border: 5px solid #000;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    text-align: center;
+    background-color: #d3d3d3;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center {
+    width: 50%;
+}
+.pedhead {
+    font-family: "Adobe Garamond Pro", serif;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.pedantic {
+    font-family: "Adobe Garamond Pro", serif;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 18px;
+}
+.pedfoot {
+    font-family: "Adobe Garamond Pro", serif;
+    font-weight: normal;
+}
+.confused2 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 3px solid #FFC0CB;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: justify;
+    text-justify: inter-word;
+    height: auto;
+    background-color: #1a1a1a;
+}
+.confused22 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 3px solid #FFC0CB;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+
+.confused3 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 3px solid #87CEEA;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+.confused33 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 3px solid #87CEEA;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+
+.confused4 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 3px solid #FAC898;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+.confused44 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 3px solid #FAC898;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+    background-color: #1a1a1a;
+}
+
+.confused5 {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 3px solid #FFC0CB;
+    border-radius: 7px; /* Rounded corners */
+    background-color: white;
+    padding: 20px;
+    display: block;
+    text-align: center;
+    height: auto;
+}
+
+.iluvmorgam {
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #1a1a1a;
+    border: 3px solid #FFFFFF;
+    border-radius: 7px; /* Rounded corners */
+    padding: 20px;
+    display: block;
+    text-align: justify;
+    text-justify: inter-word;
+    height: auto;
+}
+
+.image-container1 {
+    width: 100%;
+    background-position: center;
+    background-size: 500px;
+    background-image: url('DomLogo-08_white.svg'); /* Corrected path assumed SVG is in same dir as CSS */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.image-container2 {
+    width: 100%;
+    background-position: center;
+    background-size: 500px;
+    background-image: url('Gemini_Generated_Image1.jpg'); /* Corrected path assumed JPG is in same dir as CSS */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+
+/* Hero section with Inconsolata font for tagline */
+.hero {
+    text-align: center;
+}
+
+.tagline1 {
+    font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
+    font-size: 3rem;
+}
+
+.tagline {
+    font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
+    font-size: 3rem;
+    margin-top: 100px;
+}
+
+/* Dropdown menus with pastel accents and white borders */
+.headerfull {
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #262626;
+    z-index: 3;
+}
+.header1 {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+}
+.header2 {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+.header2 a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px; /* Rounded corners */
+    font-size: 16px;
+}
+.header2 a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.dropdown-menu {
+    position: absolute;
+    border-radius: 10px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.5); /* Slight transparency */
+    color: #fff;
+    display: none; /* Hidden by default */
+    border: 2px solid white; /* Solid white border */
+}
+.dropdown-menu a {
+    color: #fff;
+    padding: 10px; /* margin-top: 0px; transition: delay 10s; */
+    text-decoration: none;
+    display: block;
+}
+.header a:hover + .dropdown-menu {
+    display: block; /* Show the (inline-block?) dropdown menu on hover */
+}
+.homebtn {
+    position: relative;
+    display: inline-block;
+}
+.buttonh {
+    border: white 2px;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+.homebtn2 {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background-position: center;
+    background-size: 50px;
+    background-image: url('DomLogo-08_white.svg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    border-radius: 10px; /* Rounded corners */
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    margin-left: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 2px solid white; /* Solid white border */
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+/* Unique colors for each dropdown menu */
+.dropdown:nth-child(1) .dropdown-content {
+    background-color: rgba(144, 238, 144, 0.7); /* Lighter pastel green */
+}
+.dropdown:nth-child(2) .dropdown-content {
+    background-color: rgba(255, 192, 203, 0.7); /* Lighter pastel pink */
+}
+.dropdown:nth-child(3) .dropdown-content {
+    background-color: rgba(135, 206, 234, 0.7); /* Lighter pastel blue */
+}
+.dropdown:nth-child(4) .dropdown-content {
+    background-color: rgba(250, 200, 152, 0.7); /* Lighter pastel green */
+}
+
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7); /* Lighter pastel green */
+}
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7); /* Lighter pastel green */
+}
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7); /* Lighter pastel green */
+}
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7); /* Lighter pastel green */
+}
+
+/* Contact button with pastel accent and slight transparency */
+.button {
+    background-color: rgba(90, 238, 90, 0.8); /* Light pastel green */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt {
+    background-color: rgba(250, 200, 152, 0.8); /* Light pastel OG bro */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt:hover {
+    background-color: rgba(250, 200, 152, 1); /* Light pastel OG bro */
+}
+.hbutt {
+    background-color: rgba(63, 63, 63, 0.8); /* Light pastel OG bro */
+    border: none;
+    padding: 10px;
+    border-radius: 1px;
+    color: #fff;
+    text-decoration: none;
+}
+.hbutt:hover {
+    background-color: rgba(119, 119, 119, 1); /* Light pastel OG bro */
+}
+.button2 {
+    background-color: rgba(255, 0, 0, 0.05); /* red */
+    border: white 2px;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/* #5FED5F; pastel green */
+/* #FFA6B5; pastel green */
+/* #6AC6EB; pastel green */
+/* #FAAE66; pastel green */
+
+.pastel-accent {
+    color: #90EE90; /* pastel green */
+    font-weight: bold;
+}
+.pastel-accent:hover {
+    color: #5FED5F; /* pastel green */
+    text-decoration: underline;
+}
+.pastel-accent2 {
+    color: #FFC0CB; /* pastel pink */
+    font-weight: bold;
+}
+.pastel-accent2:hover {
+    color: #FAA6B5; /* pastel green */
+    text-decoration: underline;
+}
+.pastel-accent3 {
+    color: #87CEEA; /* pastel blue */
+    font-weight: bold;
+}
+.pastel-accent3:hover {
+    color: #6AC6EB; /* pastel green */
+    text-decoration: underline;
+}
+.pastel-accent4 {
+    color: #FAC898; /* pastel orange */
+    font-weight: bold;
+}
+.pastel-accent4:hover {
+    color: #FAAE66; /* pastel orange */
+    text-decoration: underline;
+}
+
+#particles-js{
+    width: 100%;
+    height: 100%;
+    background-color: #b61924;
+    background-image: url('');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+*, html {
+    /* scroll-margin-top: 100px; */
+    scroll-behavior: smooth !important;
+}
+
+*,*::before,*::after {box-sizing:border-box;}
+body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100px;}
+
+.sext {
+    cursor:default;
+    display:inline-block;
+    position:relative;
+    border:2px solid #ddd;
+    padding:5px;
+    border-radius:3px;
+    font-size:12px;
+
+    &:hover .iframe-preview {
+        opacity:1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    &:hover {
+        box-shadow: 0 1px 5px rgba(0,0,0,.1);
+        border-color: #333;
+    }
+}
+
+
+.iframe-preview {
+    transition:.2s ease-in-out opacity, .2s ease-in-out transform;
+    opacity:0;
+    position:absolute;
+    bottom: 110%;
+    left:50%;
+    box-shadow:0 1px 5px rgba(0,0,0,.5);
+    width:230px;
+    padding-right: 30px;
+    height:160px;
+    border:4px solid #fff;
+    overflow-x:hidden;
+    overflow-y:auto;
+    transform-origin:center bottom;
+    transform: translateX(-50%) translateY(10px) scale(.9);
+
+    iframe {
+        transform:scale(.2);
+        transform-origin:0 0;
+    }
+}

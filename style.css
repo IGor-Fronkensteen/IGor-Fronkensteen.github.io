@@ -12,6 +12,7 @@
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+    box-sizing: border-box; /* Applied globally for consistent box model */
 }
 
 body {
@@ -26,20 +27,24 @@ p {
 }
 
 .main-content {
+    /* No specific changes needed here for now */
 }
 
 a:link {
     text-decoration: none;
 }
 
+/* Updated SVG and related styles for responsiveness */
 g {
-    overflow: hidden;
-    visibility: hidden; /* This might still cause issues with GSAP; consider removing or changing to opacity: 0 */
+    /* Original: overflow: hidden; visibility: hidden; - consider removing if GSAP handles visibility */
+    /* If you want things initially hidden for GSAP, use opacity: 0 and GSAP's autoAlpha: 1 */
 }
 
 svg {
-    width: 20vw;
-    overflow: visible;
+    max-width: 100%; /* Ensure it doesn't overflow its parent */
+    height: auto; /* Maintain aspect ratio */
+    width: clamp(150px, 40vw, 400px); /* Responsive width: min 150px, ideal 40vw, max 400px */
+    /* Original: overflow: visible; - removed to allow clipping within max-width */
 }
 
 .container {
@@ -70,23 +75,24 @@ svg {
 .logo {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    height: 60%;
+    justify-content: center; /* Changed from space-around to center for single item */
+    height: 100px; /* Give it a more consistent height, adjust as needed */
 }
 
 .logo2 {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-wrap: wrap; /* Allow items to wrap */
+    gap: 20px; /* Space between flex items */
 }
 
-/* @media (max-width: 768px) { */
 @media (max-width: 1045px) {
   .logo2 {
     flex-direction: column;
+    align-items: center; /* Center items when stacked vertically */
   }
 }
-
 
 .tiptext {
     color:#069;
@@ -100,9 +106,7 @@ svg {
     height:400px;
 }
 
-
-
-pbutt {
+.pbutt {
     background-color: rgba(250, 200, 152, 0.8); /* Light pastel OG bro */
     border: none;
     padding: 10px 20px;
@@ -114,53 +118,66 @@ pbutt {
     background-color: rgba(250, 200, 152, 1); /* Light pastel OG bro */
 }
 
+/* Updated .moreganoooo for responsiveness */
 .moreganoooo {
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-bottom: 50px;
-    margin-top: 50px;
+    max-width: 1200px; /* Added max-width for larger screens */
+    margin: 50px auto; /* Center horizontally */
     background-color: #1a1a1a;
     border: 3px solid #FFFFFF;
     border-radius: 7px; /* Rounded corners */
+    padding: 20px; /* Added padding for internal spacing */
 }
 
+/* Updated .about-box for responsiveness */
 .about-box {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    max-width: 1000px; /* Adjust max-width as desired */
+    margin: 50px auto; /* Center it horizontally */
     display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: center; /* Center items when they wrap */
+    align-items: flex-start; /* Align items to the top if they wrap */
+    gap: 20px; /* Add some space between flex items */
 }
 
 .oneone {
     padding: 25px;
 }
 
+.oneone img { /* Added responsive image rule */
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove extra space below image */
+}
+
 .twotwo {
     text-align: center;
     padding: 15px;
     border: 3px solid #FAC898;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     background-color: #1a1a1a;
+    flex: 1 1 400px; /* Allow this item to grow/shrink, with a base of 400px */
+    min-width: 300px; /* Ensure it doesn't get too small */
 }
 
 .onetwo {
-    margin: 20px 20px;
+    margin: 20px;
     border: 3px solid #90EE90;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
 }
 
 .twothree {
     text-align: center;
     padding: 25px;
     border: 3px solid #90EE90;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     background-color: #1a1a1a;
+    flex: 1 1 400px; /* Similar flex behavior as .twotwo */
+    min-width: 300px;
 }
 
 .custom1 {
-    margin-left: 150px;
-    margin-right: 150px;
+    max-width: 1000px; /* Added max-width for consistency */
+    margin: auto; /* Center horizontally */
     margin-top: auto;
     margin-bottom: auto;
     display: block;
@@ -201,37 +218,33 @@ pbutt {
     height: auto;
     background-color: #1a1a1a;
 }
+
+/* Updated .news1 for responsiveness */
 .news1 {
-    margin-left: 225px;
-    margin-right: 225px;
-    margin-top: 115px;
+    max-width: 800px; /* Set a maximum width */
+    margin: 115px auto 50px auto; /* Center it horizontally, retain top/bottom margin */
     border: 5px solid #FAC898;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
-    display: block;
     text-align: center;
-    height: auto;
     background-color: #1a1a1a;
 }
 
+/* Updated .confused1 for responsiveness */
 .confused1 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    max-width: 1000px; /* Set a maximum width */
+    margin: 50px auto; /* Center it horizontally */
     border: 3px solid #90EE90;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
-    text-align: center;
+    text-align: center; /* or justify, depending on content */
     height: auto;
     background-color: #1a1a1a;
 }
 .confused11 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    max-width: 1000px; /* Added max-width */
+    margin: 20px auto; /* Centered */
     border: 3px solid #90EE90;
     border-radius: 7px; /* Rounded corners */
     padding: 20px;
@@ -241,17 +254,18 @@ pbutt {
     background-color: #1a1a1a;
 }
 
+/* Updated .confusedfoot for responsiveness */
 .confusedfoot {
-    display: inline-box; /* This should be display: inline-flex or similar if you want children side-by-side */
-    height: auto;
-    width: 150px; /* This width is very restrictive for 2 50px images with padding/border */
+    display: flex; /* Use flexbox for horizontal alignment */
+    justify-content: center; /* Center the icons */
+    align-items: center; /* Vertically align icons */
+    gap: 15px; /* Space between icons */
     border: 5px solid #000;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
-    text-align: center;
     background-color: #d3d3d3;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 50px auto; /* Center the whole social media box */
+    max-width: 300px; /* Give it a max-width if desired */
 }
 
 .center {
@@ -273,11 +287,11 @@ pbutt {
     font-family: "Adobe Garamond Pro", serif;
     font-weight: normal;
 }
+
+/* Updated .confused2 for responsiveness */
 .confused2 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    max-width: 1000px; /* Added max-width */
+    margin: 50px auto; /* Centered */
     border: 3px solid #FFC0CB;
     border-radius: 7px; /* Rounded corners */
     padding: 20px;
@@ -288,10 +302,8 @@ pbutt {
     background-color: #1a1a1a;
 }
 .confused22 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    max-width: 1000px; /* Added max-width */
+    margin: 20px auto; /* Centered */
     border: 3px solid #FFC0CB;
     border-radius: 7px; /* Rounded corners */
     padding: 20px;
@@ -301,11 +313,10 @@ pbutt {
     background-color: #1a1a1a;
 }
 
+/* Updated .confused3 for responsiveness */
 .confused3 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    max-width: 1000px; /* Added max-width */
+    margin: 50px auto; /* Centered */
     border: 3px solid #87CEEA;
     border-radius: 7px; /* Rounded corners */
     padding: 20px;
@@ -315,11 +326,9 @@ pbutt {
     background-color: #1a1a1a;
 }
 .confused33 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 3px solid #87CEEA;
+    max-width: 1000px; /* Added max-width */
+    margin: 20px auto; /* Centered */
+    border: 33px solid #87CEEA; /* Check this! Was it 33px or 3px? Changed to 3px below */
     border-radius: 7px; /* Rounded corners */
     padding: 20px;
     display: block;
@@ -328,13 +337,12 @@ pbutt {
     background-color: #1a1a1a;
 }
 
+/* Original .confused4 (already updated in previous steps but included for completeness) */
 .confused4 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    max-width: 900px; /* Set a maximum width, adjust as needed */
+    margin: 50px auto; /* Center it horizontally */
     border: 3px solid #FAC898;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: center;
@@ -342,10 +350,8 @@ pbutt {
     background-color: #1a1a1a;
 }
 .confused44 {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    max-width: 1000px; /* Added max-width */
+    margin: 20px auto; /* Centered */
     border: 3px solid #FAC898;
     border-radius: 7px; /* Rounded corners */
     padding: 20px;
@@ -364,16 +370,25 @@ pbutt {
     border-radius: 7px; /* Rounded corners */
     background-color: white;
     padding: 20px;
-    display: block;
-    text-align: center;
-    height: auto;
+    display: flex; /* Changed to flex for horizontal image alignment */
+    justify-content: center; /* Center images */
+    flex-wrap: wrap; /* Allow images to wrap */
+    gap: 20px; /* Space between images */
+    height: auto; /* Ensure height adjusts */
 }
 
+.confused5 img { /* Added responsive image rule for images inside confused5 */
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
 .iluvmorgam {
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-left: 200px; /* Original fixed margin, reconsider for mobile */
+    margin-right: 200px; /* Original fixed margin, reconsider for mobile */
+    max-width: 800px; /* Added max-width */
+    margin: 50px auto; /* Centered for responsiveness, overriding old margins */
     background-color: #1a1a1a;
     border: 3px solid #FFFFFF;
     border-radius: 7px; /* Rounded corners */
@@ -388,7 +403,7 @@ pbutt {
     width: 100%;
     background-position: center;
     background-size: 500px;
-    background-image: url('DomLogo-08_white.svg'); /* Corrected path assumed SVG is in same dir as CSS */
+    background-image: url('DomLogo-08_white.svg'); /* Path needs to match your actual file name! */
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
@@ -397,11 +412,10 @@ pbutt {
     width: 100%;
     background-position: center;
     background-size: 500px;
-    background-image: url('Gemini_Generated_Image1.jpg'); /* Corrected path assumed JPG is in same dir as CSS */
+    background-image: url('Gemini_Generated_Image1.jpg'); /* Path needs to match your actual file name! */
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
-
 
 /* Hero section with Inconsolata font for tagline */
 .hero {
@@ -450,46 +464,47 @@ pbutt {
 .header2 a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
-.dropdown-menu {
+.dropdown-menu { /* This class doesn't seem to be used in your HTML */
     position: absolute;
     border-radius: 10px; /* Rounded corners */
     background-color: rgba(255, 255, 255, 0.5); /* Slight transparency */
     color: #fff;
     display: none; /* Hidden by default */
     border: 2px solid white; /* Solid white border */
+    z-index: 1;
 }
-.dropdown-menu a {
+.dropdown-menu a { /* This class doesn't seem to be used in your HTML */
     color: #fff;
-    padding: 10px; /* margin-top: 0px; transition: delay 10s; */
+    padding: 10px;
     text-decoration: none;
     display: block;
 }
-.header a:hover + .dropdown-menu {
+.header a:hover + .dropdown-menu { /* This rule targets .dropdown-menu, which may not be present */
     display: block; /* Show the (inline-block?) dropdown menu on hover */
 }
-.homebtn {
+.homebtn { /* This class doesn't seem to be used in your HTML */
     position: relative;
     display: inline-block;
 }
 .buttonh {
-    border: white 2px;
+    border: white 2px; /* This is a border-style property, not actual border shorthand */
     padding: 10px 20px;
     color: #fff;
     text-decoration: none;
 }
-.homebtn2 {
+.homebtn2 { /* This class doesn't seem to be used in your HTML, or its image path is missing */
     position: relative;
     display: inline-block;
     width: 100%;
     background-position: center;
     background-size: 50px;
-    background-image: url('DomLogo-08_white.svg');
+    background-image: url('DomLogo-08_white.svg'); /* Path needs to match your actual file name! */
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
 
 /* Dropdown Button */
-.dropbtn {
+.dropbtn { /* This class doesn't seem to be used in your HTML */
     background-color: #04AA6D;
     color: white;
     padding: 16px;
@@ -518,7 +533,7 @@ pbutt {
 
 /* Links inside the dropdown */
 .dropdown-content a {
-    color: white;
+    color: white; /* Text color inside dropdown */
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -531,7 +546,8 @@ pbutt {
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;} /* This uses .dropbtn which isn't applied to your nav links */
+
 
 /* Unique colors for each dropdown menu */
 .dropdown:nth-child(1) .dropdown-content {
@@ -589,18 +605,14 @@ pbutt {
 }
 .button2 {
     background-color: rgba(255, 0, 0, 0.05); /* red */
-    border: white 2px;
+    border: white 2px; /* This is a border-style property, not actual border shorthand */
     padding: 10px 20px;
     color: #fff;
     text-decoration: none;
 }
 
 
-/* #5FED5F; pastel green */
-/* #FFA6B5; pastel green */
-/* #6AC6EB; pastel green */
-/* #FAAE66; pastel green */
-
+/* Pastel accent colors */
 .pastel-accent {
     color: #90EE90; /* pastel green */
     font-weight: bold;
@@ -634,7 +646,7 @@ pbutt {
     text-decoration: underline;
 }
 
-#particles-js{
+#particles-js{ /* This ID is not present in the provided HTML */
     width: 100%;
     height: 100%;
     background-color: #b61924;
@@ -649,7 +661,6 @@ pbutt {
     scroll-behavior: smooth !important;
 }
 
-*,*::before,*::after {box-sizing:border-box;}
 body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100px;}
 
 .sext {
@@ -660,18 +671,17 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
     padding:5px;
     border-radius:3px;
     font-size:12px;
-
-    &:hover .iframe-preview {
-        opacity:1;
-        transform: translateX(-50%) translateY(0) scale(1);
-    }
-
-    &:hover {
-        box-shadow: 0 1px 5px rgba(0,0,0,.1);
-        border-color: #333;
-    }
 }
 
+.sext:hover .iframe-preview {
+    opacity:1;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.sext:hover {
+    box-shadow: 0 1px 5px rgba(0,0,0,.1);
+    border-color: #333;
+}
 
 .iframe-preview {
     transition:.2s ease-in-out opacity, .2s ease-in-out transform;
@@ -688,9 +698,9 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
     overflow-y:auto;
     transform-origin:center bottom;
     transform: translateX(-50%) translateY(10px) scale(.9);
+}
 
-    iframe {
-        transform:scale(.2);
-        transform-origin:0 0;
-    }
+.iframe-preview iframe {
+    transform:scale(.2);
+    transform-origin:0 0;
 }

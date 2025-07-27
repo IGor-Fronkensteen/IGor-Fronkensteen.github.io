@@ -76,7 +76,8 @@ svg {
     display: flex;
     align-items: center;
     justify-content: center; /* Changed from space-around to center for single item */
-    height: 100px; /* Give it a more consistent height, adjust as needed */
+    /* height: 100px; */ /* Give it a more consistent height, adjust as needed */
+    padding: 20px 0;
 }
 
 .logo2 {
@@ -93,6 +94,57 @@ svg {
     align-items: center; /* Center items when stacked vertically */
   }
 }
+
+/* Responsive Margin Trims for Containers */
+@media (max-width: 768px) {
+    .moreganoooo,
+    .about-box,
+    .news1,
+    .confused1,
+    .confused11,
+    .confused2,
+    .confused22,
+    .confused3,
+    .confused33,
+    .confused4,
+    .confused44,
+    .iluvmorgam {
+        margin-left: 10px; /* Smaller margin on left */
+        margin-right: 10px; /* Smaller margin on right */
+        /* Or you could use margin: 20px 10px; if you want to also adjust top/bottom */
+        padding: 15px; /* Optionally reduce padding too */
+    }
+
+    /* .confused5 has specific margins you might want to adjust separately if needed */
+    .confused5 {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 15px;
+        /* Ensure flex behaviors like gap and flex-wrap are still appropriate */
+    }
+}
+
+/* For even smaller screens, like phones in portrait mode */
+@media (max-width: 480px) {
+    .moreganoooo,
+    .about-box,
+    .news1,
+    .confused1,
+    .confused11,
+    .confused2,
+    .confused22,
+    .confused3,
+    .confused33,
+    .confused4,
+    .confused44,
+    .iluvmorgam,
+    .confused5 {
+        margin-left: 5px; /* Even smaller margin for very small screens */
+        margin-right: 5px;
+        padding: 10px; /* Further reduce padding */
+    }
+}
+
 
 .tiptext {
     color:#069;
@@ -126,6 +178,7 @@ svg {
     border: 3px solid #FFFFFF;
     border-radius: 7px; /* Rounded corners */
     padding: 20px; /* Added padding for internal spacing */
+    box-sizing: border-box;
 }
 
 /* Updated .about-box for responsiveness */
@@ -137,6 +190,7 @@ svg {
     justify-content: center; /* Center items when they wrap */
     align-items: flex-start; /* Align items to the top if they wrap */
     gap: 20px; /* Add some space between flex items */
+    box-sizing: border-box;
 }
 
 .oneone {
@@ -147,6 +201,7 @@ svg {
     max-width: 100%;
     height: auto;
     display: block; /* Remove extra space below image */
+    vertical-align: middle; /* Ensures image itself is vertically aligned */
 }
 
 .twotwo {
@@ -163,6 +218,7 @@ svg {
     margin: 20px;
     border: 3px solid #90EE90;
     border-radius: 7px;
+    box-sizing: border-box;
 }
 
 .twothree {
@@ -265,7 +321,7 @@ svg {
     padding: 20px;
     background-color: #d3d3d3;
     margin: 50px auto; /* Center the whole social media box */
-    max-width: 300px; /* Give it a max-width if desired */
+    max-width: 150px; /* Give it a max-width if desired */
 }
 
 .center {
@@ -551,25 +607,25 @@ svg {
 
 /* Unique colors for each dropdown menu */
 .dropdown:nth-child(1) .dropdown-content {
-    background-color: rgba(144, 238, 144, 0.7); /* Lighter pastel green */
+    background-color: rgba(144, 238, 144, 0.8); /* Lighter pastel green */
 }
 .dropdown:nth-child(2) .dropdown-content {
-    background-color: rgba(255, 192, 203, 0.7); /* Lighter pastel pink */
+    background-color: rgba(255, 192, 203, 0.8); /* Lighter pastel pink */
 }
 .dropdown:nth-child(3) .dropdown-content {
-    background-color: rgba(135, 206, 234, 0.7); /* Lighter pastel blue */
+    background-color: rgba(135, 206, 234, 0.8); /* Lighter pastel blue */
 }
 .dropdown:nth-child(4) .dropdown-content {
-    background-color: rgba(250, 200, 152, 0.7); /* Lighter pastel green */
+    background-color: rgba(250, 200, 152, 0.8); /* Lighter pastel green */
 }
 
-.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.8); /* Lighter pastel green */
 }
-.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.8); /* Lighter pastel green */
 }
-.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.8); /* Lighter pastel green */
 }
-.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.8); /* Lighter pastel green */
 }
 
 /* Contact button with pastel accent and slight transparency */

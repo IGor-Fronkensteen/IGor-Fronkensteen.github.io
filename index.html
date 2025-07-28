@@ -118,15 +118,38 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        // Removed GSAP animation for logo
-        // Original GSAP lines for SVG elements (removed or commented out):
-        // const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: .7 }})
-        // gsap.set('g', { autoAlpha: 1 })
-        // gsap.to('svg', { scale: 1.8, duration: 4 })
-        // t1.from('#colosimo .cls-1', { ... })
-        // .from('#DOM .cls-1', { ... })
-        // .from('#Circles', { ... })
-        // .from('#Symbols', { ... })
+        // GSAP animation for logo
+        const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: .7 }})
+
+        // Initial setup for g elements in SVG
+        gsap.set('g', {
+            autoAlpha: 1
+        });
+
+        // Main logo animation timeline
+        t1
+            .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
+                yPercent: -200,
+                stagger: .03,
+                scaleY: .9,
+                opacity: 0
+            })
+            .from('.site-logo-container #DOM .cls-1', { // Target new class and IDs
+                yPercent: 260,
+                stagger: .03,
+                scaleY: .5,
+                opacity: 0
+            }, "-=0.5") // Start slightly before previous
+            .from('.site-logo-container #Circles', { // Target new class and IDs
+                opacity: 0,
+                duration: 0.5
+            }, "-=0.3") // Start slightly before previous
+            .from('.site-logo-container #Symbols', { // Target new class and IDs
+                opacity: 0,
+                duration: 0.5
+            }, "-=0.3"); // Start slightly before previous
+
+        // Removed the problematic gsap.to('svg', { scale: 1.8, duration: 4 })
     </script>
 
     <main class="main-content">
@@ -142,7 +165,7 @@
                 <br>
                 <a href="US11719390.pdf" class="action-button-orange">Project Sniffer</a> <a href="US11808692.pdf" class="action-button-orange">mIQroAware v3.0</a> <br><br> </div>
             <div class="about-summary-container"> <div class="about-image-column"><img src="dom_headshot.png" width="300px"></div> <div class="about-text-column"> <h1><b>Hello, my name is Dom &mdash; Welcome to my Portfolio!</b></h1>
-                    <p>I am a data scientist, and I enjoy the <span class-"pedantic">process</span> of solving challenging problems. I have an academic background in <a href="https://en.wikipedia.org/wiki/Theoretical_chemistry" class="pastel-accent">theoretical chemistry</a> and <a href="https://en.wikipedia.com/wiki/Computational_physics" class="pastel-accent">computational physics</a>, which gives me a unique skillset and a fresh approach to solving problems.<span class="pedfoot"><sup>&dagger;</sup></span> One direct benefit of my training is that I can explain my results to <span class="pedantic">nearly</span> anyone,<span class="pedfoot"><sup>&Dagger;</sup></span>  and help insights to emerge from information like a story.</p>
+                    <p>I am a data scientist, and I enjoy the <span class-"pedantic">process</span> of solving challenging problems. I have an academic background in <a href="https://en.wikipedia.org/wiki/Theoretical_chemistry">theoretical chemistry</a> and <a href="https://en.wikipedia.com/wiki/Computational_physics">computational physics</a>, which gives me a unique skillset and a fresh approach to solving problems.<span class="pedfoot"><sup>&dagger;</sup></span> One direct benefit of my training is that I can explain my results to <span class="pedantic">nearly</span> anyone,<span class="pedfoot"><sup>&Dagger;</sup></span>  and help insights to emerge from information like a story.</p>
                     <p>I have always been authentically interested in the art of data vizualization, and it has shown up regularly as a major player in my work. I take pride in designing interactive, aesthetic, and user-friendly interfaces. Lastly, while I have always found myself to be more productive within a team environment, I have learned that I am still quite effective working independently.</p>
                     <p>Check out the following links to explore my <a href="aboutme.html" class="pastel-accent">About Me</a> section, see my <a href="resume.html" class="pastel-accent2">Resume</a>, learn more about my <a href="interests.html" class="pastel-accent3">Interests</a>, and check out my portfolio of <a href="portfolio.html" class="pastel-accent4">Projects</a>.</p>
                     <p><span class="sext">Wikipedia's Article on Theoretical Chemistry

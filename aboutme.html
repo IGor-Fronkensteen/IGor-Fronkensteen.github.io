@@ -1,62 +1,60 @@
-CTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dom Colosimo - About Me</title>
-    <script src="myfirst.js"></script> <script src="prism.js"></script> <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="prism-solarized-dark-atom.css"> </head>
+    <script src="myfirst.js"></script>
+    <script src="prism.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="prism-solarized-dark-atom.css">
+</head>
 <body>
-    <header class="headerfull">
-        <header class="header1">
-            <div>
-                <a href="index.html" class="hbutt">Home</a>
-            </div>
+    <header class="main-header"> <header class="header-left"> <div>
+                <a href="index.html" class="nav-home-button site-logo-text">Home</a> </div>
         </header>
-        <header class="header2">
-            <div class="dropdown">
-                <a href="aboutme.html">About Me</a>
-                <div class="dropdown-content">
-                    <a href="aboutme.html#Background">Background</a>
-                    <a href="aboutme.html#Education">Education</a>
-                    <a href="aboutme.html#PersonalInterests">Interests</a>
-                    <a href="aboutme.html#Testimonials">Testimonials</a>
+        <header class="header-right"> <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu"> <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav class="main-nav-links" id="mainNavLinks"> <div class="nav-link-item dropdown"> <a href="aboutme.html">About Me</a>
+                    <div class="dropdown-content">
+                        <a href="aboutme.html#Background">Background</a>
+                        <a href="aboutme.html#Education">Education</a>
+                        <a href="aboutme.html#PersonalInterests">Interests</a>
+                        <a href="aboutme.html#Testimonials">Testimonials</a>
+                    </div>
                 </div>
-            </div>
-            <div class="dropdown">
-                <a href="resume.html">Resume</a>
-                <div class="dropdown-content">
-                    <a href="resume.html#Summary">Summary</a>
-                    <a href="resume.html#Resume">Resume</a>
-                    <a href="resume.html#CV">C.V.</a>
-                    <a href="resume.html#References">References</a>
+                <div class="nav-link-item dropdown"> <a href="resume.html">Resume</a>
+                    <div class="dropdown-content">
+                        <a href="resume.html#Summary">Summary</a>
+                        <a href="resume.html#Resume">Resume</a>
+                        <a href="resume.html#CV">C.V.</a>
+                        <a href="resume.html#References">References</a>
+                    </div>
                 </div>
-            </div>
-            <div class="dropdown">
-                <a href="interests.html">Interests</a>
-                <div class="dropdown-content">
-                    <a href="interests.html#Professional">Professional</a>
-                    <a href="interests.html#Science">Science</a>
-                    <a href="interests.html#Cooking">Cooking</a>
-                    <a href="interests.html#Music">Music</a>
+                <div class="nav-link-item dropdown"> <a href="interests.html">Interests</a>
+                    <div class="dropdown-content">
+                        <a href="interests.html#Professional">Professional</a>
+                        <a href="interests.html#Science">Science</a>
+                        <a href="interests.html#Cooking">Cooking</a>
+                        <a href="interests.html#Music">Music</a>
+                    </div>
                 </div>
-            </div>
-            <div class="dropdown">
-                <a href="portfolio.html">Portfolio</a>
-                <div class="dropdown-content">
-                    <a href="portfolio.html#DataManagement">Data Management</a>
-                    <a href="portfolio.html#DataScience">Data Mining</a>
-                    <a href="portfolio.html#DataVisualization">Data Viz</a>
-                    <a href="portfolio.html#Leadership">Leadership</a>
+                <div class="nav-link-item dropdown"> <a href="portfolio.html">Portfolio</a>
+                    <div class="dropdown-content">
+                        <a href="portfolio.html#DataManagement">Data Management</a>
+                        <a href="portfolio.html#DataScience">Data Mining</a>
+                        <a href="portfolio.html#DataVisualization">Data Viz</a>
+                        <a href="portfolio.html#Leadership">Leadership</a>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <a href="index.html#contact-me" class="pbutt">Contact Me</a>
-            </div>
+                <div> <a href="index.html#contact-me" class="action-button-orange">Contact Me</a> </div>
+            </nav>
         </header>
     </header>
     <main class="main-content">
-        <section class="confused11">
-            <h2>About</h2>
+        <section class="section-heading-container section-theme-green"> <h2>About</h2>
             <h3>
                 <a href="#Background" class="pastel-accent">Background</a> |
                 <a href="#PersonalInterests" class="pastel-accent">Personal Interests</a> |
@@ -65,44 +63,40 @@ CTYPE html>
                 <a href="#Testimonials" class="pastel-accent">Testimonials</a>
             </h3>
         </section>
-        <section class="custom1">
-            <div class="logo2">
-                <div class="onetwo"><img src="dom_headshot.png" width="300px"></div> <div class="twothree">
-                    <h2>About Me</h2>
+        <section class="skills-logos-container"> <div class="logo2"> <div class="about-image-column"><img src="dom_headshot.png" width="300px"></div> <div class="about-text-column"> <h2>About Me</h2>
                     <p>A passionate research scientist and data scientist with 6 years of experience in research and over 3 years applying those skills within the data science industry. I excel at combining an expertise in chemistry, physics, and data analysis to solve complex problems and develop innovative solutions.</p>
                     <p>In my most recent role as Lead Scientist at mIQroTech Inc., I successfully guided the development of novel green technology solutions for the oil and gas industry. I'm a strong communicator and leader, with a proven ability to effectively manage and inspire teams.</p>
                     <p>Check out my <a href="resume.html" class="pastel-accent2">resume</a> section, or click below to view the <code>.pdf</code> version!</p>
-                    <p class="buttonh"><a href="resume.pdf" class="button">Resume</a></p> </div>
+                    <p class="nav-button"><a href="resume.pdf" class="action-button-green">Resume</a></p> </div>
             </div>
         </section>
-        <section class="confused1" id="Background">
-            <h2>Background/Summary</h2>
+        <section class="content-section section-theme-green" id="Background"> <h2>Background/Summary</h2>
             <p>Hello, my name is Dom -- I am a data scientist, and I enjoy the process of solving challenging problems. I have an academic background in chemistry and computational physics, which gives me a unique skillset and approach to solving problems. One major benefit of my training is that I can effectively translate solutions to code, and I can explain my results like a story.
 
 Visual communication plays a key role in many of my projects, and I enjoy designing beautiful and innovative interfaces. I like brainstorming together with a team to find the path towards a good product, and to make technical decisions that are future-proof.
 
 Check out the following links to explore my About Me section, see my Resume, learn more about my Interests, and check out my portfolio of Projects.</p>
         </section>
-        <section class="confused1" id="PersonalInterests">
-            <h2>Personal Interests</h2>
+        <section class="content-section section-theme-green" id="PersonalInterests"> <h2>Personal Interests</h2>
             <br>
             <p>I like jiu-jitsu, weightlifting, anything science related, woodworking, cooking, and electric guitar.</p>
             <h2>Personal Interests</h2>
             <p>stuff</p>
 
         </section>
-        <section class="confused1" id="Education">
-            <h2>Education</h2>
+        <section class="content-section section-theme-green" id="Education"> <h2>Education</h2>
             <p>stuff</p>
         </section>
-        <section class="confused1" id="Experience">
-            <h2>Experience</h2>
+        <section class="content-section section-theme-green" id="Experience"> <h2>Experience</h2>
             <h3>Programming Languages</h3>
             <p>I am a huge fan of python, and have experience with several python packages. Familiarity vs. fondness?</p>
             <br>
-            <section class="custom1">
-                <div class="confused5">
-                    <img src="logo_html5.svg" height="100px"> <img src="logo_css2.svg" height="100px"> <img src="logo_javascript.svg" height="100px"> <img src="logo_python.svg" height="100px"> <img src="LaTeX_logo.svg" height="100px"> </div>
+            <section class="skills-logos-container"> <div class="logo2"> <img src="logo_html5.svg" height="100px">
+                    <img src="logo_css2.svg" height="100px">
+                    <img src="logo_javascript.svg" height="100px">
+                    <img src="logo_python.svg" height="100px">
+                    <img src="LaTeX_logo.svg" height="100px">
+                </div>
             </section>
             <br>
             <h3>Project Interests</h3>
@@ -115,11 +109,27 @@ Check out the following links to explore my About Me section, see my Resume, lea
                 </code>
             </pre>
         </section>
-        <section class="confused1" id="Testimonials">
-            <h2>Testimonials</h2>
+        <section class="content-section section-theme-green" id="Testimonials"> <h2>Testimonials</h2>
             <p>stuff</p>
         </section>
     </main>
+    <script>
+        const hamburger = document.querySelector(".hamburger-menu-toggle");
+        const navLinks = document.getElementById("mainNavLinks");
+
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+            hamburger.classList.toggle("active");
+        });
+
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                if (navLinks.classList.contains("active")) {
+                    navLinks.classList.remove("active");
+                    hamburger.classList.remove("active");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-

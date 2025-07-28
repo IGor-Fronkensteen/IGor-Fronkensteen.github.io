@@ -190,7 +190,7 @@ a:hover {
 .skills-logos-container { /* Renamed from .custom1, .confused5 */
     max-width: 1000px;
     margin: 50px auto;
-    border: 3px solid #FFC0CB; /* Using a default theme color, or specify a new one */
+    border: 3px solid #87CEEA; /* Using a default theme color, or specify a new one */
     border-radius: 7px;
     background-color: white;
     padding: 20px;
@@ -202,10 +202,12 @@ a:hover {
 }
 
 .skills-logos-container img {
-    max-width: 100%;
-    height: auto;
+    height: 100px;
+    width: auto;
+    object-fit: contain;
     display: block;
 }
+
 
 
 /* --- Footer & Social Links --- */

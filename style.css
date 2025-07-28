@@ -46,7 +46,8 @@ svg {
     max-width: 100%; /* Ensure it doesn't overflow its parent */
     height: auto; /* Maintain aspect ratio */
     width: clamp(150px, 40vw, 400px); /* Responsive width: min 150px, ideal 40vw, max 400px */
-    /* Original: overflow: visible; - removed to allow clipping within max-width */
+    max-height: 100%; /* Ensure SVG doesn't exceed the height of its container */
+    display: block; /* Helps with vertical centering and removing extra space below */
 }
 
 .container {
@@ -144,8 +145,6 @@ svg {
     justify-content: center;
     align-items: center;
 }
-
-/* Removed all equation-related CSS (this comment is for your reference) */
 
 
 /* Updated .about-box for responsiveness and vertical alignment */
@@ -286,7 +285,7 @@ svg {
     padding: 20px;
     background-color: #d3d3d3;
     margin: 50px auto;
-    max-width: 135px; /* Corrected to 150px */
+    max-width: 145px; /* Corrected to 150px */
 }
 
 .center {
@@ -753,7 +752,7 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
     position:absolute;
     bottom: 110%;
     left:50%;
-    box-shadow:0 1px 5px rgba(0,0,0,.5);
+    box-shadow:0px 8px 16px 0px rgba(0,0,0,0.2);
     width:230px;
     padding-right: 30px;
     height:160px;
@@ -921,4 +920,9 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
+
+    .tagline1 {
+        font-size: 2rem; /* Reduce font size for smaller screens */
+    }
+
 }

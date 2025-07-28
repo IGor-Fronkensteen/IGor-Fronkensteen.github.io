@@ -32,9 +32,44 @@ p {
     /* No specific changes needed here for now */
 }
 
+/* General hyperlink styling */
+a {
+    color: #87CEEA; /* A bright pastel blue, similar to pastel-accent3 */
+    text-decoration: none; /* Already set, but good to ensure */
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out; /* Smooth transition for hover */
+}
+
+a:hover {
+    color: #6AC6EB; /* A slightly darker shade for hover effect, matching your pastel-accent3 hover */
+    text-decoration: underline; /* Add underline on hover for better usability */
+}
+
+/* Ensure your existing specific pastel accent links are not overridden if they don't explicitly have text-decoration: none; on hover */
+.pastel-accent:hover,
+.pastel-accent2:hover,
+.pastel-accent3:hover,
+.pastel-accent4:hover {
+    text-decoration: underline; /* Add underline on hover for all these specific pastel links */
+}
+
+/* Also, ensure that the header links retain their specific hover background */
+.header2 a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Make sure text-decoration is not overridden if it's set to none elsewhere for these links */
+    text-decoration: none; /* Ensure no underline on hover for nav links if you don't want it */
+}
+
+/* If the .hbutt (Home button) is also a general link, ensure its hover is as intended */
+.hbutt:hover {
+    background-color: rgba(119, 119, 119, 1);
+    text-decoration: none; /* No underline for the home button if you don't want it */
+}
+
+/*
 a:link {
     text-decoration: none;
 }
+*/
 
 /* Updated SVG and related styles for responsiveness */
 g {
@@ -136,7 +171,7 @@ svg {
     padding: 20px;
     box-sizing: border-box;
     position: relative; /* Needed for absolute positioning of SVG/content later */
-    padding-bottom: 56.25%; /* For a 16:9 aspect ratio (9/16 * 100%) */
+    padding-bottom: 33.33%; /* For a 16:9 aspect ratio (9/16 * 100%) */
     height: 0; /* Important to collapse height and let padding-bottom define it */
     box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: add a subtle shadow for depth */
 }
@@ -178,6 +213,7 @@ svg {
 
 .oneone {
     padding: 25px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: add a subtle shadow for depth */
 }
 
 .oneone img { /* Added responsive image rule */
@@ -195,6 +231,7 @@ svg {
     background-color: #1a1a1a;
     flex: 1 1 400px; /* Allow this item to grow/shrink, with a base of 400px */
     min-width: 300px; /* Ensure it doesn't get too small */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: add a subtle shadow for depth */
 }
 
 .onetwo {
@@ -303,7 +340,7 @@ svg {
     padding: 20px;
     background-color: #d3d3d3;
     margin: 50px auto; /* Center the whole social media box */
-    max-width: 300px; /* Give it a max-width if desired */
+    max-width: 150px; /* Give it a max-width if desired */
 }
 
 .center {

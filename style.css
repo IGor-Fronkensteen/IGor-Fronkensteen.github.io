@@ -74,17 +74,14 @@ svg {
     background: #080808;
 }
 
+/* Reverted .logo to be centered within .moreganoooo */
 .logo {
     display: flex;
     align-items: center;
-    justify-content: center; /* Changed from space-around to center for single item */
-    /* height: 100px; */ /* Removed to allow content to dictate height naturally */
-    padding: 20px; /* Added padding to the logo container itself for breathing room */
-    position: static; /* Reset to default positioning within flex container */
-    height: auto;
-    width: clamp(150px, 40vw, 400px);
-    flex-shrink: 0; /* Prevent the logo from shrinking */
-    flex-grow: 0; /* Prevent the logo from growing */
+    justify-content: center;
+    width: 100%; /* Fill the width of .moreganoooo */
+    height: 100%; /* Fill the height of .moreganoooo (from padding-bottom) */
+    padding: 0; /* Remove specific padding, let .moreganoooo padding suffice */
 }
 
 .logo2 {
@@ -127,7 +124,7 @@ svg {
     background-color: rgba(250, 200, 152, 1);
 }
 
-/* Updated .moreganoooo for chalkboard theme and responsiveness */
+/* Updated .moreganoooo for chalkboard theme and responsiveness - now also centers its logo */
 .moreganoooo {
     max-width: 1200px;
     margin: 50px auto;
@@ -141,48 +138,15 @@ svg {
     padding-bottom: 33.33%; /* For a 3:1 aspect ratio */
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     overflow: hidden;
-}
 
-/* Styles for the flex container inside .moreganoooo */
-.chalkboard-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* New: Make it a flex container to center the logo */
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: center; /* Changed from space-around to center for perfect logo centering */
-    padding: 20px;
 }
 
-/* Styles for the equation flanking divs */
-.equation-flank {
-    display: flex;
-    align-items: center;
-    width: 20%; /* Allocate width for the equations (adjust as needed) */
-    flex-grow: 1; /* Allow them to grow equally */
-    flex-shrink: 1; /* Allow to shrink if space is limited */
-    min-width: 80px; /* Minimum width for equations (adjust) */
-}
-
-.equation {
-    max-width: 100%;
-    height: auto;
-    opacity: 0;
-    /* transform: translateX(0); */
-}
-
-/* Adjust equation position slightly for left/right balance */
-.left-equation {
-    justify-content: flex-end;
-    padding-right: 10px;
-}
-
-.right-equation {
-    justify-content: flex-start;
-    padding-left: 10px;
-}
+/* Removed all equation-related CSS */
+/* .equation-animation-container, .equation-flank, .equation, .left-equation, .right-equation rules are removed */
 
 
 /* Updated .about-box for responsiveness and vertical alignment */
@@ -323,7 +287,7 @@ svg {
     padding: 20px;
     background-color: #d3d3d3;
     margin: 50px auto;
-    max-width: 300px;
+    max-width: 150px; /* Corrected to 150px */
 }
 
 .center {
@@ -520,17 +484,10 @@ a:hover {
 
 /* Navbar specific styling and media queries */
 .headerfull {
-    display: flex;
-    justify-content: space-between;
+    padding: 15px 20px; /* Reduced horizontal padding from 30px to 20px */
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #262626;
-    z-index: 3;
-    padding: 15px 30px; /* Increased padding from 10px 20px */
 }
+
 .header1 {
     display: flex;
     justify-content: flex-start;
@@ -800,15 +757,19 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
 
 /* Navbar specific styling and media queries */
 .headerfull {
-    padding: 15px 30px; /* Increased padding from 10px 20px */
+    padding: 15px 20px; /* Reduced horizontal padding from 30px to 20px */
     align-items: center;
 }
 
+.header1 {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+}
 .header1 .site-logo {
     font-size: 24px;
     padding: 0;
 }
-
 .header2 {
     display: flex;
     justify-content: flex-end;
@@ -816,128 +777,799 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
     flex-grow: 1;
     gap: 15px; /* Consistent gap between direct children of header2 */
 }
-
-/* Nav Links container (the one that gets toggled) */
-.nav-links {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    flex-wrap: nowrap;
+.header2 a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
 }
-
-/* Hide hamburger button by default */
-.hamburger {
+.header2 a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+}
+.dropdown-menu { /* This class doesn't seem to be used in your HTML */
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
     display: none;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
-    padding: 0;
-    z-index: 4;
+    border: 2px solid white;
+    z-index: 1;
 }
-
-.hamburger .bar {
+.dropdown-menu a { /* This class doesn't seem to be used in your HTML */
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+.header a:hover + .dropdown-menu { /* This rule targets .dropdown-menu, which may not be present */
+    display: block;
+}
+.homebtn { /* This class doesn't seem to be used in your HTML */
+    position: relative;
+    display: inline-block;
+}
+.buttonh {
+    border: 2px solid white;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+.homebtn2 { /* This class doesn't seem to be used in your HTML, or its image path is missing */
+    position: relative;
+    display: inline-block;
     width: 100%;
-    height: 3px;
-    background-color: #fff;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
+    background-position: center;
+    background-size: 50px;
+    background-image: url('DomLogo-08_white.svg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
-/* Media Query for Mobile/Small Screens */
-@media (max-width: 768px) {
-    body {
-        margin-top: 80px; /* Adjusted for taller mobile header */
-        padding-left: 10px; /* Keep consistent with large screens */
-        padding-right: 10px; /* Keep consistent with large screens */
-    }
-    .headerfull {
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        padding: 10px 10px; /* Changed horizontal padding from 20px to 10px */
-        height: 70px; /* Adjusted height to accommodate more padding if needed */
-    }
+/* Dropdown Button */
+.dropbtn { /* This class doesn't seem to be used in your HTML */
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
 
-    .header1 {
-        padding: 0;
-    }
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    border-radius: 10px;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    margin-left: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 2px solid white;
+    z-index: 1;
+}
 
-    .header2 {
-        width: auto; /* Keep auto for natural sizing */
-        justify-content: flex-end;
-        align-items: center;
-        gap: 0; /* No gap for mobile, as items stack */
-        flex-grow: 0; /* Prevent header2 from growing and pushing hamburger off */
-        flex-shrink: 0; /* Prevent header2 from shrinking too much */
-        padding-right: 10px; /* Add a small padding to the right of header2 */
-    }
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
 
-    .hamburger {
-        display: flex;
-        margin-left: auto; /* Push it to the right within header2 */
-    }
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
 
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: #262626;
-        position: absolute;
-        top: 70px; /* Ensure mobile menu drops below the taller header */
-        left: 0;
-        padding: 20px 0;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        z-index: 2;
-        align-items: center;
-        max-height: calc(100vh - 70px);
-        overflow-y: auto;
-        gap: 0;
-    }
-    .nav-links.active {
-        display: flex;
-        opacity: 1;
-        visibility: visible;
-    }
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
 
-    .nav-links .dropdown,
-    .nav-links > div {
-        width: 100%;
-        text-align: center;
-        margin: 10px 0;
-    }
-    .nav-links .dropdown-content {
-        position: static;
-        background-color: transparent;
-        box-shadow: none;
-        border: none;
-        min-width: unset;
-        width: 100%;
-        margin-left: 0;
-        padding-top: 5px;
-    }
-    .nav-links .dropdown-content a {
-        padding: 8px 16px;
-        color: #ddd;
-    }
-    .nav-links .dropdown-content a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-    }
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
 
-    /* Hamburger animation (optional) */
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
+
+/* Unique colors for each dropdown menu */
+.dropdown:nth-child(1) .dropdown-content {
+    background-color: rgba(144, 238, 144, 0.7);
+}
+.dropdown:nth-child(2) .dropdown-content {
+    background-color: rgba(255, 192, 203, 0.7);
+}
+.dropdown:nth-child(3) .dropdown-content {
+    background-color: rgba(135, 206, 234, 0.7);
+}
+.dropdown:nth-child(4) .dropdown-content {
+    background-color: rgba(250, 200, 152, 0.7);
+}
+
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7);
+}
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7);
+}
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7);
+}
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7);
+}
+
+/* Contact button with pastel accent and slight transparency */
+.button {
+    background-color: rgba(90, 238, 90, 0.8);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt {
+    background-color: rgba(250, 200, 152, 0.8);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt:hover {
+    background-color: rgba(250, 200, 152, 1);
+}
+.hbutt {
+    border: 2px solid white;
+    background-color: rgba(63, 63, 63, 0.8);
+    padding: 10px;
+    border-radius: 1px;
+    color: #fff;
+    text-decoration: none;
+}
+.hbutt:hover {
+    background-color: rgba(119, 119, 119, 1);
+}
+.button2 {
+    background-color: rgba(255, 0, 0, 0.05);
+    border: 2px solid white;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/* Pastel accent colors */
+.pastel-accent {
+    color: #90EE90;
+    font-weight: bold;
+}
+.pastel-accent:hover {
+    color: #5FED5F;
+    text-decoration: underline;
+}
+.pastel-accent2 {
+    color: #FFC0CB;
+    font-weight: bold;
+}
+.pastel-accent2:hover {
+    color: #FAA6B5;
+    text-decoration: underline;
+}
+.pastel-accent3 {
+    color: #87CEEA;
+    font-weight: bold;
+}
+.pastel-accent3:hover {
+    color: #6AC6EB;
+    text-decoration: underline;
+}
+.pastel-accent4 {
+    color: #FAC898;
+    font-weight: bold;
+}
+.pastel-accent4:hover {
+    color: #FAAE66;
+    text-decoration: underline;
+}
+
+#particles-js{ /* This ID is not present in the provided HTML */
+    width: 100%;
+    height: 100%;
+    background-color: #b61924;
+    background-image: url('');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+*, html {
+    scroll-behavior: smooth !important;
+}
+
+body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100px;}
+
+.sext {
+    cursor:default;
+    display:inline-block;
+    position:relative;
+    border:2px solid #ddd;
+    padding:5px;
+    border-radius:3px;
+    font-size:12px;
+}
+
+.sext:hover .iframe-preview {
+    opacity:1;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.sext:hover {
+    box-shadow:0 1px 5px rgba(0,0,0,.1);
+    border-color: #333;
+}
+
+.iframe-preview {
+    transition:.2s ease-in-out opacity, .2s ease-in-out transform;
+    opacity:0;
+    position:absolute;
+    bottom: 110%;
+    left:50%;
+    box-shadow:0 1px 5px rgba(0,0,0,.5);
+    width:230px;
+    padding-right: 30px;
+    height:160px;
+    border:4px solid #fff;
+    overflow-x:hidden;
+    overflow-y:auto;
+    transform-origin:center bottom;
+    transform: translateX(-50%) translateY(10px) scale(.9);
+}
+
+.iframe-preview iframe {
+    transform:scale(.2);
+    transform-origin:0 0;
+}
+
+/* Navbar specific styling and media queries */
+.headerfull {
+    padding: 15px 20px; /* Reduced horizontal padding from 30px to 20px */
+    align-items: center;
+}
+
+.header1 {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+}
+.header1 .site-logo {
+    font-size: 24px;
+    padding: 0;
+}
+.header2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    gap: 15px; /* Consistent gap between direct children of header2 */
+}
+.header2 a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.header2 a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+}
+.dropdown-menu { /* This class doesn't seem to be used in your HTML */
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    display: none;
+    border: 2px solid white;
+    z-index: 1;
+}
+.dropdown-menu a { /* This class doesn't seem to be used in your HTML */
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+.header a:hover + .dropdown-menu { /* This rule targets .dropdown-menu, which may not be present */
+    display: block;
+}
+.homebtn { /* This class doesn't seem to be used in your HTML */
+    position: relative;
+    display: inline-block;
+}
+.buttonh {
+    border: 2px solid white;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+.homebtn2 { /* This class doesn't seem to be used in your HTML, or its image path is missing */
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background-position: center;
+    background-size: 50px;
+    background-image: url('DomLogo-08_white.svg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Dropdown Button */
+.dropbtn { /* This class doesn't seem to be used in your HTML */
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    border-radius: 10px;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    margin-left: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 2px solid white;
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+/* Unique colors for each dropdown menu */
+.dropdown:nth-child(1) .dropdown-content {
+    background-color: rgba(144, 238, 144, 0.7);
+}
+.dropdown:nth-child(2) .dropdown-content {
+    background-color: rgba(255, 192, 203, 0.7);
+}
+.dropdown:nth-child(3) .dropdown-content {
+    background-color: rgba(135, 206, 234, 0.7);
+}
+.dropdown:nth-child(4) .dropdown-content {
+    background-color: rgba(250, 200, 152, 0.7);
+}
+
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7);
+}
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7);
+}
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7);
+}
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7);
+}
+
+/* Contact button with pastel accent and slight transparency */
+.button {
+    background-color: rgba(90, 238, 90, 0.8);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt {
+    background-color: rgba(250, 200, 152, 0.8);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt:hover {
+    background-color: rgba(250, 200, 152, 1);
+}
+.hbutt {
+    border: 2px solid white;
+    background-color: rgba(63, 63, 63, 0.8);
+    padding: 10px;
+    border-radius: 1px;
+    color: #fff;
+    text-decoration: none;
+}
+.hbutt:hover {
+    background-color: rgba(119, 119, 119, 1);
+}
+.button2 {
+    background-color: rgba(255, 0, 0, 0.05);
+    border: 2px solid white;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/* Pastel accent colors */
+.pastel-accent {
+    color: #90EE90;
+    font-weight: bold;
+}
+.pastel-accent:hover {
+    color: #5FED5F;
+    text-decoration: underline;
+}
+.pastel-accent2 {
+    color: #FFC0CB;
+    font-weight: bold;
+}
+.pastel-accent2:hover {
+    color: #FAA6B5;
+    text-decoration: underline;
+}
+.pastel-accent3 {
+    color: #87CEEA;
+    font-weight: bold;
+}
+.pastel-accent3:hover {
+    color: #6AC6EB;
+    text-decoration: underline;
+}
+.pastel-accent4 {
+    color: #FAC898;
+    font-weight: bold;
+}
+.pastel-accent4:hover {
+    color: #FAAE66;
+    text-decoration: underline;
+}
+
+#particles-js{ /* This ID is not present in the provided HTML */
+    width: 100%;
+    height: 100%;
+    background-color: #b61924;
+    background-image: url('');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+*, html {
+    scroll-behavior: smooth !important;
+}
+
+body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100px;}
+
+.sext {
+    cursor:default;
+    display:inline-block;
+    position:relative;
+    border:2px solid #ddd;
+    padding:5px;
+    border-radius:3px;
+    font-size:12px;
+}
+
+.sext:hover .iframe-preview {
+    opacity:1;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.sext:hover {
+    box-shadow:0 1px 5px rgba(0,0,0,.1);
+    border-color: #333;
+}
+
+.iframe-preview {
+    transition:.2s ease-in-out opacity, .2s ease-in-out transform;
+    opacity:0;
+    position:absolute;
+    bottom: 110%;
+    left:50%;
+    box-shadow:0 1px 5px rgba(0,0,0,.5);
+    width:230px;
+    padding-right: 30px;
+    height:160px;
+    border:4px solid #fff;
+    overflow-x:hidden;
+    overflow-y:auto;
+    transform-origin:center bottom;
+    transform: translateX(-50%) translateY(10px) scale(.9);
+}
+
+.iframe-preview iframe {
+    transform:scale(.2);
+    transform-origin:0 0;
+}
+
+/* Navbar specific styling and media queries */
+.headerfull {
+    padding: 15px 20px; /* Reduced horizontal padding from 30px to 20px */
+    align-items: center;
+}
+
+.header1 {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+}
+.header1 .site-logo {
+    font-size: 24px;
+    padding: 0;
+}
+.header2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    gap: 15px; /* Consistent gap between direct children of header2 */
+}
+.header2 a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.header2 a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+}
+.dropdown-menu { /* This class doesn't seem to be used in your HTML */
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    display: none;
+    border: 2px solid white;
+    z-index: 1;
+}
+.dropdown-menu a { /* This class doesn't seem to be used in your HTML */
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+.header a:hover + .dropdown-menu { /* This rule targets .dropdown-menu, which may not be present */
+    display: block;
+}
+.homebtn { /* This class doesn't seem to be used in your HTML */
+    position: relative;
+    display: inline-block;
+}
+.buttonh {
+    border: 2px solid white;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+.homebtn2 { /* This class doesn't seem to be used in your HTML, or its image path is missing */
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background-position: center;
+    background-size: 50px;
+    background-image: url('DomLogo-08_white.svg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Dropdown Button */
+.dropbtn { /* This class doesn't seem to be used in your HTML */
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    border-radius: 10px;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    margin-left: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 2px solid white;
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+
+/* Unique colors for each dropdown menu */
+.dropdown:nth-child(1) .dropdown-content {
+    background-color: rgba(144, 238, 144, 0.7);
+}
+.dropdown:nth-child(2) .dropdown-content {
+    background-color: rgba(255, 192, 203, 0.7);
+}
+.dropdown:nth-child(3) .dropdown-content {
+    background-color: rgba(135, 206, 234, 0.7);
+}
+.dropdown:nth-child(4) .dropdown-content {
+    background-color: rgba(250, 200, 152, 0.7);
+}
+
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7);
+}
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7);
+}
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7);
+}
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7);
+}
+
+/* Contact button with pastel accent and slight transparency */
+.button {
+    background-color: rgba(90, 238, 90, 0.8);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt {
+    background-color: rgba(250, 200, 152, 0.8);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.pbutt:hover {
+    background-color: rgba(250, 200, 152, 1);
+}
+.hbutt {
+    border: 2px solid white;
+    background-color: rgba(63, 63, 63, 0.8);
+    padding: 10px;
+    border-radius: 1px;
+    color: #fff;
+    text-decoration: none;
+}
+.hbutt:hover {
+    background-color: rgba(119, 119, 119, 1);
+}
+.button2 {
+    background-color: rgba(255, 0, 0, 0.05);
+    border: 2px solid white;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/* Pastel accent colors */
+.pastel-accent {
+    color: #90EE90;
+    font-weight: bold;
+}
+.pastel-accent:hover {
+    color: #5FED5F;
+    text-decoration: underline;
+}
+.pastel-accent2 {
+    color: #FFC0CB;
+    font-weight: bold;
+}
+.pastel-accent2:hover {
+    color: #FAA6B5;
+    text-decoration: underline;
+}
+.pastel-accent3 {
+    color: #87CEEA;
+    font-weight: bold;
+}
+.pastel-accent3:hover {
+    color: #6AC6EB;
+    text-decoration: underline;
+}
+.pastel-accent4 {
+    color: #FAC898;
+    font-weight: bold;
+}
+.pastel-accent4:hover {
+    color: #FAAE66;
+    text-decoration: underline;
+}
+
+#particles-js{ /* This ID is not present in the provided HTML */
+    width: 100%;
+    height: 100%;
+    background-color: #b61924;
+    background-image: url('');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+*, html {
+    scroll-behavior: smooth !important;
+}
+
+body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100px;}
+
+.sext {
+    cursor:default;
+    display:inline-block;
+    position:relative;
+    border:2px solid #ddd;
+    padding:5px;
+    border-radius:3px;
+    font-size:12px;
+}
+
+.sext:hover .iframe-preview {
+    opacity:1;
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.sext:hover {
+    box-shadow:0 1px 5px rgba(0,0,0,.1);
+    border-color: #333;
+}
+
+.iframe-preview {
+    transition:.2s ease-in-out opacity, .2s ease-in-out transform;
+    opacity:0;
+    position:absolute;
+    bottom: 110%;
+    left:50%;
+    box-shadow:0 1px 5px rgba(0,0,0,.5);
+    width:230px;
+    padding-right: 30px;
+    height:160px;
+    border:4px solid #fff;
+    overflow-x:hidden;
+    overflow-y:auto;
+    transform-origin:center bottom;
+    transform: translateX(-50%) translateY(10px) scale(.9);
+}
+
+.iframe-preview iframe {
+    transform:scale(.2);
+    transform-origin:0 0;
 }

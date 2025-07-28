@@ -316,6 +316,7 @@ svg {
 .center {
     width: 50%;
 }
+
 .pedhead {
     font-family: "Adobe Garamond Pro", serif;
     font-style: italic;
@@ -346,6 +347,7 @@ svg {
     height: auto;
     background-color: #1a1a1a;
 }
+
 .confused22 {
     max-width: 1000px; /* Added max-width */
     margin: 20px auto; /* Centered */
@@ -468,12 +470,12 @@ svg {
 
 .tagline1 {
     font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .tagline {
     font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
-    font-size: 2rem;
+    font-size: 3rem;
     margin-top: 100px;
 }
 
@@ -488,7 +490,7 @@ svg {
     width: 100%;
     background-color: #262626;
     z-index: 3;
-    padding: 15px 30px; /* Adjust padding for the whole header */
+    padding: 15px 20px; /* Adjust padding for the whole header */
 }
 .header1 {
     display: flex;
@@ -600,25 +602,25 @@ svg {
 
 /* Unique colors for each dropdown menu */
 .dropdown:nth-child(1) .dropdown-content {
-    background-color: rgba(144, 238, 144, 0.7); /* Lighter pastel green */
+    background-color: rgba(144, 238, 144, 0.8); /* Lighter pastel green */
 }
 .dropdown:nth-child(2) .dropdown-content {
-    background-color: rgba(255, 192, 203, 0.7); /* Lighter pastel pink */
+    background-color: rgba(255, 192, 203, 0.8); /* Lighter pastel pink */
 }
 .dropdown:nth-child(3) .dropdown-content {
-    background-color: rgba(135, 206, 234, 0.7); /* Lighter pastel blue */
+    background-color: rgba(135, 206, 234, 0.8); /* Lighter pastel blue */
 }
 .dropdown:nth-child(4) .dropdown-content {
-    background-color: rgba(250, 200, 152, 0.7); /* Lighter pastel green */
+    background-color: rgba(250, 200, 152, 0.8); /* Lighter pastel green */
 }
 
-.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.8); /* Lighter pastel green */
 }
-.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.8); /* Lighter pastel green */
 }
-.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.8); /* Lighter pastel green */
 }
-.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.8); /* Lighter pastel green */
 }
 
 /* Contact button with pastel accent and slight transparency */

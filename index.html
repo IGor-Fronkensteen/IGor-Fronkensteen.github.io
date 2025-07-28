@@ -4,41 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dom Colosimo - My Site</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <header class="headerfull">
         <header class="header1">
             <div>
-                <a href="index.html" class="hbutt">Home</a> </div>
+                <a href="index.html" class="hbutt">Home</a>
+            </div>
         </header>
         <header class="header2">
-	    <button class="hamburger" aria-label="Toggle navigation menu">
+            <button class="hamburger" aria-label="Toggle navigation menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
             <nav class="nav-links" id="navLinks">
                 <div class="dropdown">
-                    <a href="aboutme.html">About Me</a> <div class="dropdown-content">
-                        <a href="aboutme.html#Background">Background</a> <a href="aboutme.html#Education">Education</a> <a href="aboutme.html#PersonalInterests">Interests</a> <a href="aboutme.html#Testimonials">Testimonials</a> </div>
+                    <a href="aboutme.html">About Me</a>
+                    <div class="dropdown-content">
+                        <a href="aboutme.html#Background">Background</a>
+                        <a href="aboutme.html#Education">Education</a>
+                        <a href="aboutme.html#PersonalInterests">Interests</a>
+                        <a href="aboutme.html#Testimonials">Testimonials</a>
+                    </div>
                 </div>
                 <div class="dropdown">
-                    <a href="resume.html">Resume</a> <div class="dropdown-content">
-                        <a href="resume.html#Summary">Summary</a> <a href="resume.html#Resume">Resume</a> <a href="resume.html#CV">C.V.</a> <a href="resume.html#References">References</a> </div>
+                    <a href="resume.html">Resume</a>
+                    <div class="dropdown-content">
+                        <a href="resume.html#Summary">Summary</a>
+                        <a href="resume.html#Resume">Resume</a>
+                        <a href="resume.html#CV">C.V.</a>
+                        <a href="resume.html#References">References</a>
+                    </div>
                 </div>
                 <div class="dropdown">
-                    <a href="interests.html">Interests</a> <div class="dropdown-content">
-                        <a href="interests.html#Professional">Professional</a> <a href="interests.html#Science">Science</a> <a href="interests.html#Cooking">Cooking</a> <a href="interests.html#Music">Music</a> </div>
+                    <a href="interests.html">Interests</a>
+                    <div class="dropdown-content">
+                        <a href="interests.html#Professional">Professional</a>
+                        <a href="interests.html#Science">Science</a>
+                        <a href="interests.html#Cooking">Cooking</a>
+                        <a href="interests.html#Music">Music</a>
+                    </div>
                 </div>
                 <div class="dropdown">
-                    <a href="portfolio.html">Portfolio</a> <div class="dropdown-content">
-                        <a href="portfolio.html#DataManagement">Data Management</a> <a href="portfolio.html#DataScience">Data Mining</a> <a href="portfolio.html#DataVisualization">Data Viz</a> <a href="portfolio.html#Leadership">Leadership</a> </div>
+                    <a href="portfolio.html">Portfolio</a>
+                    <div class="dropdown-content">
+                        <a href="portfolio.html#DataManagement">Data Management</a>
+                        <a href="portfolio.html#DataScience">Data Mining</a>
+                        <a href="portfolio.html#DataVisualization">Data Viz</a>
+                        <a href="portfolio.html#Leadership">Leadership</a>
+                    </div>
                 </div>
                 <div>
-                    <a href="index.html#contact-me" class="pbutt">Contact Me</a> </div>
+                    <a href="index.html#contact-me" class="pbutt">Contact Me</a>
+                </div>
             </nav>
         </header>
     </header>
+
     <div class="moreganoooo">
         <div class="logo">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1791.74 625.53">
@@ -108,35 +132,15 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: .7 }})
-
-        gsap.set('g', {
-            autoAlpha: 1
-        })
-        gsap.to('svg', {
-            scale: 1.8,
-            duration: 4
-        })
-
-        t1
-            .from('#colosimo .cls-1', {
-            yPercent: -200,
-            stagger: .03,
-            scaleY: .9,
-            opacity: 0
-            })
-            .from('#DOM .cls-1', {
-            yPercent: 260,
-            stagger: .03,
-            scaleY: .5,
-            opacity: 0
-            })
-            .from('#Circles', {
-            opacity: 0,
-            })
-            .from('#Symbols', {
-            opacity: 0
-            })
+        // Removed GSAP animation for logo
+        // Original GSAP lines for SVG elements (removed or commented out):
+        // const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: .7 }})
+        // gsap.set('g', { autoAlpha: 1 })
+        // gsap.to('svg', { scale: 1.8, duration: 4 })
+        // t1.from('#colosimo .cls-1', { ... })
+        // .from('#DOM .cls-1', { ... })
+        // .from('#Circles', { ... })
+        // .from('#Symbols', { ... })
     </script>
 
     <main class="main-content">
@@ -165,7 +169,7 @@
                         </div>
                     </span></p>
                 </div></div>
-		<div class="confused4"><span class="pedfoot"><sup>&dagger;</sup></span> For more on this opinion, check out the chapter 'A Different Box of Tools' in Richard Feynman's autobiography, <i>Surely You're Joking, Mr. Feynman!</i><br><br><span class="pedfoot"><sup>&Dagger;</sup></span> During my time teaching University Chemistry, I learned that a student has to be both <span class="pedantic">awake</span> and <span class="pedantic">engaged</span> in order to learn anything</div>
+        <div class="confused4"><span class="pedfoot"><sup>&dagger;</sup></span> For more on this opinion, check out the chapter 'A Different Box of Tools' in Richard Feynman's autobiography, <i>Surely You're Joking, Mr. Feynman!</i><br><br><span class="pedfoot"><sup>&Dagger;</sup></span> During my time teaching University Chemistry, I learned that a student has to be both <span class="pedantic">awake</span> and <span class="pedantic">engaged</span> in order to learn anything</div>
         </section>
         <section class="confusedfoot" id="contact-me">
             <a href="https://www.linkedin.com/in/dominick-colosimo/"><img src="LinkedIn_icon.svg" height=50px></a> <a href="https://www.github.com/IGor-Fronkensteen"><img src="Octicons-mark-github.svg" height=50px></a> </section>
@@ -173,16 +177,14 @@
     <script>
         const hamburger = document.querySelector(".hamburger");
         const navLinks = document.getElementById("navLinks");
-    
+
         hamburger.addEventListener("click", () => {
             navLinks.classList.toggle("active");
             hamburger.classList.toggle("active"); // Optional: for animation
         });
-    
-        // Ensure this block is present and UNCOMMENTED in all your HTML files:
+
         navLinks.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
-                // Check if the menu is currently active before trying to close
                 if (navLinks.classList.contains("active")) {
                     navLinks.classList.remove("active");
                     hamburger.classList.remove("active");

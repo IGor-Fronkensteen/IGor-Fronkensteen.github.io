@@ -1,4 +1,4 @@
-3/* Dark grey background */
+/* Dark grey background */
 
 @import url('https://fonts.googleapis.com/css?family=Proxima+Nova');
 @import url('https://fonts.googleapis.com/css?family=Adobe+Garamond+Pro');
@@ -16,12 +16,12 @@
 }
 
 body {
-    margin-top: 100px; /* Adjust if your fixed header height changes (might add 10px) */
+    margin-top: 110px; /* Adjust if your fixed header height changes */
     background-color: #333;
     color: #fff;
     font-family: Arial, sans-serif;
-    padding-left: 20px; /* Add padding to the left */
-    padding-right: 20px; /* Add padding to the right */
+    padding-left: 10px; /* Consistent padding for all screen sizes */
+    padding-right: 10px; /* Consistent padding for all screen sizes */
 }
 
 p {
@@ -80,11 +80,11 @@ svg {
     justify-content: center; /* Changed from space-around to center for single item */
     /* height: 100px; */ /* Removed to allow content to dictate height naturally */
     padding: 20px; /* Added padding to the logo container itself for breathing room */
-    position: absolute; /* Position logo absolutely within .moreganoooo */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: static; /* Reset to default positioning within flex container */
+    height: auto;
+    width: clamp(150px, 40vw, 400px);
+    flex-shrink: 0; /* Prevent the logo from shrinking */
+    flex-grow: 0; /* Prevent the logo from growing */
 }
 
 .logo2 {
@@ -115,15 +115,16 @@ svg {
 }
 
 .pbutt {
-    background-color: rgba(250, 200, 152, 0.8); /* Light pastel OG bro */
+    background-color: rgba(250, 200, 152, 0.8);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     color: #fff;
     text-decoration: none;
+    flex-shrink: 0;
 }
 .pbutt:hover {
-    background-color: rgba(250, 200, 152, 1); /* Light pastel OG bro */
+    background-color: rgba(250, 200, 152, 1);
 }
 
 /* Updated .moreganoooo for chalkboard theme and responsiveness */
@@ -132,59 +133,78 @@ svg {
     margin: 50px auto;
     background-color: #38404B; /* Dark slate grey chalkboard color */
     border: 3px solid #A9A9A9; /* Metallic grey border */
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     box-sizing: border-box;
-    position: relative; /* Needed for absolute positioning of SVG/content later */
-    padding-bottom: 33.33%; /* For a 16:9 aspect ratio (9/16 * 100%) */
-    height: 0; /* Important to collapse height and let padding-bottom define it */
-    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: add a subtle shadow for depth */
+    position: relative;
+    height: 0;
+    padding-bottom: 33.33%; /* For a 3:1 aspect ratio */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    overflow: hidden;
 }
 
-/* Styling for equation animations */
-.equation-animation-container {
+/* Styles for the flex container inside .moreganoooo */
+.chalkboard-content {
     position: absolute;
-    top: 50%; /* Vertically center it */
-    right: 20px; /* Position it on the right side */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    width: 20%; /* Control the width of the equation container */
-    height: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Align equations to the right */
-    gap: 10px; /* Space between equations */
-    pointer-events: none; /* Prevent equations from blocking clicks on elements behind them */
-    z-index: 1; /* Ensure it's above the chalkboard background but below anything critical */
+    align-items: center;
+    justify-content: center; /* Changed from space-around to center for perfect logo centering */
+    padding: 20px;
+}
+
+/* Styles for the equation flanking divs */
+.equation-flank {
+    display: flex;
+    align-items: center;
+    width: 20%; /* Allocate width for the equations (adjust as needed) */
+    flex-grow: 1; /* Allow them to grow equally */
+    flex-shrink: 1; /* Allow to shrink if space is limited */
+    min-width: 80px; /* Minimum width for equations (adjust) */
 }
 
 .equation {
-    max-width: 100%; /* Ensure equations scale within their container */
+    max-width: 100%;
     height: auto;
-    opacity: 0; /* Start hidden for animation */
-    transform: translateX(50px); /* Start slightly off-screen for slide-in */
+    opacity: 0;
+    /* transform: translateX(0); */
+}
+
+/* Adjust equation position slightly for left/right balance */
+.left-equation {
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+
+.right-equation {
+    justify-content: flex-start;
+    padding-left: 10px;
 }
 
 
 /* Updated .about-box for responsiveness and vertical alignment */
 .about-box {
-    max-width: 1000px; /* Adjust max-width as desired */
-    margin: 50px auto; /* Center it horizontally */
+    max-width: 1000px;
+    margin: 50px auto;
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    justify-content: center; /* Center items when they wrap */
-    align-items: center; /* Changed from flex-start to center for vertical alignment */
-    gap: 20px; /* Add some space between flex items */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .oneone {
     padding: 25px;
 }
 
-.oneone img { /* Added responsive image rule */
+.oneone img {
     max-width: 100%;
     height: auto;
     display: block;
-    vertical-align: middle; /* Ensures image itself is vertically aligned */
+    vertical-align: middle;
 }
 
 .twotwo {
@@ -193,8 +213,8 @@ svg {
     border: 3px solid #FAC898;
     border-radius: 7px;
     background-color: #1a1a1a;
-    flex: 1 1 400px; /* Allow this item to grow/shrink, with a base of 400px */
-    min-width: 300px; /* Ensure it doesn't get too small */
+    flex: 1 1 400px;
+    min-width: 300px;
 }
 
 .onetwo {
@@ -209,13 +229,13 @@ svg {
     border: 3px solid #90EE90;
     border-radius: 7px;
     background-color: #1a1a1a;
-    flex: 1 1 400px; /* Similar flex behavior as .twotwo */
+    flex: 1 1 400px;
     min-width: 300px;
 }
 
 .custom1 {
-    max-width: 1000px; /* Added max-width for consistency */
-    margin: auto; /* Center horizontally */
+    max-width: 1000px;
+    margin: auto;
     margin-top: auto;
     margin-bottom: auto;
     display: block;
@@ -232,7 +252,7 @@ svg {
 .two {
     flex: 2 1 auto;
     border: 3px solid #90EE90;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 30px;
     display: block;
     text-align: center;
@@ -259,9 +279,9 @@ svg {
 
 /* Updated .news1 for responsiveness */
 .news1 {
-    max-width: 800px; /* Set a maximum width */
-    margin: 115px auto 50px auto; /* Center it horizontally, retain top/bottom margin */
-    border: 3px solid #FAC898;
+    max-width: 800px;
+    margin: 115px auto 50px auto;
+    border: 5px solid #FAC898;
     border-radius: 7px;
     padding: 20px;
     text-align: center;
@@ -270,21 +290,21 @@ svg {
 
 /* Updated .confused1 for responsiveness */
 .confused1 {
-    max-width: 1000px; /* Set a maximum width */
-    margin: 50px auto; /* Center it horizontally */
+    max-width: 1000px;
+    margin: 50px auto;
     border: 3px solid #90EE90;
     border-radius: 7px;
     padding: 20px;
     display: block;
-    text-align: center; /* or justify, depending on content */
+    text-align: center;
     height: auto;
     background-color: #1a1a1a;
 }
 .confused11 {
-    max-width: 1000px; /* Added max-width */
-    margin: 20px auto; /* Centered */
+    max-width: 1000px;
+    margin: 20px auto;
     border: 3px solid #90EE90;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: center;
@@ -294,16 +314,16 @@ svg {
 
 /* Updated .confusedfoot for responsiveness */
 .confusedfoot {
-    display: flex; /* Use flexbox for horizontal alignment */
-    justify-content: center; /* Center the icons */
-    align-items: center; /* Vertically align icons */
-    gap: 15px; /* Space between icons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
     border: 5px solid #000;
     border-radius: 7px;
     padding: 20px;
     background-color: #d3d3d3;
-    margin: 50px auto; /* Center the whole social media box */
-    max-width: 150px; /* Give it a max-width if desired */
+    margin: 50px auto;
+    max-width: 300px;
 }
 
 .center {
@@ -326,12 +346,21 @@ svg {
     font-weight: normal;
 }
 
+/* Ensure superscripts render correctly */
+.pedfoot sup {
+    vertical-align: super;
+    font-size: 0.75em;
+    line-height: 0;
+    position: relative;
+    top: -0.5em;
+}
+
 /* Updated .confused2 for responsiveness */
 .confused2 {
-    max-width: 1000px; /* Added max-width */
-    margin: 50px auto; /* Centered */
+    max-width: 1000px;
+    margin: 50px auto;
     border: 3px solid #FFC0CB;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: justify;
@@ -340,10 +369,10 @@ svg {
     background-color: #1a1a1a;
 }
 .confused22 {
-    max-width: 1000px; /* Added max-width */
-    margin: 20px auto; /* Centered */
+    max-width: 1000px;
+    margin: 20px auto;
     border: 3px solid #FFC0CB;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: center;
@@ -353,10 +382,10 @@ svg {
 
 /* Updated .confused3 for responsiveness */
 .confused3 {
-    max-width: 1000px; /* Added max-width */
-    margin: 50px auto; /* Centered */
+    max-width: 1000px;
+    margin: 50px auto;
     border: 3px solid #87CEEA;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: center;
@@ -364,10 +393,10 @@ svg {
     background-color: #1a1a1a;
 }
 .confused33 {
-    max-width: 1000px; /* Added max-width */
-    margin: 20px auto; /* Centered */
-    border: 3px solid #87CEEA; /* Corrected to 3px */
-    border-radius: 7px; /* Rounded corners */
+    max-width: 1000px;
+    margin: 20px auto;
+    border: 3px solid #87CEEA;
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: center;
@@ -377,8 +406,8 @@ svg {
 
 /* Original .confused4 (already updated in previous steps but included for completeness) */
 .confused4 {
-    max-width: 900px; /* Set a maximum width, adjust as needed */
-    margin: 50px auto; /* Center it horizontally */
+    max-width: 900px;
+    margin: 50px auto;
     border: 3px solid #FAC898;
     border-radius: 7px;
     padding: 20px;
@@ -388,10 +417,10 @@ svg {
     background-color: #1a1a1a;
 }
 .confused44 {
-    max-width: 1000px; /* Added max-width */
-    margin: 20px auto; /* Centered */
+    max-width: 1000px;
+    margin: 20px auto;
     border: 3px solid #FAC898;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: center;
@@ -405,17 +434,17 @@ svg {
     margin-top: 50px;
     margin-bottom: 50px;
     border: 3px solid #FFC0CB;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     background-color: white;
     padding: 20px;
-    display: flex; /* Changed to flex for horizontal image alignment */
-    justify-content: center; /* Center images */
-    flex-wrap: wrap; /* Allow images to wrap */
-    gap: 20px; /* Space between images */
-    height: auto; /* Ensure height adjusts */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: auto;
 }
 
-.confused5 img { /* Added responsive image rule for images inside confused5 */
+.confused5 img {
     max-width: 100%;
     height: auto;
     display: block;
@@ -423,12 +452,11 @@ svg {
 
 
 .iluvmorgam {
-    /* Removed fixed margin-left/right, replaced with max-width and auto margins */
-    max-width: 800px; /* Added max-width */
-    margin: 50px auto; /* Centered for responsiveness, overriding old fixed margins */
+    max-width: 800px;
+    margin: 50px auto;
     background-color: #1a1a1a;
     border: 3px solid #FFFFFF;
-    border-radius: 7px; /* Rounded corners */
+    border-radius: 7px;
     padding: 20px;
     display: block;
     text-align: justify;
@@ -440,7 +468,7 @@ svg {
     width: 100%;
     background-position: center;
     background-size: 500px;
-    background-image: url('DomLogo-08_white.svg'); /* Path needs to match your actual file name! */
+    background-image: url('DomLogo-08_white.svg');
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
@@ -449,7 +477,7 @@ svg {
     width: 100%;
     background-position: center;
     background-size: 500px;
-    background-image: url('Gemini_Generated_Image1.jpg'); /* Path needs to match your actual file name! */
+    background-image: url('Gemini_Generated_Image1.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
@@ -460,60 +488,83 @@ svg {
 }
 
 .tagline1 {
-    font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
-    font-size: 2rem;
+    font-family: "Proxima Nova", sans-serif;
+    font-size: 3rem;
 }
 
 .tagline {
-    font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
-    font-size: 2rem;
+    font-family: "Proxima Nova", sans-serif;
+    font-size: 3rem;
     margin-top: 100px;
 }
 
-/* Dropdown menus with pastel accents and white borders */
+/* General hyperlink styling */
+a {
+    color: #87CEEA;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+}
+
+a:hover {
+    color: #6AC6EB;
+    text-decoration: underline;
+}
+
+/* Ensure your existing specific pastel accent links are not overridden if they don't explicitly have text-decoration: none; on hover */
+.pastel-accent:hover,
+.pastel-accent2:hover,
+.pastel-accent3:hover,
+.pastel-accent4:hover {
+    text-decoration: underline;
+}
+
+/* Navbar specific styling and media queries */
 .headerfull {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Vertically center items in the header */
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #262626;
     z-index: 3;
-    padding: 15px 30px; /* Adjust padding for the whole header */
+    padding: 15px 30px; /* Increased padding from 10px 20px */
 }
 .header1 {
     display: flex;
     justify-content: flex-start;
-    padding: 0; /* Adjust padding if needed */
+    padding: 0;
 }
 .header1 .site-logo {
-    font-size: 24px; /* Adjust as needed */
+    font-size: 24px;
     padding: 0;
 }
 .header2 {
-    width: auto; /* Allow header2 to size naturally on large screens */
-    justify-content: flex-end; /* Push nav and hamburger to the right */
-    align-items: center; /* Vertically align nav links and hamburger */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    gap: 15px; /* Consistent gap between direct children of header2 */
 }
 .header2 a {
     color: #fff;
     text-decoration: none;
     padding: 10px;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px;
     font-size: 16px;
 }
 .header2 a:hover {
     background-color: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
 }
 .dropdown-menu { /* This class doesn't seem to be used in your HTML */
     position: absolute;
-    border-radius: 10px; /* Rounded corners */
-    background-color: rgba(255, 255, 255, 0.5); /* Slight transparency */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
     color: #fff;
-    display: none; /* Hidden by default */
-    border: 2px solid white; /* Solid white border */
+    display: none;
+    border: 2px solid white;
     z-index: 1;
 }
 .dropdown-menu a { /* This class doesn't seem to be used in your HTML */
@@ -523,14 +574,14 @@ svg {
     display: block;
 }
 .header a:hover + .dropdown-menu { /* This rule targets .dropdown-menu, which may not be present */
-    display: block; /* Show the (inline-block?) dropdown menu on hover */
+    display: block;
 }
 .homebtn { /* This class doesn't seem to be used in your HTML */
     position: relative;
     display: inline-block;
 }
 .buttonh {
-    border: 2px solid white; /* Corrected shorthand */
+    border: 2px solid white;
     padding: 10px 20px;
     color: #fff;
     text-decoration: none;
@@ -541,7 +592,7 @@ svg {
     width: 100%;
     background-position: center;
     background-size: 50px;
-    background-image: url('DomLogo-08_white.svg'); /* Path needs to match your actual file name! */
+    background-image: url('DomLogo-08_white.svg');
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
@@ -558,24 +609,25 @@ svg {
 .dropdown {
     position: relative;
     display: inline-block;
+    text-align: left;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px;
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 100px;
     margin-left: 10px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    border: 2px solid white; /* Solid white border */
+    border: 2px solid white;
     z-index: 1;
 }
 
 /* Links inside the dropdown */
 .dropdown-content a {
-    color: white; /* Text color inside dropdown */
+    color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -588,35 +640,35 @@ svg {
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;} /* This uses .dropbtn which isn't applied to your nav links */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 
 /* Unique colors for each dropdown menu */
 .dropdown:nth-child(1) .dropdown-content {
-    background-color: rgba(144, 238, 144, 0.7); /* Lighter pastel green */
+    background-color: rgba(144, 238, 144, 0.7);
 }
 .dropdown:nth-child(2) .dropdown-content {
-    background-color: rgba(255, 192, 203, 0.7); /* Lighter pastel pink */
+    background-color: rgba(255, 192, 203, 0.7);
 }
 .dropdown:nth-child(3) .dropdown-content {
-    background-color: rgba(135, 206, 234, 0.7); /* Lighter pastel blue */
+    background-color: rgba(135, 206, 234, 0.7);
 }
 .dropdown:nth-child(4) .dropdown-content {
-    background-color: rgba(250, 200, 152, 0.7); /* Lighter pastel green */
+    background-color: rgba(250, 200, 152, 0.7);
 }
 
-.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(1) .dropdown-content a:hover {background-color: rgba(95, 237, 95, 0.7);
 }
-.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(2) .dropdown-content a:hover {background-color: rgba(255, 166, 181, 0.7);
 }
-.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(3) .dropdown-content a:hover {background-color: rgba(106, 198, 235, 0.7);
 }
-.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7); /* Lighter pastel green */
+.dropdown:nth-child(4) .dropdown-content a:hover {background-color: rgba(250, 174, 102, 0.7);
 }
 
 /* Contact button with pastel accent and slight transparency */
 .button {
-    background-color: rgba(90, 238, 90, 0.8); /* Light pastel green */
+    background-color: rgba(90, 238, 90, 0.8);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -624,7 +676,7 @@ svg {
     text-decoration: none;
 }
 .pbutt {
-    background-color: rgba(250, 200, 152, 0.8); /* Light pastel OG bro */
+    background-color: rgba(250, 200, 152, 0.8);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -632,22 +684,22 @@ svg {
     text-decoration: none;
 }
 .pbutt:hover {
-    background-color: rgba(250, 200, 152, 1); /* Light pastel OG bro */
+    background-color: rgba(250, 200, 152, 1);
 }
 .hbutt {
-    border: 2px solid white; /* Corrected shorthand */
-    background-color: rgba(63, 63, 63, 0.8); /* Light pastel OG bro */
+    border: 2px solid white;
+    background-color: rgba(63, 63, 63, 0.8);
     padding: 10px;
     border-radius: 1px;
     color: #fff;
     text-decoration: none;
 }
 .hbutt:hover {
-    background-color: rgba(119, 119, 119, 1); /* Light pastel OG bro */
+    background-color: rgba(119, 119, 119, 1);
 }
 .button2 {
-    background-color: rgba(255, 0, 0, 0.05); /* red */
-    border: 2px solid white; /* Corrected shorthand */
+    background-color: rgba(255, 0, 0, 0.05);
+    border: 2px solid white;
     padding: 10px 20px;
     color: #fff;
     text-decoration: none;
@@ -656,35 +708,35 @@ svg {
 
 /* Pastel accent colors */
 .pastel-accent {
-    color: #90EE90; /* pastel green */
+    color: #90EE90;
     font-weight: bold;
 }
 .pastel-accent:hover {
-    color: #5FED5F; /* pastel green */
+    color: #5FED5F;
     text-decoration: underline;
 }
 .pastel-accent2 {
-    color: #FFC0CB; /* pastel pink */
+    color: #FFC0CB;
     font-weight: bold;
 }
 .pastel-accent2:hover {
-    color: #FAA6B5; /* pastel green */
+    color: #FAA6B5;
     text-decoration: underline;
 }
 .pastel-accent3 {
-    color: #87CEEA; /* pastel blue */
+    color: #87CEEA;
     font-weight: bold;
 }
 .pastel-accent3:hover {
-    color: #6AC6EB; /* pastel green */
+    color: #6AC6EB;
     text-decoration: underline;
 }
 .pastel-accent4 {
-    color: #FAC898; /* pastel orange */
+    color: #FAC898;
     font-weight: bold;
 }
 .pastel-accent4:hover {
-    color: #FAAE66; /* pastel orange */
+    color: #FAAE66;
     text-decoration: underline;
 }
 
@@ -699,13 +751,7 @@ svg {
 }
 
 *, html {
-    /* scroll-margin-top: 100px; */
     scroll-behavior: smooth !important;
-}
-
-.viewer_3Dmoljs {
-    /* Existing inline style: height: 400px; width: 400px; position: relative; */
-    margin: 0 auto; /* This will center the div horizontally */
 }
 
 body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100px;}
@@ -754,27 +800,30 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
 
 /* Navbar specific styling and media queries */
 .headerfull {
-    padding: 10px 20px; /* Adjust padding for the whole header */
-    align-items: center; /* Vertically center items in the header */
+    padding: 15px 30px; /* Increased padding from 10px 20px */
+    align-items: center;
 }
 
 .header1 .site-logo {
-    font-size: 24px; /* Adjust as needed */
+    font-size: 24px;
     padding: 0;
 }
 
 .header2 {
-    width: auto; /* Allow header2 to size naturally on large screens */
-    justify-content: flex-end; /* Push nav and hamburger to the right */
-    align-items: center; /* Vertically align nav links and hamburger */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    gap: 15px; /* Consistent gap between direct children of header2 */
 }
 
+/* Nav Links container (the one that gets toggled) */
 .nav-links {
-    display: flex; /* Default to horizontal for larger screens */
+    display: flex;
     list-style: none;
-    gap: 15px; /* Space between nav items */
-    margin: 0; /* Remove default ul/ol margins */
-    padding: 0; /* Remove default ul/ol padding */
+    margin: 0;
+    padding: 0;
+    flex-wrap: nowrap;
 }
 
 /* Hide hamburger button by default */
@@ -800,15 +849,17 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
 }
 
 /* Media Query for Mobile/Small Screens */
-@media (max-width: 768px) { /* Adjust breakpoint as needed */
+@media (max-width: 768px) {
     body {
-        margin-top: 70px; /* Adjust body margin for smaller header height on mobile */
+        margin-top: 80px; /* Adjusted for taller mobile header */
+        padding-left: 10px; /* Keep consistent with large screens */
+        padding-right: 10px; /* Keep consistent with large screens */
     }
     .headerfull {
-        flex-wrap: nowrap; /* Prevent wrapping the logo and hamburger */
-        justify-content: space-between; /* Space out logo and hamburger */
-        padding: 10px 20px; /* Ensure padding on mobile */
-        height: 70px; /* Set a fixed height for mobile header */
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        padding: 10px 10px; /* Changed horizontal padding from 20px to 10px */
+        height: 70px; /* Adjusted height to accommodate more padding if needed */
     }
 
     .header1 {
@@ -816,58 +867,64 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
     }
 
     .header2 {
-        width: auto; /* Allow header2 to size naturally */
-        order: unset; /* Don't change order unless specifically needed */
+        width: auto; /* Keep auto for natural sizing */
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0; /* No gap for mobile, as items stack */
+        flex-grow: 0; /* Prevent header2 from growing and pushing hamburger off */
+        flex-shrink: 0; /* Prevent header2 from shrinking too much */
+        padding-right: 10px; /* Add a small padding to the right of header2 */
     }
 
     .hamburger {
-        display: flex; /* Show hamburger button on small screens */
+        display: flex;
+        margin-left: auto; /* Push it to the right within header2 */
     }
 
     .nav-links {
-        display: none; /* Hide nav links by default on small screens */
-        flex-direction: column; /* Stack vertically */
+        display: none;
+        flex-direction: column;
         width: 100%;
-        background-color: #262626; /* Same as header background */
-        position: absolute; /* Position relative to headerfull */
-        top: 70px; /* Below the header, adjust based on headerfull height */
+        background-color: #262626;
+        position: absolute;
+        top: 70px; /* Ensure mobile menu drops below the taller header */
         left: 0;
         padding: 20px 0;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        z-index: 2; /* Below header but above content */
-        align-items: center; /* Center links when stacked */
-        max-height: calc(100vh - 70px); /* Limit height to viewport - header */
-        overflow-y: auto; /* Add scroll if content is too long */
+        z-index: 2;
+        align-items: center;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        gap: 0;
     }
-
     .nav-links.active {
-        display: flex; /* Show nav links when active */
+        display: flex;
         opacity: 1;
         visibility: visible;
     }
 
-    .nav-links .dropdown {
+    .nav-links .dropdown,
+    .nav-links > div {
         width: 100%;
         text-align: center;
-        margin: 10px 0; /* Space between stacked dropdowns */
+        margin: 10px 0;
     }
-
     .nav-links .dropdown-content {
-        position: static; /* Make dropdown content flow naturally */
-        background-color: transparent; /* Or a darker shade for distinction */
+        position: static;
+        background-color: transparent;
         box-shadow: none;
         border: none;
         min-width: unset;
         width: 100%;
         margin-left: 0;
-        padding-top: 5px; /* Space between main link and sub-links */
+        padding-top: 5px;
     }
     .nav-links .dropdown-content a {
-        padding: 8px 16px; /* Adjust padding for sub-links */
-        color: #ddd; /* Lighter color for sub-links */
+        padding: 8px 16px;
+        color: #ddd;
     }
     .nav-links .dropdown-content a:hover {
         background-color: rgba(255, 255, 255, 0.1);

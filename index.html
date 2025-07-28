@@ -170,5 +170,25 @@
         <section class="confusedfoot" id="contact-me">
             <a href="https://www.linkedin.com/in/dominick-colosimo/"><img src="LinkedIn_icon.svg" height=50px></a> <a href="https://www.github.com/IGor-Fronkensteen"><img src="Octicons-mark-github.svg" height=50px></a> </section>
     </main>
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.getElementById("navLinks");
+    
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+            hamburger.classList.toggle("active"); // Optional: for animation
+        });
+    
+        // Ensure this block is present and UNCOMMENTED in all your HTML files:
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                // Check if the menu is currently active before trying to close
+                if (navLinks.classList.contains("active")) {
+                    navLinks.classList.remove("active");
+                    hamburger.classList.remove("active");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

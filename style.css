@@ -44,9 +44,10 @@ g {
 
 svg {
     max-width: 100%; /* Ensure it doesn't overflow its parent */
-    height: auto; /* Maintain aspect ratio */
-    width: clamp(150px, 40vw, 400px); /* Responsive width: min 150px, ideal 40vw, max 400px */
     max-height: 100%; /* Ensure SVG doesn't exceed the height of its container */
+    /* width: clamp(150px, 40vw, 400px); */ /* Responsive width: min 150px, ideal 40vw, max 400px */
+    width: auto;
+    height: auto; /* Maintain aspect ratio */
     display: block; /* Helps with vertical centering and removing extra space below */
 }
 
@@ -80,8 +81,8 @@ svg {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%; /* Fill the width of .moreganoooo */
-    height: 100%; /* Fill the height of .moreganoooo (from padding-bottom) */
+    /* width: 100%; */ /* Fill the width of .moreganoooo */
+    /* height: 100%; */ /* Fill the height of .moreganoooo (from padding-bottom) */
     padding: 0; /* Remove specific padding, let .moreganoooo padding suffice */
 }
 
@@ -282,7 +283,7 @@ svg {
     gap: 15px;
     border: 5px solid #000;
     border-radius: 7px;
-    padding: 20px;
+    padding: 15px;
     background-color: #d3d3d3;
     margin: 50px auto;
     max-width: 145px; /* Corrected to 150px */
@@ -921,8 +922,8 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
         transform: translateY(-8px) rotate(-45deg);
     }
 
-    .tagline1 {
+    /* .tagline1 {
         font-size: 2rem; /* Reduce font size for smaller screens */
-    }
+    } */
 
 }

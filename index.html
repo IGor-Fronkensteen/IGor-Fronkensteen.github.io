@@ -51,7 +51,9 @@
         </header>
     </header>
 
-    <div class="chalkboard-hero"> <div class="site-logo-container"><img src="logo_python.svg" alt="Test Logo" style="position: absolute; top: 10px; left: 10px; width: 100px; z-index: 999;"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1791.74 625.53">
+    <div class="chalkboard-hero">
+        <div class="site-logo-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1791.74 625.53">
               <defs>
                 <style>
                   .cls-1 {
@@ -118,39 +120,36 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        // GSAP animation for logo
         const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: .7 }})
 
-        // Initial setup for g elements in SVG
         gsap.set('g', {
             autoAlpha: 1
-        });
+        })
+        gsap.to('svg', {
+            scale: 1.8,
+            duration: 4
+        })
 
-        // Main logo animation timeline
         t1
-            .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
-                yPercent: -200,
-                stagger: .03,
-                scaleY: .9,
-                opacity: 0
+            .from('#colosimo .cls-1', {
+            yPercent: -200,
+            stagger: .03,
+            scaleY: .9,
+            opacity: 0
             })
-            .from('.site-logo-container #DOM .cls-1', { // Target new class and IDs
-                yPercent: 260,
-                stagger: .03,
-                scaleY: .5,
-                opacity: 0
-            }, "-=0.5") // Start slightly before previous
-            .from('.site-logo-container #Circles', { // Target new class and IDs
-                opacity: 0,
-                duration: 0.5
-            }, "-=0.3") // Start slightly before previous
-            .from('.site-logo-container #Symbols', { // Target new class and IDs
-                opacity: 0,
-                duration: 0.5
-            }, "-=0.3"); // Start slightly before previous
-
-        // Removed the problematic gsap.to('svg', { scale: 1.8, duration: 4 })
-    </script>
+            .from('#DOM .cls-1', {
+            yPercent: 260,
+            stagger: .03,
+            scaleY: .5,
+            opacity: 0
+            })
+            .from('#Circles', {
+            opacity: 0,
+            })
+            .from('#Symbols', {
+            opacity: 0
+            })
+    </script>              
 
     <main class="main-content">
         <section class="hero">

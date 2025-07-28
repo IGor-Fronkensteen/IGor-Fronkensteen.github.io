@@ -1,4 +1,4 @@
-/* Dark grey background */
+3/* Dark grey background */
 
 @import url('https://fonts.googleapis.com/css?family=Proxima+Nova');
 @import url('https://fonts.googleapis.com/css?family=Adobe+Garamond+Pro');
@@ -16,7 +16,7 @@
 }
 
 body {
-    margin-top: 100px; /* Adjust if your fixed header height changes */
+    margin-top: 100px; /* Adjust if your fixed header height changes (might add 10px) */
     background-color: #333;
     color: #fff;
     font-family: Arial, sans-serif;
@@ -136,7 +136,7 @@ svg {
     padding: 20px;
     box-sizing: border-box;
     position: relative; /* Needed for absolute positioning of SVG/content later */
-    padding-bottom: 56.25%; /* For a 16:9 aspect ratio (9/16 * 100%) */
+    padding-bottom: 33.33%; /* For a 16:9 aspect ratio (9/16 * 100%) */
     height: 0; /* Important to collapse height and let padding-bottom define it */
     box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: add a subtle shadow for depth */
 }
@@ -261,7 +261,7 @@ svg {
 .news1 {
     max-width: 800px; /* Set a maximum width */
     margin: 115px auto 50px auto; /* Center it horizontally, retain top/bottom margin */
-    border: 5px solid #FAC898;
+    border: 3px solid #FAC898;
     border-radius: 7px;
     padding: 20px;
     text-align: center;
@@ -303,7 +303,7 @@ svg {
     padding: 20px;
     background-color: #d3d3d3;
     margin: 50px auto; /* Center the whole social media box */
-    max-width: 300px; /* Give it a max-width if desired */
+    max-width: 150px; /* Give it a max-width if desired */
 }
 
 .center {
@@ -461,12 +461,12 @@ svg {
 
 .tagline1 {
     font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .tagline {
     font-family: "Proxima Nova", sans-serif; /* Inconsolata, monospace; */
-    font-size: 3rem;
+    font-size: 2rem;
     margin-top: 100px;
 }
 
@@ -481,7 +481,7 @@ svg {
     width: 100%;
     background-color: #262626;
     z-index: 3;
-    padding: 10px 20px; /* Adjust padding for the whole header */
+    padding: 15px 30px; /* Adjust padding for the whole header */
 }
 .header1 {
     display: flex;
@@ -808,7 +808,7 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
         flex-wrap: nowrap; /* Prevent wrapping the logo and hamburger */
         justify-content: space-between; /* Space out logo and hamburger */
         padding: 10px 20px; /* Ensure padding on mobile */
-        height: 60px; /* Set a fixed height for mobile header */
+        height: 70px; /* Set a fixed height for mobile header */
     }
 
     .header1 {
@@ -830,7 +830,7 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
         width: 100%;
         background-color: #262626; /* Same as header background */
         position: absolute; /* Position relative to headerfull */
-        top: 60px; /* Below the header, adjust based on headerfull height */
+        top: 70px; /* Below the header, adjust based on headerfull height */
         left: 0;
         padding: 20px 0;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -839,7 +839,7 @@ body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100
         transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         z-index: 2; /* Below header but above content */
         align-items: center; /* Center links when stacked */
-        max-height: calc(100vh - 60px); /* Limit height to viewport - header */
+        max-height: calc(100vh - 70px); /* Limit height to viewport - header */
         overflow-y: auto; /* Add scroll if content is too long */
     }
 

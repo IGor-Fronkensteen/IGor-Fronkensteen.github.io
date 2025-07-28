@@ -703,6 +703,11 @@ svg {
     scroll-behavior: smooth !important;
 }
 
+.viewer_3Dmoljs {
+    /* Existing inline style: height: 400px; width: 400px; position: relative; */
+    margin: 0 auto; /* This will center the div horizontally */
+}
+
 body { font-family: sans-serif; line-height: 1; text-align:center;margin-top:100px;}
 
 .sext {

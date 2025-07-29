@@ -108,20 +108,20 @@
             });
 
             // Main logo animation timeline
-            const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: 0.7 }});
+            const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: 1.8 }});
             t1
-                .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
-                    yPercent: -200,
-                    stagger: 0.03,
-                    scaleY: 0.9,
-                    opacity: 0
-                })
                 .from('.site-logo-container #DOM .cls-1', { // Target new class and IDs
                     yPercent: 260,
                     stagger: 0.03,
                     scaleY: 0.5,
                     opacity: 0
                 }, "-=0.5") // Start slightly before previous
+                .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
+                    yPercent: -200,
+                    stagger: 0.03,
+                    scaleY: 0.9,
+                    opacity: 0
+                })
                 .from('.site-logo-container #Circles', { // Target new class and IDs
                     opacity: 0,
                     duration: 0.5

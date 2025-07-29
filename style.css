@@ -52,12 +52,12 @@ a:hover {
 
 /* --- Logo & Chalkboard Hero Section --- */
 .chalkboard-hero { /* Renamed from .moreganoooo */
-    max-width: 1200px;
-    margin: 50px auto;
+    max-width: 750px;
+    margin: 20px auto;
     background-color: #38404B; /* Dark slate grey chalkboard color */
     border: 3px solid #A9A9A9; /* Metallic grey border */
     border-radius: 7px;
-    padding: 20px;
+    padding: 50px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     overflow: hidden; /* Hide anything that spills outside the border */
 

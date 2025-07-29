@@ -50,6 +50,135 @@ a:hover {
 }
 
 
+/* --- Theme Styles (Light Mode) --- */
+body.light-mode {
+    background-color: #F8F8F8; /* Light background */
+    color: #333; /* Dark text for light mode */
+}
+
+body.light-mode a {
+    color: #1a73e8; /* Default blue for links in light mode */
+}
+body.light-mode a:hover {
+    color: #174ea6; /* Darker blue on hover in light mode */
+}
+
+/* Example: Light mode for your content sections */
+body.light-mode .content-section,
+body.light-mode .news-section,
+body.light-mode .about-text-column,
+body.light-mode .portfolio-notice-box {
+    background-color: #FFFFFF; /* White background for content boxes */
+    border-color: #DDD; /* Lighter border */
+    color: #333; /* Dark text for content boxes */
+}
+
+body.light-mode .site-logo-container svg .cls-1 {
+    fill: #333; /* Change logo fill to dark for light mode */
+}
+
+body.light-mode .main-header,
+body.light-mode .main-nav-links {
+    background-color: #FFFFFF; /* White header/sidebar */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+body.light-mode .main-header a,
+body.light-mode .main-nav-links a {
+    color: #333; /* Dark text for header links */
+}
+body.light-mode .main-header a.action-button-orange {
+    color: #fff; /* Keep white text for action buttons */
+}
+body.light-mode .main-header a:hover {
+    background-color: rgba(0,0,0,0.05); /* Light hover background */
+}
+
+body.light-mode .hamburger-menu-toggle .bar {
+    background-color: #333; /* Dark bars for hamburger in light mode */
+}
+
+body.light-mode .dropdown-content {
+    background-color: #FFFFFF; /* White dropdown background */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    border-color: #CCC;
+}
+body.light-mode .dropdown-content a {
+    color: #333; /* Dark text for dropdown links */
+}
+body.light-mode .dropdown-content a:hover {
+    background-color: #EEE; /* Lighter hover for dropdown links */
+}
+
+/* Specific pastel accent overrides for light mode */
+body.light-mode .pastel-accent { color: #2e8b57; } /* Darker green */
+body.light-mode .pastel-accent:hover { color: #236b46; }
+
+body.light-mode .pastel-accent2 { color: #c2576b; } /* Darker pink */
+body.light-mode .pastel-accent2:hover { color: #9c4054; }
+
+body.light-mode .pastel-accent3 { color: #2a7eab; } /* Darker blue */
+body.light-mode .pastel-accent3:hover { color: #20628e; }
+
+body.light-mode .pastel-accent4 { color: #c48c4a; } /* Darker orange */
+body.light-mode .pastel-accent4:hover { color: #9e703b; }
+
+/* Chalkboard hero light mode */
+body.light-mode .chalkboard-hero {
+    background-color: #6A7F93; /* Darker grey for chalkboard in light mode */
+    border-color: #A9A9A9; /* Keep metallic border */
+}
+
+/* Social links footer light mode */
+body.light-mode .social-links-footer {
+    background-color: #E0E0E0;
+    color: #333;
+    border-color: #666;
+}
+body.light-mode .social-links-footer img {
+    filter: invert(100%); /* Invert social icons for dark background */
+}
+
+/* Ensure background for iframe preview is correct in light mode */
+body.light-mode .iframe-preview {
+    background-color: #FFFFFF;
+}
+
+/* Toggle button icon styling */
+#theme-toggle {
+    background-color: transparent;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #FFF; /* Icon color for dark mode */
+    padding: 0;
+    line-height: 1; /* For icon alignment */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+#theme-toggle:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-color: #EEE;
+}
+body.light-mode #theme-toggle {
+    border-color: #333;
+    color: #333; /* Icon color for light mode */
+    background-color: rgba(0,0,0,0.05);
+}
+body.light-mode #theme-toggle:hover {
+    background-color: rgba(0,0,0,0.1);
+    border-color: #666;
+}
+#theme-toggle .icon-dark-mode,
+#theme-toggle .icon-light-mode {
+    line-height: 1;
+}
+
+
 /* --- Logo & Chalkboard Hero Section --- */
 .chalkboard-hero { /* Renamed from .moreganoooo */
     max-width: 750px;
@@ -81,7 +210,6 @@ a:hover {
     padding: 0;
 }
 
-/* Styles for the logo SVG (animated version) */
 .site-logo-container svg { /* Target SVG directly within this container */
     max-width: 80%; /* SVG must not exceed its parent's width */
     max-height: 80%; /* SVG must not exceed its parent's height */
@@ -93,21 +221,6 @@ a:hover {
 /* SVG internal elements (specific to your logo's SVG content) */
 .site-logo-container svg g {
     /* original: overflow: hidden; visibility: hidden; - GSAP handles autoAlpha, can be removed if not animating */
-}
-
-/* Fallback static logo image */
-.logo-fallback {
-    display: block; /* Shown by default */
-    max-width: 80%; /* Scale like the SVG */
-    max-height: 80%;
-    width: auto;
-    height: auto;
-    object-fit: contain; /* Ensure it fits without distortion */
-}
-
-/* Hide animated SVG by default, shown by JS if supported */
-.logo-animated-svg {
-    display: none;
 }
 
 
@@ -324,18 +437,21 @@ a:hover {
     width: 100%;
     background-color: #262626;
     z-index: 100; /* High z-index to ensure it's on top */
-    padding: 15px 20px; /* Reduced horizontal padding from 30px to 20px */
+    padding: 7px 10px; /* Reduced horizontal padding from 30px to 20px */
 }
 
 .header-left { /* Renamed from .header1 */
     display: flex;
     justify-content: flex-start;
     align-items: center; /* Vertically align content inside header-left */
-    padding: 0;
 }
 .header-left .site-logo-text { /* Renamed from .hbutt (if used for "Home" text) or .site-logo */
-    font-size: 24px;
-    padding: 0;
+    font-size: 18px;
+    padding: 6px;
+    margin-right: 15px;
+    background-color: rgba(65, 65, 65, 1);
+    border-radius: 3px;
+    border: 2px solid #fff; /* White border */
     color: #fff; /* Ensure text is white */
     text-decoration: none; /* Remove underline */
     line-height: 1; /* Helps reduce inherent text spacing */
@@ -344,7 +460,7 @@ a:hover {
     justify-content: center; /* Horizontally center its content (the text) */
 }
 .header-left .site-logo-text:hover {
-    background-color: rgba(119, 119, 119, 1); /* Hover effect from old .hbutt */
+    background-color: rgba(85, 85, 85, 1); /* Hover effect from old .hbutt */
 }
 
 .header-right { /* Renamed from .header2 */
@@ -487,29 +603,27 @@ a:hover {
         align-items: center;
     }
 
-    /* Primary Navigation Links Container - Mobile: SIDEBAR BEHAVIOR */
+    /* Primary Navigation Links Container - Mobile: HIDDEN by default, STACKED when active */
     .main-nav-links { /* Renamed from .nav-links */
         display: none; /* Crucial: HIDE NAV LINKS ON MOBILE BY DEFAULT */
         flex-direction: column; /* Stack vertically when active */
-        /* width: 100%; */ /* REMOVED: No longer full width, now fixed width sidebar */
+        width: 100%; /* Take full width for expanded menu */
         background-color: #262626; /* Same as header background */
-        position: fixed; /* Fixed position for sidebar */
-        top: 0; /* Align to top of viewport */
-        right: -300px; /* Start off-screen to the right (adjust width as needed) */
-        height: 100vh; /* Full viewport height */
-        padding: 80px 20px 20px 20px; /* Padding for content, push down from header */
-        box-shadow: -5px 0 15px rgba(0,0,0,0.3); /* Shadow for sidebar effect */
+        position: absolute; /* Position below fixed header */
+        top: 70px; /* Drops below the mobile header */
+        left: 0;
+        padding: 20px 0;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         opacity: 0;
         visibility: hidden;
-        transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         z-index: 99; /* Below header, above main content */
-        align-items: flex-start; /* Align links to the left of the sidebar */
-        max-height: 100vh; /* Ensure it takes full height */
-        overflow-y: auto; /* Allow scrolling if content overflows */
-        gap: 10px; /* Gap between stacked links */
+        align-items: center; /* Center links when stacked */
+        max-height: calc(100vh - 70px); /* Limit height to viewport - header height */
+        overflow-y: auto; /* Add scroll if content is too long */
     }
     .main-nav-links.active {
-        right: 0; /* Slide in from the right */
+        display: flex; /* SHOW NAV LINKS WHEN JAVASCRIPT TOGGLES 'active' */
         opacity: 1;
         visibility: visible;
     }
@@ -521,41 +635,18 @@ a:hover {
     }
 
     /* Specific mobile adjustments for stacked nav items */
-    /* Target direct <a> children for mobile styling if HTML is flattened */
-    .main-nav-links > a {
-        width: auto; /* Allow width to be natural */
-        text-align: left; /* Align text to left in sidebar */
-        margin: 5px 0; /* Vertical margin between stacked nav items */
-        padding: 8px 16px; /* Adjust padding for mobile main nav links */
-        white-space: nowrap; /* Prevent wrapping for width calculation */
-        max-width: fit-content; /* Shrink to fit content */
-        min-width: 120px; /* Minimum width for readability */
-        background-color: rgba(255, 255, 255, 0.05); /* Subtle background for each item */
+    .main-nav-links .nav-link-item { /* Renamed from .dropdown */
+        width: 100%;
+        text-align: center;
+        margin: 10px 0; /* Vertical margin between stacked nav items */
+    }
+    .main-nav-links .nav-link-item > a {
+        height: auto; /* Allow height to be natural on mobile when stacked */
+        padding: 12px 16px; /* Keep mobile padding */
+    }
+    .nav-contact-button-wrapper .action-button-orange {
         height: auto; /* Allow height to be natural on mobile when stacked */
     }
-    /* Styles for the Contact Me button specifically in the mobile sidebar */
-    .main-nav-links > a.action-button-orange {
-        background-color: rgba(250, 200, 152, 0.8);
-        color: #fff;
-    }
-    .main-nav-links > a.action-button-orange:hover {
-        background-color: rgba(250, 200, 152, 1);
-    }
-
-    /* Remove specific dropdown styles for mobile if HTML is flattened */
-    /* .main-nav-links .nav-link-item { /* No longer needed if HTML is flattened */
-    /* width: 100%; */
-    /* text-align: center; */
-    /* margin: 10px 0; */
-    /* } */
-    /* .main-nav-links .nav-link-item > a { /* Already handled by .main-nav-links > a */
-    /* height: auto; */
-    /* padding: 12px 16px; */
-    /* } */
-
-    /* Remove all .dropdown-content related styles for mobile */
-    /* .dropdown-content { ... } etc. should be removed from this media query */
-
 
     /* Tagline font size reduction */
     .tagline1 {

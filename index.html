@@ -13,6 +13,9 @@
             <div>
                 <a href="index.html" class="nav-home-button site-logo-text">Home</a>
             </div>
+            <button id="theme-toggle" aria-label="Toggle light or dark mode">
+                <span class="icon-dark-mode">🌙</span> <span class="icon-light-mode" style="display: none;">☀️</span> </button>
+            <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu">
         </header>
         <header class="header-right">
             <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu">
@@ -21,11 +24,39 @@
                 <span class="bar"></span>
             </button>
             <nav class="main-nav-links" id="mainNavLinks">
-                <a href="aboutme.html">About Me</a>
-                <a href="resume.html">Resume</a>
-                <a href="interests.html">Interests</a>
-                <a href="portfolio.html">Portfolio</a>
-                <a href="index.html#contact-me" class="action-button-orange">Contact Me</a>
+                <div class="nav-link-item dropdown"> <a href="aboutme.html">About Me</a>
+                    <div class="dropdown-content">
+                        <a href="aboutme.html#Background">Background</a>
+                        <a href="aboutme.html#Education">Education</a>
+                        <a href="aboutme.html#PersonalInterests">Interests</a>
+                        <a href="aboutme.html#Testimonials">Testimonials</a>
+                    </div>
+                </div>
+                <div class="nav-link-item dropdown"> <a href="resume.html">Resume</a>
+                    <div class="dropdown-content">
+                        <a href="resume.html#Summary">Summary</a>
+                        <a href="resume.html#Resume">Resume</a>
+                        <a href="resume.html#CV">C.V.</a>
+                        <a href="resume.html#References">References</a>
+                    </div>
+                </div>
+                <div class="nav-link-item dropdown"> <a href="interests.html">Interests</a>
+                    <div class="dropdown-content">
+                        <a href="interests.html#Professional">Professional</a>
+                        <a href="interests.html#Science">Science</a>
+                        <a href="interests.html#Cooking">Cooking</a>
+                        <a href="interests.html#Music">Music</a>
+                    </div>
+                </div>
+                <div class="nav-link-item dropdown"> <a href="portfolio.html">Portfolio</a>
+                    <div class="dropdown-content">
+                        <a href="portfolio.html#DataManagement">Data Management</a>
+                        <a href="portfolio.html#DataScience">Data Mining</a>
+                        <a href="portfolio.html#DataVisualization">Data Viz</a>
+                        <a href="portfolio.html#Leadership">Leadership</a>
+                    </div>
+                </div>
+                <div class="nav-contact-button-wrapper"> <a href="index.html#contact-me" class="action-button-orange">Contact Me</a> </div>
             </nav>
         </header>
     </header>
@@ -74,56 +105,6 @@
             </svg>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            console.log("GSAP test start");
-            const animatedSvg = document.querySelector('.logo-animated-svg');
-            const logoFallback = document.querySelector('.logo-fallback');
-
-            // Feature detection: Check if GSAP is loaded and if browser supports basic SVG animation
-            // A simple way is to check for GSAP, or more robustly, check for CSS transform support
-            if (typeof gsap !== 'undefined' && animatedSvg.getBoundingClientRect) { // Simple check for GSAP and basic rendering
-                // If supported, hide fallback and show animated SVG
-                logoFallback.style.display = 'none';
-                animatedSvg.style.display = 'block'; // Or 'inline-block' depending on desired layout
-
-                // Ensure 'g' elements are visible for animation
-                gsap.set('.site-logo-container svg g', { // Target g elements specifically within the hero SVG
-                    autoAlpha: 1
-                });
-                
-                // Main logo animation timeline
-                const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: 1.8 }});
-                t1
-                    .from('.site-logo-container #DOM .cls-1', { // Target new class and IDs
-                        yPercent: 260,
-                        stagger: 0.03,
-                        scaleY: 0.5,
-                        opacity: 0
-                    }, "-=0.5") // Start slightly before previous
-                    .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
-                        yPercent: -200,
-                        stagger: 0.03,
-                        scaleY: 0.9,
-                        opacity: 0
-                    })
-                    .from('.site-logo-container #Circles', { // Target new class and IDs
-                        opacity: 0,
-                        duration: 0.5
-                    }, "-=0.3") // Start slightly before previous
-                    .from('.site-logo-container #Symbols', { // Target new class and IDs
-                        opacity: 0,
-                        duration: 0.5
-                    }, "-=0.3"); // Start slightly before previous
-            } else {
-                // If not supported, ensure fallback is visible and animated SVG is hidden
-                logoFallback.style.display = 'block'; // Or 'inline-block'
-                animatedSvg.style.display = 'none';
-            }   
-                // Removed the problematic gsap.to('svg', { scale: 1.8, duration: 4 })
-            });
-    </script>
 
     <main class="main-content">
         <section class="hero">
@@ -151,22 +132,118 @@
         <section class="social-links-footer" id="contact-me"> <a href="https://www.linkedin.com/in/dominick-colosimo/"><img src="LinkedIn_icon.svg" height=50px></a> <a href="https://www.github.com/IGor-Fronkensteen"><img src="Octicons-mark-github.svg" height=50px></a>
         </section>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        const hamburger = document.querySelector(".hamburger-menu-toggle"); // Updated to new class name
-        const navLinks = document.getElementById("mainNavLinks"); // Updated to new ID
-
-        hamburger.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
-            hamburger.classList.toggle("active"); // Optional: for animation
-        });
-
-        navLinks.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                if (navLinks.classList.contains("active")) {
-                    navLinks.classList.remove("active");
-                    hamburger.classList.remove("active");
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("GSAP test start");
+    
+            // --- Logo Animation and Fallback Logic ---
+            const animatedSvg = document.querySelector('.logo-animated-svg');
+            const logoFallback = document.querySelector('.logo-fallback');
+    
+            // Feature detection: Check if GSAP is loaded and if browser supports basic SVG animation
+            if (typeof gsap !== 'undefined' && animatedSvg) { // Check for animatedSvg to exist
+                // If supported, hide fallback and show animated SVG
+                logoFallback.style.display = 'none';
+                animatedSvg.style.display = 'block'; // Or 'inline-block' depending on desired layout
+    
+                // Ensure 'g' elements are visible for animation
+                gsap.set('.site-logo-container svg g', {
+                    autoAlpha: 1
+                });
+                
+                // Main logo animation timeline
+                const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: 1.8 }});
+                t1
+                    .from('.site-logo-container #DOM .cls-1', {
+                        yPercent: 260,
+                        stagger: 0.03,
+                        scaleY: 0.5,
+                        opacity: 0
+                    }, "-=0.5")
+                    .from('.site-logo-container #colosimo .cls-1', {
+                        yPercent: -200,
+                        stagger: 0.03,
+                        scaleY: 0.9,
+                        opacity: 0
+                    })
+                    .from('.site-logo-container #Circles', {
+                        opacity: 0,
+                        duration: 0.5
+                    }, "-=0.3")
+                    .from('.site-logo-container #Symbols', {
+                        opacity: 0,
+                        duration: 0.5
+                    }, "-=0.3");
+            } else {
+                // If not supported, ensure fallback is visible and animated SVG is hidden
+                logoFallback.style.display = 'block';
+                if (animatedSvg) { // Check if animatedSvg exists before trying to hide it
+                    animatedSvg.style.display = 'none';
                 }
-            });
+            }
+    
+            // === Dark/Light Mode Toggle JavaScript ===
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            // Only proceed if the theme toggle button exists (it's optional in HTML)
+            if (themeToggleBtn) {
+                const darkModeIcon = document.querySelector('#theme-toggle .icon-dark-mode');
+                const lightModeIcon = document.querySelector('#theme-toggle .icon-light-mode');
+    
+                // Check for saved preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    document.body.classList.add(savedTheme);
+                    if (savedTheme === 'light-mode') {
+                        if (darkModeIcon) darkModeIcon.style.display = 'none';
+                        if (lightModeIcon) lightModeIcon.style.display = 'inline';
+                    } else {
+                        if (darkModeIcon) darkModeIcon.style.display = 'inline';
+                        if (lightModeIcon) lightModeIcon.style.display = 'none';
+                    }
+                } else {
+                    // Default to dark mode (your current theme) if no preference saved
+                    document.body.classList.remove('light-mode');
+                    if (darkModeIcon) darkModeIcon.style.display = 'inline';
+                    if (lightModeIcon) lightModeIcon.style.display = 'none';
+                }
+    
+                // Add event listener for the toggle button
+                themeToggleBtn.addEventListener('click', () => {
+                    if (document.body.classList.contains('light-mode')) {
+                        document.body.classList.remove('light-mode');
+                        localStorage.setItem('theme', 'dark-mode');
+                        if (darkModeIcon) darkModeIcon.style.display = 'inline';
+                        if (lightModeIcon) lightModeIcon.style.display = 'none';
+                    } else {
+                        document.body.classList.add('light-mode');
+                        localStorage.setItem('theme', 'light-mode');
+                        if (darkModeIcon) darkModeIcon.style.display = 'none';
+                        if (lightModeIcon) lightModeIcon.style.display = 'inline';
+                    }
+                });
+            }
+    
+    
+            // === Hamburger Menu JavaScript ===
+            const hamburger = document.querySelector(".hamburger-menu-toggle");
+            const navLinks = document.getElementById("mainNavLinks");
+    
+            if (hamburger && navLinks) { // Ensure both elements exist before adding listeners
+                hamburger.addEventListener("click", () => {
+                    navLinks.classList.toggle("active");
+                    hamburger.classList.toggle("active");
+                });
+    
+                navLinks.querySelectorAll("a").forEach(link => {
+                    link.addEventListener("click", () => {
+                        if (navLinks.classList.contains("active")) {
+                            navLinks.classList.remove("active");
+                            hamburger.classList.remove("active");
+                        }
+                    });
+                });
+            }
         });
     </script>
 </body>

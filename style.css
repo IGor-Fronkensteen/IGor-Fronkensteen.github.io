@@ -12,7 +12,7 @@
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
-    box-sizing: border-box; /* Ensures consistent box model */
+    box-sizing: border-box; /* Ensures consistent box model for all elements */
 }
 
 html {
@@ -52,19 +52,19 @@ a:hover {
 
 /* --- Logo & Chalkboard Hero Section --- */
 .chalkboard-hero { /* Renamed from .moreganoooo */
-    max-width: 750px;
-    margin: 20px auto;
+    max-width: 1200px;
+    margin: 50px auto;
     background-color: #38404B; /* Dark slate grey chalkboard color */
     border: 3px solid #A9A9A9; /* Metallic grey border */
     border-radius: 7px;
-    padding: 80px;
+    padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     overflow: hidden; /* Hide anything that spills outside the border */
 
-    /* NEW: Aspect ratio property for the container */
+    /* Aspect ratio property for the container */
     height: auto; /* Ensure height is auto to be controlled by aspect-ratio */
-    aspect-ratio: 16 / 9; /* MAINTAIN 16:9 ASPECT RATIO */
-    min-height: unset; /* Remove the min-height that was manually added and conflicting */
+    aspect-ratio: 16 / 9; /* Maintain 16:9 aspect ratio */
+    min-height: unset; /* Remove conflicting min-height */
 
     /* Flexbox for centering its *only* child (.site-logo-container) */
     display: flex;
@@ -72,7 +72,7 @@ a:hover {
     align-items: center; /* Vertically center */
 }
 
-.site-logo-container { /* This div is now correctly used in HTML */
+.site-logo-container { /* Renamed from .logo */
     display: flex; /* Flexbox for centering its inner SVG */
     align-items: center; /* Vertically center SVG inside .site-logo-container */
     justify-content: center; /* Horizontally center SVG inside .site-logo-container */
@@ -87,11 +87,10 @@ a:hover {
     width: auto; /* Allow width to scale proportionally based on aspect ratio */
     height: auto; /* Allow height to scale proportionally based on aspect ratio */
     display: block; /* Important for reliable sizing */
-    /* Remove any specific 'width: clamp(...)' from here */
 }
 
 /* SVG internal elements (specific to your logo's SVG content) */
-.site-logo-container svg g { /* Target g elements within the logo SVG */
+.site-logo-container svg g {
     /* original: overflow: hidden; visibility: hidden; - GSAP handles autoAlpha, can be removed if not animating */
 }
 
@@ -209,7 +208,6 @@ a:hover {
 }
 
 
-
 /* --- Footer & Social Links --- */
 .social-links-footer { /* Renamed from .confusedfoot */
     display: flex;
@@ -298,77 +296,48 @@ a:hover {
 .pastel-accent4 { color: #FAC898; font-weight: bold; } /* Orange */
 .pastel-accent4:hover { color: #FAAE66; text-decoration: underline; }
 
+
 /* --- Navbar (Header) --- */
-.main-header {
+.main-header { /* Renamed from .headerfull */
     display: flex;
-    justify-content: space-between;
-    align-items: center; /* This correctly centers header-left and header-right */
-    position: fixed;
+    justify-content: space-between; /* Space logo and nav/hamburger */
+    align-items: center; /* Vertically center items */
+    position: fixed; /* Fixed at top */
     top: 0;
     left: 0;
     width: 100%;
     background-color: #262626;
-    z-index: 100;
-    padding: 15px 20px;
+    z-index: 100; /* High z-index to ensure it's on top */
+    padding: 15px 20px; /* Reduced horizontal padding from 30px to 20px */
 }
 
-.header-left {
+.header-left { /* Renamed from .header1 */
     display: flex;
     justify-content: flex-start;
     align-items: center; /* Vertically align content inside header-left */
     padding: 0;
 }
-
-.header-left .site-logo-text {
+.header-left .site-logo-text { /* Renamed from .hbutt (if used for "Home" text) or .site-logo */
     font-size: 24px;
     padding: 0;
-    color: #fff;
-    text-decoration: none;
+    color: #fff; /* Ensure text is white */
+    text-decoration: none; /* Remove underline */
     line-height: 1; /* Helps reduce inherent text spacing */
-    display: flex; /* Makes the link a flex container */
-    align-items: center; /* Centers text vertically within the link */
-    justify-content: center; /* Centers text horizontally within the link */
+    display: flex; /* Make the link itself a flex container */
+    align-items: center; /* Vertically center its content (the text) */
+    justify-content: center; /* Horizontally center its content (the text) */
 }
-
 .header-left .site-logo-text:hover {
-    background-color: rgba(119, 119, 119, 1);
+    background-color: rgba(119, 119, 119, 1); /* Hover effect from old .hbutt */
 }
 
-.header-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center; /* This vertically centers children *within* header-right */
-    flex-grow: 1;
-    gap: 15px;
+.header-right { /* Renamed from .header2 */
+    display: flex; /* Show as flex container on large screens */
+    justify-content: flex-end; /* Push content (nav-links & hidden hamburger) to the right */
+    align-items: center; /* Vertically align content */
+    flex-grow: 1; /* Allow header-right to take available space */
+    gap: 15px; /* Space between main nav items */
 }
-
-/* NEW: Reset default vertical margins/padding on direct children of header-right */
-/* This is crucial because <button> and <nav> can have default browser styles */
-.header-right > .hamburger-menu-toggle,
-.header-right > .main-nav-links {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    /* You may also want to explicitly set line-height: 1; on elements inside .main-nav-links */
-}
-
-/* Ensure the links inside main-nav-links also have controlled padding/line-height */
-.main-nav-links .nav-link-item > a {
-    /* Existing styles: color, text-decoration, padding, border-radius, font-size */
-    /* Ensure no extra default vertical padding or line-height is pushing them */
-    line-height: 1.2; /* Adjust as needed, but keep it tight */
-    display: flex; /* Make the link a flex container */
-    align-items: center; /* Vertically center content */
-}
-
-.main-nav-links .nav-link-item {
-    /* This rule has padding-bottom and margin-bottom for the dropdown hover "bridge" */
-    padding-bottom: 20px;
-    margin-bottom: -10px;
-    /* Ensure these are the only sources of vertical space for the nav-link-item itself */
-}
-
 
 /* Primary Navigation Links Container - Default (Large Screens): SHOW */
 .main-nav-links { /* Renamed from .nav-links */
@@ -382,16 +351,23 @@ a:hover {
 .main-nav-links .nav-link-item { /* Renamed from .dropdown (for consistency if you change dropdown to flex items) */
     position: relative;
     display: inline-block; /* For dropdown functionality */
-    /* Add padding for hover area bridge */
-    padding-bottom: 20px;
-    margin-bottom: -10px;
+    /* REMOVED: padding-bottom: 20px; and margin-bottom: -10px; */
+    padding-bottom: 0; /* Explicitly reset this from previous attempts */
+    margin-bottom: 0; /* Explicitly reset this from previous attempts */
 }
-.main-nav-links .nav-link-item > a { /* Style for main nav links (e.g., About Me, Resume) */
+
+/* Style for main nav links (e.g., About Me, Resume) */
+.main-nav-links .nav-link-item > a {
     color: #fff;
     text-decoration: none;
-    padding: 10px;
+    padding: 10px; /* Keep padding for visual size of the link */
     border-radius: 10px;
     font-size: 16px;
+    height: 40px; /* NEW: Explicit fixed height for consistency */
+    display: flex; /* NEW: Make the link itself a flex container */
+    align-items: center; /* NEW: Vertically center text within link */
+    justify-content: center; /* NEW: Horizontally center text within link */
+    line-height: 1; /* NEW: Remove extra text line height */
 }
 .main-nav-links .nav-link-item > a:hover {
     background-color: rgba(255, 255, 255, 0.2);
@@ -409,8 +385,14 @@ a:hover {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4); /* Stronger shadow */
     border: 2px solid #fff; /* White border */
     z-index: 101; /* Above main header */
-    margin-top: 0; /* No space below main nav item, tight to link */
+    margin-top: 0px; /* Ensure no extra space pushes it away */
 }
+/* Show dropdown on hover */
+.main-nav-links .nav-link-item:hover .dropdown-content {
+    display: block;
+}
+
+/* Updated background color to be pastel */
 .dropdown-content a {
     color: #fff; /* White text for dropdown links */
     padding: 12px 16px;
@@ -419,14 +401,8 @@ a:hover {
     white-space: nowrap; /* Prevent text wrapping in dropdown items */
 }
 .dropdown-content a:hover {
-    /* Updated background color to be pastel */
     background-color: rgba(135, 206, 234, 0.2); /* Light transparent pastel blue */
     color: #87CEEA; /* Change text color on hover for dropdown */
-}
-
-/* Show dropdown on hover */
-.main-nav-links .nav-link-item:hover .dropdown-content { /* Target specifically the hover on the nav link item */
-    display: block;
 }
 
 
@@ -450,6 +426,19 @@ a:hover {
     background-color: #fff;
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
+}
+
+/* Add gap specifically for the Contact button wrapper in the navbar */
+.nav-contact-button-wrapper {
+    margin-left: 15px; /* Creates the desired gap to its left */
+    flex-shrink: 0; /* Ensures it doesn't shrink unnecessarily */
+}
+.nav-contact-button-wrapper .action-button-orange { /* Target the button inside the wrapper */
+    height: 40px; /* NEW: Match the height of main nav links */
+    display: flex; /* NEW: Make the button's content centered */
+    align-items: center;
+    justify-content: center;
+    line-height: 1; /* NEW: Remove extra text line height */
 }
 
 
@@ -480,14 +469,6 @@ a:hover {
         gap: 0; /* Remove gap when items are stacked/toggled */
         justify-content: flex-end;
         align-items: center;
-    }
-
-    .header-right > .hamburger-menu-toggle,
-    .header-right > .main-nav-links {
-        margin-top: 0;
-        margin-bottom: 0;
-        padding-top: 0;
-        padding-bottom: 0;
     }
 
     /* Primary Navigation Links Container - Mobile: HIDDEN by default, STACKED when active */
@@ -528,25 +509,11 @@ a:hover {
         margin: 10px 0; /* Vertical margin between stacked nav items */
     }
     .main-nav-links .nav-link-item > a {
-        padding: 12px 16px; /* Adjust padding for mobile main nav links */
+        height: auto; /* Allow height to be natural on mobile when stacked */
+        padding: 12px 16px; /* Keep mobile padding */
     }
-
-    .dropdown-content { /* Adjust dropdown content behavior when menu is stacked */
-        position: static; /* Make dropdown content flow naturally within the stacked menu */
-        background-color: transparent; /* No distinct background for sub-menus */
-        box-shadow: none;
-        border: none;
-        min-width: unset;
-        width: 100%;
-        margin-left: 0;
-        padding-top: 5px; /* Space between main link and sub-links */
-    }
-    .dropdown-content a {
-        padding: 8px 16px;
-        color: #ddd;
-    }
-    .dropdown-content a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+    .nav-contact-button-wrapper .action-button-orange {
+        height: auto; /* Allow height to be natural on mobile when stacked */
     }
 
     /* Tagline font size reduction */

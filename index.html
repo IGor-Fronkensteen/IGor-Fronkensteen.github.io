@@ -8,60 +8,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <header class="main-header"> <header class="header-left"> <div>
-                <a href="index.html" class="nav-home-button site-logo-text">Home</a> </div>
+    <header class="main-header">
+        <header class="header-left">
+            <div>
+                <a href="index.html" class="nav-home-button site-logo-text">Home</a>
+            </div>
         </header>
-        <header class="header-right"> <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu"> <span class="bar"></span>
+        <header class="header-right">
+            <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
-            <nav class="main-nav-links" id="mainNavLinks"> <div class="nav-link-item dropdown"> <a href="aboutme.html">About Me</a>
-                    <div class="dropdown-content">
-                        <a href="aboutme.html#Background">Background</a>
-                        <a href="aboutme.html#Education">Education</a>
-                        <a href="aboutme.html#PersonalInterests">Interests</a>
-                        <a href="aboutme.html#Testimonials">Testimonials</a>
-                    </div>
-                </div>
-                <div class="nav-link-item dropdown"> <a href="resume.html">Resume</a>
-                    <div class="dropdown-content">
-                        <a href="resume.html#Summary">Summary</a>
-                        <a href="resume.html#Resume">Resume</a>
-                        <a href="resume.html#CV">C.V.</a>
-                        <a href="resume.html#References">References</a>
-                    </div>
-                </div>
-                <div class="nav-link-item dropdown"> <a href="interests.html">Interests</a>
-                    <div class="dropdown-content">
-                        <a href="interests.html#Professional">Professional</a>
-                        <a href="interests.html#Science">Science</a>
-                        <a href="interests.html#Cooking">Cooking</a>
-                        <a href="interests.html#Music">Music</a>
-                    </div>
-                </div>
-                <div class="nav-link-item dropdown"> <a href="portfolio.html">Portfolio</a>
-                    <div class="dropdown-content">
-                        <a href="portfolio.html#DataManagement">Data Management</a>
-                        <a href="portfolio.html#DataScience">Data Mining</a>
-                        <a href="portfolio.html#DataVisualization">Data Viz</a>
-                        <a href="portfolio.html#Leadership">Leadership</a>
-                    </div>
-                </div>
-                <div class="nav-contact-button-wrapper"> <a href="index.html#contact-me" class="action-button-orange">Contact Me</a> </div>
+            <nav class="main-nav-links" id="mainNavLinks">
+                <a href="aboutme.html">About Me</a>
+                <a href="resume.html">Resume</a>
+                <a href="interests.html">Interests</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="index.html#contact-me" class="action-button-orange">Contact Me</a>
             </nav>
         </header>
     </header>
 
     <div class="chalkboard-hero">
-        <div class="site-logo-container"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1791.74 625.53">
-              <defs>
+        <div class="site-logo-container">
+            <img src="DomLogo_v2_white.svg" alt="Dom Colosimo Logo" class="logo-fallback">
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1791.74 625.53" class="logo-animated-svg"> <defs>
                 <style>
-                  .cls-1 {
-                    fill: #fff;
-                    stroke-width: 0px;
-                  }
+                  .cls-1 { fill: #fff; stroke-width: 0px; }
                 </style>
-                </defs>
+              </defs>
               <g id="DOM">
                 <g>
                   <path class="cls-1" d="M88.43,253.48V44.38h161.57c40.18,0,75.68,6.7,106.55,20.09,30.85,13.4,56.91,32.03,78.17,55.9,21.25,23.88,37.4,52.27,48.47,85.15,5.15,15.32,9.08,31.31,11.84,47.96h45c-3.05-20.72-7.72-40.79-14.04-60.19-12.23-37.56-30.57-70.31-55.02-98.25-24.45-27.95-55.17-50.07-92.14-66.38-36.98-16.29-79.91-24.45-128.82-24.45H43.89v249.27h44.54Z"/>
@@ -101,38 +78,51 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             console.log("GSAP test start");
+            const animatedSvg = document.querySelector('.logo-animated-svg');
+            const logoFallback = document.querySelector('.logo-fallback');
 
-            // Ensure 'g' elements are visible for animation
-            gsap.set('.site-logo-container svg g', { // Target g elements specifically within the hero SVG
-                autoAlpha: 1
+            // Feature detection: Check if GSAP is loaded and if browser supports basic SVG animation
+            // A simple way is to check for GSAP, or more robustly, check for CSS transform support
+            if (typeof gsap !== 'undefined' && animatedSvg.getBoundingClientRect) { // Simple check for GSAP and basic rendering
+                // If supported, hide fallback and show animated SVG
+                logoFallback.style.display = 'none';
+                animatedSvg.style.display = 'block'; // Or 'inline-block' depending on desired layout
+
+                // Ensure 'g' elements are visible for animation
+                gsap.set('.site-logo-container svg g', { // Target g elements specifically within the hero SVG
+                    autoAlpha: 1
+                });
+                
+                // Main logo animation timeline
+                const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: 1.8 }});
+                t1
+                    .from('.site-logo-container #DOM .cls-1', { // Target new class and IDs
+                        yPercent: 260,
+                        stagger: 0.03,
+                        scaleY: 0.5,
+                        opacity: 0
+                    }, "-=0.5") // Start slightly before previous
+                    .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
+                        yPercent: -200,
+                        stagger: 0.03,
+                        scaleY: 0.9,
+                        opacity: 0
+                    })
+                    .from('.site-logo-container #Circles', { // Target new class and IDs
+                        opacity: 0,
+                        duration: 0.5
+                    }, "-=0.3") // Start slightly before previous
+                    .from('.site-logo-container #Symbols', { // Target new class and IDs
+                        opacity: 0,
+                        duration: 0.5
+                    }, "-=0.3"); // Start slightly before previous
+            } else {
+                // If not supported, ensure fallback is visible and animated SVG is hidden
+                logoFallback.style.display = 'block'; // Or 'inline-block'
+                animatedSvg.style.display = 'none';
+            }   
+                // Removed the problematic gsap.to('svg', { scale: 1.8, duration: 4 })
             });
-
-            // Main logo animation timeline
-            const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: 1.8 }});
-            t1
-                .from('.site-logo-container #DOM .cls-1', { // Target new class and IDs
-                    yPercent: 260,
-                    stagger: 0.03,
-                    scaleY: 0.5,
-                    opacity: 0
-                }, "-=0.5") // Start slightly before previous
-                .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
-                    yPercent: -200,
-                    stagger: 0.03,
-                    scaleY: 0.9,
-                    opacity: 0
-                })
-                .from('.site-logo-container #Circles', { // Target new class and IDs
-                    opacity: 0,
-                    duration: 0.5
-                }, "-=0.3") // Start slightly before previous
-                .from('.site-logo-container #Symbols', { // Target new class and IDs
-                    opacity: 0,
-                    duration: 0.5
-                }, "-=0.3"); // Start slightly before previous
-
-            // Removed the problematic gsap.to('svg', { scale: 1.8, duration: 4 })
-        });
     </script>
 
     <main class="main-content">

@@ -52,40 +52,40 @@ a:hover {
 
 /* --- Logo & Chalkboard Hero Section --- */
 .chalkboard-hero { /* Renamed from .moreganoooo */
-    max-width: 1200px;
-    margin: 50px auto;
+    max-width: 750px;
+    margin: 20px auto;
     background-color: #38404B; /* Dark slate grey chalkboard color */
     border: 3px solid #A9A9A9; /* Metallic grey border */
     border-radius: 7px;
-    padding: 20px;
+    padding: 80px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     overflow: hidden; /* Hide anything that spills outside the border */
 
-    /* Aspect ratio container */
-    position: relative;
-    height: 0; /* Critical for aspect ratio trick */
-    padding-bottom: 33.33%; /* 3:1 aspect ratio (height is 33.33% of width) */
+    /* NEW: Aspect ratio property for the container */
+    height: auto; /* Ensure height is auto to be controlled by aspect-ratio */
+    aspect-ratio: 16 / 9; /* MAINTAIN 16:9 ASPECT RATIO */
+    min-height: unset; /* Remove the min-height that was manually added and conflicting */
 
-    /* Flexbox for centering the logo */
+    /* Flexbox for centering its *only* child (.site-logo-container) */
     display: flex;
     justify-content: center; /* Horizontally center */
     align-items: center; /* Vertically center */
 }
 
-.site-logo-container { /* Renamed from .logo */
+.site-logo-container { /* This div is now correctly used in HTML */
     display: flex; /* Flexbox for centering its inner SVG */
-    align-items: center; /* Vertically center SVG inside .logo */
-    justify-content: center; /* Horizontally center SVG inside .logo */
+    align-items: center; /* Vertically center SVG inside .site-logo-container */
+    justify-content: center; /* Horizontally center SVG inside .site-logo-container */
     width: 100%; /* Make .site-logo-container fill the width of chalkboard-hero */
     height: 100%; /* Make .site-logo-container fill the height of chalkboard-hero */
-    padding: 0; /* Remove any padding that might push SVG out */
+    padding: 0;
 }
 
-.site-logo-container svg { /* Target SVG directly within the new logo container */
-    max-width: 100%; /* SVG must not exceed its parent's width */
-    max-height: 100%; /* SVG must not exceed its parent's height */
-    width: 300px; /* Provide a reasonable default width for the SVG */
-    height: auto; /* Maintain aspect ratio based on this width */
+.site-logo-container svg { /* Target SVG directly within this container */
+    max-width: 80%; /* SVG must not exceed its parent's width */
+    max-height: 80%; /* SVG must not exceed its parent's height */
+    width: auto; /* Allow width to scale proportionally based on aspect ratio */
+    height: auto; /* Allow height to scale proportionally based on aspect ratio */
     display: block; /* Important for reliable sizing */
     /* Remove any specific 'width: clamp(...)' from here */
 }
@@ -298,44 +298,77 @@ a:hover {
 .pastel-accent4 { color: #FAC898; font-weight: bold; } /* Orange */
 .pastel-accent4:hover { color: #FAAE66; text-decoration: underline; }
 
-
 /* --- Navbar (Header) --- */
-.main-header { /* Renamed from .headerfull */
+.main-header {
     display: flex;
-    justify-content: space-between; /* Space logo and nav/hamburger */
-    align-items: center; /* Vertically center items */
-    position: fixed; /* Fixed at top */
+    justify-content: space-between;
+    align-items: center; /* This correctly centers header-left and header-right */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #262626;
-    z-index: 100; /* High z-index to ensure it's on top */
-    padding: 15px 20px; /* Reduced horizontal padding from 30px to 20px */
+    z-index: 100;
+    padding: 15px 20px;
 }
 
-.header-left { /* Renamed from .header1 */
+.header-left {
     display: flex;
     justify-content: flex-start;
+    align-items: center; /* Vertically align content inside header-left */
     padding: 0;
 }
-.header-left .site-logo-text { /* Renamed from .hbutt (if used for "Home" text) or .site-logo */
+
+.header-left .site-logo-text {
     font-size: 24px;
     padding: 0;
-    color: #fff; /* Ensure text is white */
-    text-decoration: none; /* Remove underline */
+    color: #fff;
+    text-decoration: none;
+    line-height: 1; /* Helps reduce inherent text spacing */
+    display: flex; /* Makes the link a flex container */
+    align-items: center; /* Centers text vertically within the link */
+    justify-content: center; /* Centers text horizontally within the link */
 }
+
 .header-left .site-logo-text:hover {
-    background-color: rgba(119, 119, 119, 1); /* Hover effect from old .hbutt */
+    background-color: rgba(119, 119, 119, 1);
 }
 
-
-.header-right { /* Renamed from .header2 */
-    display: flex; /* Show as flex container on large screens */
-    justify-content: flex-end; /* Push content (nav-links & hidden hamburger) to the right */
-    align-items: center; /* Vertically align content */
-    flex-grow: 1; /* Allow header-right to take available space */
-    gap: 15px; /* Space between main nav items */
+.header-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; /* This vertically centers children *within* header-right */
+    flex-grow: 1;
+    gap: 15px;
 }
+
+/* NEW: Reset default vertical margins/padding on direct children of header-right */
+/* This is crucial because <button> and <nav> can have default browser styles */
+.header-right > .hamburger-menu-toggle,
+.header-right > .main-nav-links {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    /* You may also want to explicitly set line-height: 1; on elements inside .main-nav-links */
+}
+
+/* Ensure the links inside main-nav-links also have controlled padding/line-height */
+.main-nav-links .nav-link-item > a {
+    /* Existing styles: color, text-decoration, padding, border-radius, font-size */
+    /* Ensure no extra default vertical padding or line-height is pushing them */
+    line-height: 1.2; /* Adjust as needed, but keep it tight */
+    display: flex; /* Make the link a flex container */
+    align-items: center; /* Vertically center content */
+}
+
+.main-nav-links .nav-link-item {
+    /* This rule has padding-bottom and margin-bottom for the dropdown hover "bridge" */
+    padding-bottom: 20px;
+    margin-bottom: -10px;
+    /* Ensure these are the only sources of vertical space for the nav-link-item itself */
+}
+
 
 /* Primary Navigation Links Container - Default (Large Screens): SHOW */
 .main-nav-links { /* Renamed from .nav-links */
@@ -449,6 +482,14 @@ a:hover {
         align-items: center;
     }
 
+    .header-right > .hamburger-menu-toggle,
+    .header-right > .main-nav-links {
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
     /* Primary Navigation Links Container - Mobile: HIDDEN by default, STACKED when active */
     .main-nav-links { /* Renamed from .nav-links */
         display: none; /* Crucial: HIDE NAV LINKS ON MOBILE BY DEFAULT */
@@ -512,9 +553,9 @@ a:hover {
     .tagline1 {
         font-size: 2rem; /* Reduce font size for smaller screens */
     }
-    .tagline { /* If tagline ever becomes used */
-        font-size: 2rem;
-    }
+    /* .tagline { /* If tagline ever becomes used */
+    /* font-size: 2rem; */
+    /* } */
 }
 
 

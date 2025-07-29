@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dom Colosimo - My Site</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <header class="main-header"> <header class="header-left"> <div>
@@ -46,14 +47,13 @@
                         <a href="portfolio.html#Leadership">Leadership</a>
                     </div>
                 </div>
-                <div> <a href="index.html#contact-me" class="action-button-orange">Contact Me</a> </div>
+                <div class="nav-contact-button-wrapper"> <a href="index.html#contact-me" class="action-button-orange">Contact Me</a> </div>
             </nav>
         </header>
     </header>
 
     <div class="chalkboard-hero">
-        <div class="site-logo-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1791.74 625.53">
+        <div class="site-logo-container"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1791.74 625.53">
               <defs>
                 <style>
                   .cls-1 {
@@ -61,28 +61,7 @@
                     stroke-width: 0px;
                   }
                 </style>
-                <filter id="red-glow" filterUnits="userSpaceOnUse"
-                            x="-50%" y="-50%" width="200%" height="200%">
-                       <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur5"/>
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur10"/>
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur20"/>
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="blur30"/>
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="50" result="blur50"/>
-                      <feMerge result="blur-merged">
-                        <feMergeNode in="blur10"/>
-                        <feMergeNode in="blur20"/>
-                        <feMergeNode in="blur30"/>
-                        <feMergeNode in="blur50"/>
-                      </feMerge>
-                      <feColorMatrix result="red-blur" in="blur-merged" type="matrix"
-                                     values="1 0 0 0 0
-                                             0 0.06 0 0 0
-                                             0 0 0.44 0 0
-                                             0 0 0 1 0" />
-                      <feMerge>
-                        <feMergeNode in="red-blur"/>       <feMergeNode in="blur5"/>          <feMergeNode in="SourceGraphic"/>  </feMerge>
-                </filter>
-              </defs>
+                </defs>
               <g id="DOM">
                 <g>
                   <path class="cls-1" d="M88.43,253.48V44.38h161.57c40.18,0,75.68,6.7,106.55,20.09,30.85,13.4,56.91,32.03,78.17,55.9,21.25,23.88,37.4,52.27,48.47,85.15,5.15,15.32,9.08,31.31,11.84,47.96h45c-3.05-20.72-7.72-40.79-14.04-60.19-12.23-37.56-30.57-70.31-55.02-98.25-24.45-27.95-55.17-50.07-92.14-66.38-36.98-16.29-79.91-24.45-128.82-24.45H43.89v249.27h44.54Z"/>
@@ -120,36 +99,41 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: .7 }})
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("GSAP test start");
 
-        gsap.set('g', {
-            autoAlpha: 1
-        })
-        gsap.to('svg', {
-            scale: 1.8,
-            duration: 4
-        })
+            // Ensure 'g' elements are visible for animation
+            gsap.set('.site-logo-container svg g', { // Target g elements specifically within the hero SVG
+                autoAlpha: 1
+            });
 
-        t1
-            .from('#colosimo .cls-1', {
-            yPercent: -200,
-            stagger: .03,
-            scaleY: .9,
-            opacity: 0
-            })
-            .from('#DOM .cls-1', {
-            yPercent: 260,
-            stagger: .03,
-            scaleY: .5,
-            opacity: 0
-            })
-            .from('#Circles', {
-            opacity: 0,
-            })
-            .from('#Symbols', {
-            opacity: 0
-            })
-    </script>              
+            // Main logo animation timeline
+            const t1 = gsap.timeline({defaults: { ease: 'power4.out', duration: 0.7 }});
+            t1
+                .from('.site-logo-container #colosimo .cls-1', { // Target new class and IDs
+                    yPercent: -200,
+                    stagger: 0.03,
+                    scaleY: 0.9,
+                    opacity: 0
+                })
+                .from('.site-logo-container #DOM .cls-1', { // Target new class and IDs
+                    yPercent: 260,
+                    stagger: 0.03,
+                    scaleY: 0.5,
+                    opacity: 0
+                }, "-=0.5") // Start slightly before previous
+                .from('.site-logo-container #Circles', { // Target new class and IDs
+                    opacity: 0,
+                    duration: 0.5
+                }, "-=0.3") // Start slightly before previous
+                .from('.site-logo-container #Symbols', { // Target new class and IDs
+                    opacity: 0,
+                    duration: 0.5
+                }, "-=0.3"); // Start slightly before previous
+
+            // Removed the problematic gsap.to('svg', { scale: 1.8, duration: 4 })
+        });
+    </script>
 
     <main class="main-content">
         <section class="hero">

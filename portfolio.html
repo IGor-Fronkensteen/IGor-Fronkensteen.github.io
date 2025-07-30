@@ -67,6 +67,63 @@
             <p>Some of my best work was completed during my last job at mIQroTech, where I worked on several interesting projects that showcase my ability to merge <em>physical</em> science with <em>data</em> science to produce <em>insights</em>. Unfortunately, due to the nature of the work, presence of non-disclosure agreements, and exposure to trade secrets, I cannot share any of the work that I completed there. However, I am willing to mention a few of the basic concepts that I employed to solve problems.</p>
             </div>
         </section>
+        <section class="content-section section-theme-orange">
+            <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
+            <script type="module">
+              import 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Profiles/Volume.js';
+              import vtkGenericRenderWindow from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Misc/GenericRenderWindow.js';
+              import vtkHttpDataSetReader from 'https://unpkg.com/@kitware/vtk.js@27.31.0/IO/Core/HttpDataSetReader.js';
+              import vtkVolume from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Core/Volume.js';
+              import vtkVolumeMapper from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Core/VolumeMapper.js';
+              import vtkColorTransferFunction from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Core/ColorTransferFunction.js';
+              import vtkPiecewiseFunction from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Common/DataModel/PiecewiseFunction.js';
+            
+              const container = document.getElementById('vtk-viewer');
+              const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
+              genericRenderWindow.setContainer(container);
+              genericRenderWindow.resize();
+            
+              const renderer = genericRenderWindow.getRenderer();
+              const renderWindow = genericRenderWindow.getRenderWindow();
+            
+              const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
+              reader.setUrl('canonical_07.vti').then(() => {
+                reader.loadData().then(() => {
+                  const imageData = reader.getOutputData();
+            
+                  const mapper = vtkVolumeMapper.newInstance();
+                  mapper.setInputData(imageData);
+            
+                  const actor = vtkVolume.newInstance();
+                  actor.setMapper(mapper);
+            
+                  const ctfun = vtkColorTransferFunction.newInstance();
+                  const ofun = vtkPiecewiseFunction.newInstance();
+            
+                  ctfun.addRGBPoint(0.0, 0.0, 0.0, 1.0);    // blue
+                  ctfun.addRGBPoint(127.5, 1.0, 1.0, 1.0);  // white
+                  ctfun.addRGBPoint(255.0, 1.0, 0.0, 0.0);  // red
+            
+                  ofun.addPoint(0.0, 0.0);
+                  ofun.addPoint(255.0, 0.8);
+            
+                  actor.getProperty().setRGBTransferFunction(0, ctfun);
+                  actor.getProperty().setScalarOpacity(0, ofun);
+                  actor.getProperty().setScalarOpacityUnitDistance(0, 2.5);
+                  actor.getProperty().setInterpolationTypeToLinear();
+                  actor.getProperty().setShade(true);
+                  actor.getProperty().setAmbient(0.2);
+                  actor.getProperty().setDiffuse(0.7);
+                  actor.getProperty().setSpecular(0.3);
+                  actor.getProperty().setSpecularPower(8.0);
+            
+                  renderer.addVolume(actor);
+                  renderer.resetCamera();
+                  renderWindow.render();
+                });
+              });
+            </script>
+        </section>
         <section class="content-section section-theme-orange" id="DataScience">
             <h2>Data Science</h2>
             <h3>Fourier Analysis</h3>

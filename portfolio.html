@@ -87,6 +87,7 @@
         <section class="content-section section-theme-orange">
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
             <script type="module">
+              import '@kitware/vtk.js/Rendering/OpenGL'; // Force WebGL backend to register
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
               import vtkHttpDataSetReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/HttpDataSetReader';
               import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';

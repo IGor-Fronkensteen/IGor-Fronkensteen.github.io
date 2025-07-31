@@ -88,64 +88,72 @@
               // Expose key VTK objects to the global window object for easy debugging
               let genericRenderWindow, renderer, renderWindow, reader, actor, ctfun, ofun, imageData;
 
-              const container = document.getElementById('vtk-viewer');
-              genericRenderWindow = vtk.Rendering.Misc.GenericRenderWindow.newInstance({ background: [0, 0, 0] });
-              genericRenderWindow.setContainer(container);
-              genericRenderWindow.resize();
+              // Wrap the VTK initialization code in a DOMContentLoaded listener
+              // This ensures that 'vtk' is defined and the DOM is ready.
+              document.addEventListener('DOMContentLoaded', () => {
+                const container = document.getElementById('vtk-viewer');
+                if (!container) {
+                    console.error("VTK Viewer container not found!");
+                    return;
+                }
 
-              renderer = genericRenderWindow.getRenderer();
-              renderWindow = genericRenderWindow.getRenderWindow();
+                genericRenderWindow = vtk.Rendering.Misc.GenericRenderWindow.newInstance({ background: [0, 0, 0] });
+                genericRenderWindow.setContainer(container);
+                // Adjust size here, or add a window resize listener if you want responsiveness
+                genericRenderWindow.resize();
 
-              reader = vtk.IO.Core.HttpDataSetReader.newInstance({ fetchGzip: true });
-              reader.setUrl('canonical_07.vti').then(() => {
-                reader.loadData().then(() => {
-                  imageData = reader.getOutputData();
-                  const scalarRange = imageData.getPointData().getScalars().getRange();
-                  console.log("VTK Data Scalar Range:", scalarRange); // THIS IS THE KEY DEBUG OUTPUT!
+                renderer = genericRenderWindow.getRenderer();
+                renderWindow = genericRenderWindow.getRenderWindow();
 
-                  const mapper = vtk.Rendering.Core.VolumeMapper.newInstance();
-                  mapper.setInputData(imageData);
+                reader = vtk.IO.Core.HttpDataSetReader.newInstance({ fetchGzip: true });
+                reader.setUrl('canonical_07.vti').then(() => {
+                  reader.loadData().then(() => {
+                    imageData = reader.getOutputData();
+                    const scalarRange = imageData.getPointData().getScalars().getRange();
+                    console.log("VTK Data Scalar Range:", scalarRange); // THIS IS THE KEY DEBUG OUTPUT!
 
-                  actor = vtk.Rendering.Core.Volume.newInstance();
-                  actor.setMapper(mapper);
+                    const mapper = vtk.Rendering.Core.VolumeMapper.newInstance();
+                    mapper.setInputData(imageData);
 
-                  ctfun = vtk.Rendering.Core.ColorTransferFunction.newInstance();
-                  ofun = vtk.Common.DataModel.PiecewiseFunction.newInstance();
+                    actor = vtk.Rendering.Core.Volume.newInstance();
+                    actor.setMapper(mapper);
 
-                  // IMPORTANT: These points are now dynamically set based on the ACTUAl scalarRange
-                  // from your VTI data.
-                  const minScalar = scalarRange[0];
-                  const maxScalar = scalarRange[1];
-                  const midScalar = (minScalar + maxScalar) / 2;
+                    ctfun = vtk.Rendering.Core.ColorTransferFunction.newInstance();
+                    ofun = vtk.Common.DataModel.PiecewiseFunction.newInstance();
 
-                  // Color Transfer Function
-                  ctfun.addRGBPoint(minScalar, 0.0, 0.0, 1.0);    // blue at min scalar
-                  ctfun.addRGBPoint(midScalar, 1.0, 1.0, 1.0); // white in middle
-                  ctfun.addRGBPoint(maxScalar, 1.0, 0.0, 0.0);    // red at max scalar
+                    const minScalar = scalarRange[0];
+                    const maxScalar = scalarRange[1];
+                    const midScalar = (minScalar + maxScalar) / 2;
 
-                  // Opacity Transfer Function - starting with a simple ramp to make it visible
-                  ofun.addPoint(minScalar, 0.0); // Transparent at min
-                  ofun.addPoint(maxScalar, 0.5); // 50% opaque at max (you can adjust this 0.5)
+                    // Color Transfer Function
+                    ctfun.addRGBPoint(minScalar, 0.0, 0.0, 1.0);    // blue at min scalar
+                    ctfun.addRGBPoint(midScalar, 1.0, 1.0, 1.0); // white in middle
+                    ctfun.addRGBPoint(maxScalar, 1.0, 0.0, 0.0);    // red at max scalar
 
-                  actor.getProperty().setRGBTransferFunction(0, ctfun);
-                  actor.getProperty().setScalarOpacity(0, ofun);
-                  actor.getProperty().setScalarOpacityUnitDistance(0, 2.5); // Adjust this if volume appears too thin/thick
-                  actor.getProperty().setInterpolationTypeToLinear();
-                  actor.getProperty().setShade(true);
-                  actor.getProperty().setAmbient(0.2);
-                  actor.getProperty().setDiffuse(0.7);
-                  actor.getProperty().setSpecular(0.3);
-                  actor.getProperty().setSpecularPower(8.0);
+                    // Opacity Transfer Function - starting with a simple ramp to make it visible
+                    ofun.addPoint(minScalar, 0.0); // Transparent at min
+                    ofun.addPoint(maxScalar, 0.5); // 50% opaque at max (you can adjust this 0.5)
 
-                  renderer.addVolume(actor);
-                  renderer.resetCamera();
-                  renderWindow.render();
+                    actor.getProperty().setRGBTransferFunction(0, ctfun);
+                    actor.getProperty().setScalarOpacity(0, ofun);
+                    actor.getProperty().setScalarOpacityUnitDistance(0, 2.5);
+                    actor.getProperty().setInterpolationTypeToLinear();
+                    actor.getProperty().setShade(true);
+                    actor.getProperty().setAmbient(0.2);
+                    actor.getProperty().setDiffuse(0.7);
+                    actor.getProperty().setSpecular(0.3);
+                    actor.getProperty().setSpecularPower(8.0);
+
+                    renderer.addVolume(actor);
+                    renderer.resetCamera();
+                    renderWindow.render();
+                  }).catch(error => {
+                    console.error("Error loading data or processing VTI:", error);
+                  });
                 }).catch(error => {
-                  console.error("Error loading data or processing VTI:", error);
+                  console.error("Error setting VTI URL:", error);
                 });
-              }).catch(error => {
-                console.error("Error setting VTI URL:", error);
-              });
+              }); // End of DOMContentLoaded listener
             </script>
         </section>
         <section class="content-section section-theme-orange" id="DataScience">

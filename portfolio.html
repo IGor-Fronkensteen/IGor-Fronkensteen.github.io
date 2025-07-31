@@ -6,6 +6,7 @@
     <title>Dom Colosimo - Portfolio</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="prism.js"></script>
+    <script src="https://unpkg.com/@kitware/vtk.js@27.31.0/dist/vtk.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
 </head>
@@ -83,7 +84,6 @@
         </section>
         <section class="content-section section-theme-orange">
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
-            <script src="https://unpkg.com/@kitware/vtk.js@27.31.0/dist/vtk.js"></script>
             <script>
               // Expose key VTK objects to the global window object for easy debugging
               let genericRenderWindow, renderer, renderWindow, reader, actor, ctfun, ofun, imageData;

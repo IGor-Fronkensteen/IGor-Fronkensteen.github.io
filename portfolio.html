@@ -124,8 +124,15 @@
             
                 const ctfun = vtkColorTransferFunction.newInstance();
                 const ofun = vtkPiecewiseFunction.newInstance();
-            
-                const range = imageData.getPointData().getScalars().getRange();
+
+                const imageData = reader.getOutputData(0);
+                const scalars = imageData.getPointData().getScalars();
+                if (!scalars) {
+                  console.error("No scalar data found in the VTI file.");
+                  return;
+                }
+                const range = scalars.getRange();
+
                 const [min, max] = range;
                 const mid = (min + max) / 2;
             

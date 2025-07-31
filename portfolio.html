@@ -10,14 +10,21 @@
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
 </head>
 <body>
-    <header class="main-header"> <header class="header-left"> <div>
-                <a href="index.html" class="nav-home-button site-logo-text">Home</a> </div>
+    <header class="main-header">
+        <header class="header-left">
+            <div>
+                <a href="index.html" class="nav-home-button site-logo-text">Home</a>
+            </div>
         </header>
-        <header class="header-right"> <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu"> <span class="bar"></span>
+        <header class="header-right">
+            <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
-            <nav class="main-nav-links" id="mainNavLinks"> <div class="nav-link-item dropdown"> <a href="aboutme.html">About Me</a>
+            <nav class="main-nav-links" id="mainNavLinks">
+                <div class="nav-link-item dropdown">
+                    <a href="aboutme.html">About Me</a>
                     <div class="dropdown-content">
                         <a href="aboutme.html#Background">Background</a>
                         <a href="aboutme.html#Education">Education</a>
@@ -25,7 +32,8 @@
                         <a href="aboutme.html#Testimonials">Testimonials</a>
                     </div>
                 </div>
-                <div class="nav-link-item dropdown"> <a href="resume.html">Resume</a>
+                <div class="nav-link-item dropdown">
+                    <a href="resume.html">Resume</a>
                     <div class="dropdown-content">
                         <a href="resume.html#Summary">Summary</a>
                         <a href="resume.html#Resume">Resume</a>
@@ -33,7 +41,8 @@
                         <a href="resume.html#References">References</a>
                     </div>
                 </div>
-                <div class="nav-link-item dropdown"> <a href="interests.html">Interests</a>
+                <div class="nav-link-item dropdown">
+                    <a href="interests.html">Interests</a>
                     <div class="dropdown-content">
                         <a href="interests.html#Professional">Professional</a>
                         <a href="interests.html#Science">Science</a>
@@ -41,7 +50,8 @@
                         <a href="interests.html#Music">Music</a>
                     </div>
                 </div>
-                <div class="nav-link-item dropdown"> <a href="portfolio.html">Portfolio</a>
+                <div class="nav-link-item dropdown">
+                    <a href="portfolio.html">Portfolio</a>
                     <div class="dropdown-content">
                         <a href="portfolio.html#DataManagement">Data Management</a>
                         <a href="portfolio.html#DataScience">Data Mining</a>
@@ -49,12 +59,15 @@
                         <a href="portfolio.html#Leadership">Leadership</a>
                     </div>
                 </div>
-		<div class="nav-contact-button-wrapper"> <a href="index.html#contact-me" class="action-button-orange">Contact Me</a> </div>
+                <div class="nav-contact-button-wrapper">
+                    <a href="index.html#contact-me" class="action-button-orange">Contact Me</a>
+                </div>
             </nav>
         </header>
     </header>
     <main class="main-content">
-        <section class="section-heading-container section-theme-orange"> <h2>Portfolio</h2>
+        <section class="section-heading-container section-theme-orange">
+            <h2>Portfolio</h2>
             <h3>
                 <a href="#DataScience" class="pastel-accent4">Data Science</a> |
                 <a href="#DataVisualization" class="pastel-accent4">Data Visualization</a> |
@@ -63,49 +76,51 @@
             </h3>
         </section>
         <section>
-	    <div class="portfolio-notice-box"> <h2>Notice</h2>
-            <p>Some of my best work was completed during my last job at mIQroTech, where I worked on several interesting projects that showcase my ability to merge <em>physical</em> science with <em>data</em> science to produce <em>insights</em>. Unfortunately, due to the nature of the work, presence of non-disclosure agreements, and exposure to trade secrets, I cannot share any of the work that I completed there. However, I am willing to mention a few of the basic concepts that I employed to solve problems.</p>
+            <div class="portfolio-notice-box">
+                <h2>Notice</h2>
+                <p>Some of my best work was completed during my last job at mIQroTech, where I worked on several interesting projects that showcase my ability to merge <em>physical</em> science with <em>data</em> science to produce <em>insights</em>. Unfortunately, due to the nature of the work, presence of non-disclosure agreements, and exposure to trade secrets, I cannot share any of the work that I completed there. However, I am willing to mention a few of the basic concepts that I employed to solve problems.</p>
             </div>
         </section>
         <section class="content-section section-theme-orange">
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
-            <script type="module">
-              import 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Profiles/Volume.js';
-              import vtkGenericRenderWindow from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Misc/GenericRenderWindow.js';
-              import vtkHttpDataSetReader from 'https://unpkg.com/@kitware/vtk.js@27.31.0/IO/Core/HttpDataSetReader.js';
-              import vtkVolume from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Core/Volume.js';
-              import vtkVolumeMapper from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Core/VolumeMapper.js';
-              import vtkColorTransferFunction from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Rendering/Core/ColorTransferFunction.js';
-              import vtkPiecewiseFunction from 'https://unpkg.com/@kitware/vtk.js@27.31.0/Common/DataModel/PiecewiseFunction.js';
-            
+            <script src="https://unpkg.com/@kitware/vtk.js@27.31.0/dist/vtk.js"></script>
+            <script>
+              // Now you can access vtk objects through the global 'vtk' variable
               const container = document.getElementById('vtk-viewer');
-              const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
+              const genericRenderWindow = vtk.Rendering.Misc.GenericRenderWindow.newInstance({ background: [0, 0, 0] });
               genericRenderWindow.setContainer(container);
               genericRenderWindow.resize();
             
               const renderer = genericRenderWindow.getRenderer();
               const renderWindow = genericRenderWindow.getRenderWindow();
             
-              const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
+              const reader = vtk.IO.Core.HttpDataSetReader.newInstance({ fetchGzip: true });
               reader.setUrl('canonical_07.vti').then(() => {
                 reader.loadData().then(() => {
                   const imageData = reader.getOutputData();
             
-                  const mapper = vtkVolumeMapper.newInstance();
+                  const mapper = vtk.Rendering.Core.VolumeMapper.newInstance();
                   mapper.setInputData(imageData);
             
-                  const actor = vtkVolume.newInstance();
+                  const actor = vtk.Rendering.Core.Volume.newInstance();
                   actor.setMapper(mapper);
             
-                  const ctfun = vtkColorTransferFunction.newInstance();
-                  const ofun = vtkPiecewiseFunction.newInstance();
+                  const ctfun = vtk.Rendering.Core.ColorTransferFunction.newInstance();
+                  const ofun = vtk.Common.DataModel.PiecewiseFunction.newInstance();
             
-                  ctfun.addRGBPoint(0.0, 0.0, 0.0, 1.0);    // blue
-                  ctfun.addRGBPoint(127.5, 1.0, 1.0, 1.0);  // white
-                  ctfun.addRGBPoint(255.0, 1.0, 0.0, 0.0);  // red
+                  // Check scalar range from imageData before setting transfer functions
+                  const scalarRange = imageData.getPointData().getScalars().getRange();
+                  console.log("Scalar Range:", scalarRange); // Debugging: Check the actual scalar range
             
-                  ofun.addPoint(0.0, 0.0);
-                  ofun.addPoint(255.0, 0.8);
+                  // Adjust color and opacity points based on the actual scalar range
+                  // Using your original points, assuming they are within a 0-255 range for demonstration
+                  // You might need to adjust these based on your 'canonical_07.vti' data's actual scalar range
+                  ctfun.addRGBPoint(scalarRange[0], 0.0, 0.0, 1.0);    // blue
+                  ctfun.addRGBPoint((scalarRange[0] + scalarRange[1]) / 2, 1.0, 1.0, 1.0); // white in middle
+                  ctfun.addRGBPoint(scalarRange[1], 1.0, 0.0, 0.0);  // red
+            
+                  ofun.addPoint(scalarRange[0], 0.0);
+                  ofun.addPoint(scalarRange[1], 0.8); // Make it visible across the range
             
                   actor.getProperty().setRGBTransferFunction(0, ctfun);
                   actor.getProperty().setScalarOpacity(0, ofun);
@@ -120,7 +135,11 @@
                   renderer.addVolume(actor);
                   renderer.resetCamera();
                   renderWindow.render();
+                }).catch(error => {
+                  console.error("Error loading data or processing VTI:", error);
                 });
+              }).catch(error => {
+                console.error("Error setting VTI URL:", error);
               });
             </script>
         </section>
@@ -148,14 +167,17 @@
             <h3>Data Visualization</h3>
             <p>My boss was colorblind</p>
         </section>
-        <section class="content-section section-theme-orange" id="DataVisualization"> <h2>Data Visualization</h2>
+        <section class="content-section section-theme-orange" id="DataVisualization">
+            <h2>Data Visualization</h2>
             <div id="Plotter">
                 <script src="plotter2.js"></script>
             </div>
         </section>
-        <section class="content-section section-theme-orange" id="DataManagement"> <h2>Data Management</h2>
+        <section class="content-section section-theme-orange" id="DataManagement">
+            <h2>Data Management</h2>
         </section>
-        <section class="content-section section-theme-orange" id="Leadership"> <h2>Leadership</h2>
+        <section class="content-section section-theme-orange" id="Leadership">
+            <h2>Leadership</h2>
         </section>
     </main>
     <script>

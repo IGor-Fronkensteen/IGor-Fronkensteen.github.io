@@ -92,7 +92,6 @@
               import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
               import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
-              import vtkHttpDataAccessHelper from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';
               import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
               import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
               import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
@@ -114,10 +113,11 @@
             
                 try {
                   const reader = vtkXMLImageDataReader.newInstance();
-                  const arrayBuffer = await vtkHttpDataAccessHelper.fetchBinary('canonical_07.vti');
-                  reader.parseAsArrayBuffer(arrayBuffer);
             
-                  const imageData = reader.getOutputData(0);
+                  // ✅ Use known-working example dataset (LIDC2 lung scan)
+                  await reader.setUrl('https://kitware.github.io/vtk-js/data/volume/LIDC2.vti/index.json', { loadData: true });
+            
+                  const imageData = reader.getOutputData();
                   const scalars = imageData.getPointData().getScalars();
                   if (!scalars) throw new Error("No scalar data found in the VTI file.");
             

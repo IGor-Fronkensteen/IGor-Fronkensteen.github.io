@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dom Colosimo - Portfolio</title>
     <script src="prism.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
-    <script src="https://unpkg.com/@kitware/vtk.js@34.6.0/files/vtk.js" defer></script>
+    <script src="https://unpkg.com/vtk.js@latest/vtk.js" defer></script>
 </head>
 <body>
     <header class="main-header">
@@ -101,6 +102,7 @@
                 }
                 
                 // YOUR VTK CODE STARTS HERE
+		const vtk = window.vtk;
                 genericRenderWindow = vtk.Rendering.Misc.GenericRenderWindow.newInstance({ background: [0, 0, 0] });
                 genericRenderWindow.setContainer(container);
                 genericRenderWindow.resize();

@@ -8,7 +8,6 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
-    <script src="https://unpkg.com/vtk.js@latest/vtk.js" defer></script>
 </head>
 <body>
     <header class="main-header">
@@ -87,73 +86,71 @@
         </section>
         <section class="content-section section-theme-orange">
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
-            <script>
-              document.addEventListener('DOMContentLoaded', () => {
-                const vtk = window.vtk;
+            <script type="module">
+              import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
+              import vtkHttpDataSetReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/HttpDataSetReader';
+              import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
+              import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
+              import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
+              import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
             
+              document.addEventListener('DOMContentLoaded', async () => {
                 const container = document.getElementById('vtk-viewer');
                 if (!container) {
                   console.error("VTK Viewer container not found!");
                   return;
                 }
             
-                const genericRenderWindow = vtk.Rendering.Misc.GenericRenderWindow.newInstance({
-                  background: [0, 0, 0],
-                });
-            
+                const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
                 genericRenderWindow.setContainer(container);
                 genericRenderWindow.resize();
             
                 const renderer = genericRenderWindow.getRenderer();
                 const renderWindow = genericRenderWindow.getRenderWindow();
             
-                const reader = vtk.IO.Core.HttpDataSetReader.newInstance({ fetchGzip: true });
+                try {
+                  const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
+                  await reader.setUrl('canonical_07.vti');
+                  await reader.loadData();
+                  const imageData = reader.getOutputData();
+                  const scalarRange = imageData.getPointData().getScalars().getRange();
+                  console.log("VTK Scalar Range:", scalarRange);
             
-                reader.setUrl('canonical_07.vti').then(() => {
-                  reader.loadData().then(() => {
-                    const imageData = reader.getOutputData();
-                    const scalarRange = imageData.getPointData().getScalars().getRange();
-                    console.log("Scalar Range:", scalarRange);
+                  const mapper = vtkVolumeMapper.newInstance();
+                  mapper.setInputData(imageData);
             
-                    const mapper = vtk.Rendering.Core.VolumeMapper.newInstance();
-                    mapper.setInputData(imageData);
+                  const volume = vtkVolume.newInstance();
+                  volume.setMapper(mapper);
             
-                    const actor = vtk.Rendering.Core.Volume.newInstance();
-                    actor.setMapper(mapper);
+                  const ctfun = vtkColorTransferFunction.newInstance();
+                  const ofun = vtkPiecewiseFunction.newInstance();
             
-                    const ctfun = vtk.Rendering.Core.ColorTransferFunction.newInstance();
-                    const ofun = vtk.Common.DataModel.PiecewiseFunction.newInstance();
+                  const [min, max] = scalarRange;
+                  const mid = (min + max) / 2;
+                  ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);  // Blue
+                  ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);  // White
+                  ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);  // Red
             
-                    const [min, max] = scalarRange;
-                    const mid = (min + max) / 2;
+                  ofun.addPoint(min, 0.0);
+                  ofun.addPoint(max, 0.5);
             
-                    // Add color points (Blue -> White -> Red)
-                    ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
-                    ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
-                    ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
+                  const volProp = volume.getProperty();
+                  volProp.setRGBTransferFunction(0, ctfun);
+                  volProp.setScalarOpacity(0, ofun);
+                  volProp.setScalarOpacityUnitDistance(0, 2.5);
+                  volProp.setInterpolationTypeToLinear();
+                  volProp.setShade(true);
+                  volProp.setAmbient(0.2);
+                  volProp.setDiffuse(0.7);
+                  volProp.setSpecular(0.3);
+                  volProp.setSpecularPower(8.0);
             
-                    // Opacity function
-                    ofun.addPoint(min, 0.0);
-                    ofun.addPoint(max, 0.5);
-            
-                    // Volume property setup
-                    const volumeProperty = actor.getProperty();
-                    volumeProperty.setRGBTransferFunction(0, ctfun);
-                    volumeProperty.setScalarOpacity(0, ofun);
-                    volumeProperty.setScalarOpacityUnitDistance(0, 2.5);
-                    volumeProperty.setInterpolationTypeToLinear();
-                    volumeProperty.setShade(true);
-                    volumeProperty.setAmbient(0.2);
-                    volumeProperty.setDiffuse(0.7);
-                    volumeProperty.setSpecular(0.3);
-                    volumeProperty.setSpecularPower(8.0);
-            
-                    // Add volume and render
-                    renderer.addVolume(actor);
-                    renderer.resetCamera();
-                    renderWindow.render();
-                  }).catch(err => console.error("Failed to load VTI:", err));
-                }).catch(err => console.error("Failed to set VTI URL:", err));
+                  renderer.addVolume(volume);
+                  renderer.resetCamera();
+                  renderWindow.render();
+                } catch (error) {
+                  console.error("Error loading and rendering VTI file:", error);
+                }
               });
             </script>
         </section>

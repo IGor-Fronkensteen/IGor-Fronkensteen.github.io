@@ -89,68 +89,60 @@
             <script type="module">
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
               import vtkHttpDataSetReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/HttpDataSetReader';
-              import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
-              import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
               import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
               import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
+              import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
+              import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
             
-              document.addEventListener('DOMContentLoaded', async () => {
-                const container = document.getElementById('vtk-viewer');
-                if (!container) {
-                  console.error("VTK Viewer container not found!");
-                  return;
-                }
+              const container = document.getElementById('vtk-viewer');
             
-                const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
-                genericRenderWindow.setContainer(container);
-                genericRenderWindow.resize();
+              const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
+              genericRenderWindow.setContainer(container);
+              genericRenderWindow.resize();
             
-                const renderer = genericRenderWindow.getRenderer();
-                const renderWindow = genericRenderWindow.getRenderWindow();
+              const renderer = genericRenderWindow.getRenderer();
+              const renderWindow = genericRenderWindow.getRenderWindow();
             
-                try {
-                  const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
-                  await reader.setUrl('canonical_07.vti');
-                  await reader.loadData();
+              const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
+              reader.setUrl('canonical_07.vti').then(() => {
+                reader.loadData().then(() => {
                   const imageData = reader.getOutputData();
                   const scalarRange = imageData.getPointData().getScalars().getRange();
-                  console.log("VTK Scalar Range:", scalarRange);
             
                   const mapper = vtkVolumeMapper.newInstance();
+                  mapper.setSampleDistance(0.7);
                   mapper.setInputData(imageData);
             
-                  const volume = vtkVolume.newInstance();
-                  volume.setMapper(mapper);
+                  const actor = vtkVolume.newInstance();
+                  actor.setMapper(mapper);
             
                   const ctfun = vtkColorTransferFunction.newInstance();
                   const ofun = vtkPiecewiseFunction.newInstance();
             
                   const [min, max] = scalarRange;
                   const mid = (min + max) / 2;
-                  ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);  // Blue
-                  ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);  // White
-                  ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);  // Red
+            
+                  ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
+                  ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
+                  ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
             
                   ofun.addPoint(min, 0.0);
                   ofun.addPoint(max, 0.5);
             
-                  const volProp = volume.getProperty();
-                  volProp.setRGBTransferFunction(0, ctfun);
-                  volProp.setScalarOpacity(0, ofun);
-                  volProp.setScalarOpacityUnitDistance(0, 2.5);
-                  volProp.setInterpolationTypeToLinear();
-                  volProp.setShade(true);
-                  volProp.setAmbient(0.2);
-                  volProp.setDiffuse(0.7);
-                  volProp.setSpecular(0.3);
-                  volProp.setSpecularPower(8.0);
+                  actor.getProperty().setRGBTransferFunction(0, ctfun);
+                  actor.getProperty().setScalarOpacity(0, ofun);
+                  actor.getProperty().setScalarOpacityUnitDistance(0, 2.5);
+                  actor.getProperty().setInterpolationTypeToLinear();
+                  actor.getProperty().setShade(true);
+                  actor.getProperty().setAmbient(0.2);
+                  actor.getProperty().setDiffuse(0.7);
+                  actor.getProperty().setSpecular(0.3);
+                  actor.getProperty().setSpecularPower(8.0);
             
-                  renderer.addVolume(volume);
+                  renderer.addVolume(actor);
                   renderer.resetCamera();
                   renderWindow.render();
-                } catch (error) {
-                  console.error("Error loading and rendering VTI file:", error);
-                }
+                });
               });
             </script>
         </section>

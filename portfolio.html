@@ -89,6 +89,7 @@
         <section class="content-section section-theme-orange">
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
             <script type="module">
+              import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
               import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
               import vtkHttpDataAccessHelper from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';

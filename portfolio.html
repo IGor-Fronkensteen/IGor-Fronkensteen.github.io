@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dom Colosimo - Portfolio</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="prism.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
-    <script src="https://app.unpkg.com/@kitware/vtk.js@34.6.0/files/vtk.js" defer></script>
+    <script src="https://unpkg.com/@kitware/vtk.js@34.6.0/files/vtk.js" defer></script>
 </head>
 <body>
     <header class="main-header">
@@ -16,6 +15,9 @@
             <div>
                 <a href="index.html" class="nav-home-button site-logo-text">Home</a>
             </div>
+            <button id="theme-toggle" aria-label="Toggle light or dark mode">
+                <span class="icon-dark-mode">☀️</span> <span class="icon-light-mode" style="display: none;">🌙</span>
+            </button>
         </header>
         <header class="header-right">
             <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu">
@@ -57,7 +59,7 @@
                         <a href="portfolio.html#DataManagement">Data Management</a>
                         <a href="portfolio.html#DataScience">Data Mining</a>
                         <a href="portfolio.html#DataVisualization">Data Viz</a>
-                        <a href="portfolio.html#Leadership</a>
+                        <a href="portfolio.html#Leadership">Leadership</a>
                     </div>
                 </div>
                 <div class="nav-contact-button-wrapper">

@@ -89,7 +89,6 @@
         <section class="content-section section-theme-orange">
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
             <script type="module">
-              import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
               import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
               import vtkHttpDataAccessHelper from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';
@@ -100,7 +99,10 @@
             
               document.addEventListener('DOMContentLoaded', async () => {
                 const container = document.getElementById('vtk-viewer');
-                if (!container) return;
+                if (!container) {
+                  console.error("VTK container not found.");
+                  return;
+                }
             
                 const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
                 genericRenderWindow.setContainer(container);
@@ -109,52 +111,52 @@
                 const renderer = genericRenderWindow.getRenderer();
                 const renderWindow = genericRenderWindow.getRenderWindow();
             
-                const reader = vtkXMLImageDataReader.newInstance();
-                const arrayBuffer = await vtkHttpDataAccessHelper.fetchBinary('canonical_07.vti');
-                reader.parseAsArrayBuffer(arrayBuffer);
-                const imageData = reader.getOutputData(0);
+                try {
+                  const reader = vtkXMLImageDataReader.newInstance();
+                  const arrayBuffer = await vtkHttpDataAccessHelper.fetchBinary('canonical_07.vti');
+                  reader.parseAsArrayBuffer(arrayBuffer);
             
-                const mapper = vtkVolumeMapper.newInstance();
-                mapper.setInputData(imageData);
+                  const imageData = reader.getOutputData(0);
+                  const scalars = imageData.getPointData().getScalars();
+                  if (!scalars) throw new Error("No scalar data found in the VTI file.");
             
-                const actor = vtkVolume.newInstance();
-                actor.setMapper(mapper);
+                  const [min, max] = scalars.getRange();
+                  const mid = (min + max) / 2;
             
-                const ctfun = vtkColorTransferFunction.newInstance();
-                const ofun = vtkPiecewiseFunction.newInstance();
-
-                const imageData = reader.getOutputData(0);
-                const scalars = imageData.getPointData().getScalars();
-                if (!scalars) {
-                  console.error("No scalar data found in the VTI file.");
-                  return;
+                  const mapper = vtkVolumeMapper.newInstance();
+                  mapper.setInputData(imageData);
+            
+                  const actor = vtkVolume.newInstance();
+                  actor.setMapper(mapper);
+            
+                  const ctfun = vtkColorTransferFunction.newInstance();
+                  const ofun = vtkPiecewiseFunction.newInstance();
+            
+                  ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
+                  ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
+                  ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
+            
+                  ofun.addPoint(min, 0.0);
+                  ofun.addPoint(max, 0.5);
+            
+                  const prop = actor.getProperty();
+                  prop.setRGBTransferFunction(0, ctfun);
+                  prop.setScalarOpacity(0, ofun);
+                  prop.setScalarOpacityUnitDistance(0, 2.5);
+                  prop.setInterpolationTypeToLinear();
+                  prop.setShade(true);
+                  prop.setAmbient(0.2);
+                  prop.setDiffuse(0.7);
+                  prop.setSpecular(0.3);
+                  prop.setSpecularPower(8.0);
+            
+                  renderer.addVolume(actor);
+                  renderer.resetCamera();
+                  renderWindow.render();
+            
+                } catch (err) {
+                  console.error("Error loading and rendering VTI:", err);
                 }
-                const range = scalars.getRange();
-
-                const [min, max] = range;
-                const mid = (min + max) / 2;
-            
-                ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
-                ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
-                ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
-            
-                ofun.addPoint(min, 0.0);
-                ofun.addPoint(max, 0.5);
-            
-                const prop = actor.getProperty();
-                prop.setRGBTransferFunction(0, ctfun);
-                prop.setScalarOpacity(0, ofun);
-                prop.setScalarOpacityUnitDistance(0, 2.5);
-                prop.setInterpolationTypeToLinear();
-                prop.setShade(true);
-                prop.setAmbient(0.2);
-                prop.setDiffuse(0.7);
-                prop.setSpecular(0.3);
-                prop.setSpecularPower(8.0);
-            
-                renderer.addVolume(actor);
-                renderer.resetCamera();
-                renderWindow.render();
               });
             </script>
         </section>

@@ -8,6 +8,8 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="alternate icon" type="image/png" href="favicon.png" />
 </head>
 <body>
     <header class="main-header">
@@ -86,64 +88,67 @@
         </section>
         <section class="content-section section-theme-orange">
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
+            <!-- VTK.js CDN -->
+            <script src="https://cdn.skypack.dev/@kitware/vtk.js"></script>
             <script type="module">
-	      import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
-              import vtkHttpDataSetReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/HttpDataSetReader';
-              import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
-              import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
+              import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
+              import vtkHttpDataAccessHelper from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';
               import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
               import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
+              import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
+              import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
             
-              const container = document.getElementById('vtk-viewer');
+              document.addEventListener('DOMContentLoaded', async () => {
+                const container = document.getElementById('vtk-viewer');
+                if (!container) return;
             
-              const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
-              genericRenderWindow.setContainer(container);
-              genericRenderWindow.resize();
+                const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
+                genericRenderWindow.setContainer(container);
+                genericRenderWindow.resize();
             
-              const renderer = genericRenderWindow.getRenderer();
-              const renderWindow = genericRenderWindow.getRenderWindow();
+                const renderer = genericRenderWindow.getRenderer();
+                const renderWindow = genericRenderWindow.getRenderWindow();
             
-              const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
-              reader.setUrl('https://igor-fronkensteen.github.io/canonical_07.vti').then(() => {
-                reader.loadData().then(() => {
-                  const imageData = reader.getOutputData();
-                  const scalarRange = imageData.getPointData().getScalars().getRange();
+                const reader = vtkXMLImageDataReader.newInstance();
+                const arrayBuffer = await vtkHttpDataAccessHelper.fetchBinary('canonical_07.vti');
+                reader.parseAsArrayBuffer(arrayBuffer);
+                const imageData = reader.getOutputData(0);
             
-                  const mapper = vtkVolumeMapper.newInstance();
-                  mapper.setSampleDistance(0.7);
-                  mapper.setInputData(imageData);
+                const mapper = vtkVolumeMapper.newInstance();
+                mapper.setInputData(imageData);
             
-                  const actor = vtkVolume.newInstance();
-                  actor.setMapper(mapper);
+                const actor = vtkVolume.newInstance();
+                actor.setMapper(mapper);
             
-                  const ctfun = vtkColorTransferFunction.newInstance();
-                  const ofun = vtkPiecewiseFunction.newInstance();
+                const ctfun = vtkColorTransferFunction.newInstance();
+                const ofun = vtkPiecewiseFunction.newInstance();
             
-                  const [min, max] = scalarRange;
-                  const mid = (min + max) / 2;
+                const range = imageData.getPointData().getScalars().getRange();
+                const [min, max] = range;
+                const mid = (min + max) / 2;
             
-                  ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
-                  ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
-                  ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
+                ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
+                ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
+                ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
             
-                  ofun.addPoint(min, 0.0);
-                  ofun.addPoint(max, 0.5);
+                ofun.addPoint(min, 0.0);
+                ofun.addPoint(max, 0.5);
             
-                  actor.getProperty().setRGBTransferFunction(0, ctfun);
-                  actor.getProperty().setScalarOpacity(0, ofun);
-                  actor.getProperty().setScalarOpacityUnitDistance(0, 2.5);
-                  actor.getProperty().setInterpolationTypeToLinear();
-                  actor.getProperty().setShade(true);
-                  actor.getProperty().setAmbient(0.2);
-                  actor.getProperty().setDiffuse(0.7);
-                  actor.getProperty().setSpecular(0.3);
-                  actor.getProperty().setSpecularPower(8.0);
+                const prop = actor.getProperty();
+                prop.setRGBTransferFunction(0, ctfun);
+                prop.setScalarOpacity(0, ofun);
+                prop.setScalarOpacityUnitDistance(0, 2.5);
+                prop.setInterpolationTypeToLinear();
+                prop.setShade(true);
+                prop.setAmbient(0.2);
+                prop.setDiffuse(0.7);
+                prop.setSpecular(0.3);
+                prop.setSpecularPower(8.0);
             
-                  renderer.addVolume(actor);
-                  renderer.resetCamera();
-                  renderWindow.render();
-                });
+                renderer.addVolume(actor);
+                renderer.resetCamera();
+                renderWindow.render();
               });
             </script>
         </section>

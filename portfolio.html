@@ -89,7 +89,9 @@
             <script type="module">
 	      import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
-              import vtkHttpDataSetReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/HttpDataSetReader';
+	      import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
+	      import vtkDataAccessHelperHTTP from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/Core/DataAccessHelper/HttpDataAccessHelper';
+
               import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
               import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
               import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
@@ -103,9 +105,10 @@
             
               const renderer = genericRenderWindow.getRenderer();
               const renderWindow = genericRenderWindow.getRenderWindow();
-            
-              const reader = vtkHttpDataSetReader.newInstance({ fetchGzip: true });
-              reader.setUrl('canonical_07.vti').then(() => {
+              const reader = vtkXMLImageDataReader.newInstance();
+              vtkDataAccessHelperHTTP.fetchBinary('canonical_07.vti').then((binary) => {
+                reader.parseAsArrayBuffer(binary);
+                const imageData = reader.getOutputData(0);
                 reader.loadData().then(() => {
                   const imageData = reader.getOutputData();
                   const scalarRange = imageData.getPointData().getScalars().getRange();

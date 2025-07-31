@@ -6,9 +6,9 @@
     <title>Dom Colosimo - Portfolio</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="prism.js"></script>
-    <script src="https://unpkg.com/@kitware/vtk.js@27.31.0/dist/vtk.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
+    <script src="https://unpkg.com/@kitware/vtk.js@34.7.0/dist/vtk.js" defer></script>
 </head>
 <body>
     <header class="main-header">
@@ -57,7 +57,7 @@
                         <a href="portfolio.html#DataManagement">Data Management</a>
                         <a href="portfolio.html#DataScience">Data Mining</a>
                         <a href="portfolio.html#DataVisualization">Data Viz</a>
-                        <a href="portfolio.html#Leadership">Leadership</a>
+                        <a href="portfolio.html#Leadership</a>
                     </div>
                 </div>
                 <div class="nav-contact-button-wrapper">
@@ -88,18 +88,19 @@
               // Expose key VTK objects to the global window object for easy debugging
               let genericRenderWindow, renderer, renderWindow, reader, actor, ctfun, ofun, imageData;
 
-              // Wrap the VTK initialization code in a DOMContentLoaded listener
-              // This ensures that 'vtk' is defined and the DOM is ready.
+              // The VTK initialization code.
+              // It's still a good practice to wait for the DOM to be ready
+              // to ensure the 'vtk-viewer' div exists.
               document.addEventListener('DOMContentLoaded', () => {
                 const container = document.getElementById('vtk-viewer');
                 if (!container) {
                     console.error("VTK Viewer container not found!");
                     return;
                 }
-
+                
+                // YOUR VTK CODE STARTS HERE
                 genericRenderWindow = vtk.Rendering.Misc.GenericRenderWindow.newInstance({ background: [0, 0, 0] });
                 genericRenderWindow.setContainer(container);
-                // Adjust size here, or add a window resize listener if you want responsiveness
                 genericRenderWindow.resize();
 
                 renderer = genericRenderWindow.getRenderer();
@@ -110,7 +111,7 @@
                   reader.loadData().then(() => {
                     imageData = reader.getOutputData();
                     const scalarRange = imageData.getPointData().getScalars().getRange();
-                    console.log("VTK Data Scalar Range:", scalarRange); // THIS IS THE KEY DEBUG OUTPUT!
+                    console.log("VTK Data Scalar Range:", scalarRange);
 
                     const mapper = vtk.Rendering.Core.VolumeMapper.newInstance();
                     mapper.setInputData(imageData);
@@ -125,14 +126,12 @@
                     const maxScalar = scalarRange[1];
                     const midScalar = (minScalar + maxScalar) / 2;
 
-                    // Color Transfer Function
-                    ctfun.addRGBPoint(minScalar, 0.0, 0.0, 1.0);    // blue at min scalar
-                    ctfun.addRGBPoint(midScalar, 1.0, 1.0, 1.0); // white in middle
-                    ctfun.addRGBPoint(maxScalar, 1.0, 0.0, 0.0);    // red at max scalar
+                    ctfun.addRGBPoint(minScalar, 0.0, 0.0, 1.0);
+                    ctfun.addRGBPoint(midScalar, 1.0, 1.0, 1.0);
+                    ctfun.addRGBPoint(maxScalar, 1.0, 0.0, 0.0);
 
-                    // Opacity Transfer Function - starting with a simple ramp to make it visible
-                    ofun.addPoint(minScalar, 0.0); // Transparent at min
-                    ofun.addPoint(maxScalar, 0.5); // 50% opaque at max (you can adjust this 0.5)
+                    ofun.addPoint(minScalar, 0.0);
+                    ofun.addPoint(maxScalar, 0.5);
 
                     actor.getProperty().setRGBTransferFunction(0, ctfun);
                     actor.getProperty().setScalarOpacity(0, ofun);
@@ -153,7 +152,7 @@
                 }).catch(error => {
                   console.error("Error setting VTI URL:", error);
                 });
-              }); // End of DOMContentLoaded listener
+              });
             </script>
         </section>
         <section class="content-section section-theme-orange" id="DataScience">

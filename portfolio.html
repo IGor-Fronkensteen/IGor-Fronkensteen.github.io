@@ -113,11 +113,18 @@
             
                 try {
                   const reader = vtkXMLImageDataReader.newInstance();
-                  await reader.setUrl('https://kitware.github.io/vtk-js/data/volume/headsq.vti', { loadData: true });
+                  await reader.setUrl('canonical_07.vti', { loadData: true });
             
                   const imageData = reader.getOutputData(0);
-                  const scalars = imageData.getPointData().getScalars();
-                  if (!scalars) throw new Error("No scalar data found in the VTI file.");
+
+                  let scalars = imageData.getPointData().getScalars();
+                  if (!scalars) {
+                    console.warn("No point data found. Attempting to load cell data...");
+                    scalars = imageData.getCellData().getScalars();
+                  }
+                  if (!scalars) {
+                    throw new Error("No scalar data found in the VTI file (neither point nor cell).");
+                  }
             
                   const [min, max] = scalars.getRange();
                   const mid = (min + max) / 2;

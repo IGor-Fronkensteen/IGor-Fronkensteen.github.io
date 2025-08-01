@@ -80,7 +80,6 @@ body.light-mode .site-logo-container svg .cls-1 {
 body.light-mode .main-header,
 body.light-mode .main-nav-links {
     background-color: #FFFFFF; /* White header/sidebar */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 body.light-mode .main-header a,
 body.light-mode .main-nav-links a {
@@ -378,10 +377,10 @@ body.light-mode #theme-toggle:hover {
 
 .pedfoot sup {
     vertical-align: super;
-    font-size: 0.6em; /* Make it even smaller, adjust as needed */
+    font-size: 0.7em; /* Make it even smaller, adjust as needed */
     line-height: 0;
     position: relative;
-    top: -0.6em; /* Adjust vertical position further, make it more negative */
+    top: -0.8em; /* Adjust vertical position further, make it more negative */
 }
 
 .tagline1 {

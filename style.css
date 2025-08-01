@@ -577,6 +577,23 @@ body.light-mode #theme-toggle:hover {
     line-height: 1; /* NEW: Remove extra text line height */
 }
 
+/* --- Orbital Viewer Content --- */
+#orbital-selector {
+  color: white;
+  background-color: #222; /* optional: dark background for contrast */
+  border: 1px solid #555;
+  padding: 5px;
+  font-size: 1em;
+}
+
+#orbital-selector option {
+  background-color: #222;
+  color: white;
+}
+
+label[for="orbital-selector"] {
+  color: white;
+}
 
 /* --- Mobile/Small Screen Media Queries --- */
 @media (max-width: 768px) { /* Adjust breakpoint as needed */

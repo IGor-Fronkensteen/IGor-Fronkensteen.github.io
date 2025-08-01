@@ -113,7 +113,7 @@
             
                 try {
                   const reader = vtkXMLImageDataReader.newInstance();
-                  await reader.setUrl('canonical_07.vti', { loadData: true });
+                  await reader.setUrl('https://kitware.github.io/vtk-js/data/volume/headsq.vti', { loadData: true });
             
                   const imageData = reader.getOutputData(0);
                   const scalars = imageData.getPointData().getScalars();

@@ -87,26 +87,23 @@
             </div>
         </section>
         <section class="content-section section-theme-orange">
-            <select id="orbital-selector" class="portfolio-notice-box">
-              <option value="canonical_00.vti">Orbital 0</option>
-              <option value="canonical_01.vti">Orbital 1</option>
-              <option value="canonical_02.vti">Orbital 2</option>
-              <option value="canonical_03.vti">Orbital 3</option>
-              <option value="canonical_04.vti">Orbital 4</option>
-              <option value="canonical_05.vti">Orbital 5</option>
-              <option value="canonical_06.vti">Orbital 6</option>
-              <option value="canonical_07.vti" selected>Orbital 7</option>
-            </select>
+            <label for="orbital-selector">Choose an orbital:</label>
+            <select id="orbital-selector"></select>
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
             <script type="module">
-              import * as vtk from 'https://cdn.skypack.dev/@kitware/vtk.js';
               import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
               import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
+              import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
+              import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
+              import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
+              import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
               import vtkMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Mapper';
               import vtkActor from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Actor';
-              import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
-              import vtkContourFilter from 'https://cdn.skypack.dev/@kitware/vtk.js/Filters/General/ContourFilter';
+              import vtkImageMarchingCubes from 'https://cdn.skypack.dev/@kitware/vtk.js/Filters/General/ImageMarchingCubes';
+            
+              const orbitalFiles = ['canonical_01.vti', 'canonical_07.vti']; // Add more here
+            
               const container = document.getElementById('vtk-viewer');
               const dropdown = document.getElementById('orbital-selector');
             
@@ -116,53 +113,88 @@
               const renderer = genericRenderWindow.getRenderer();
               const renderWindow = genericRenderWindow.getRenderWindow();
             
-              let actor = null;
+              function createContourActor(imageData, isoValue, color) {
+                const contour = vtkImageMarchingCubes.newInstance();
+                contour.setInputData(imageData);
+                contour.setContourValue(0, isoValue);
+                contour.update();
             
-              async function loadOrbital(fileName) {
+                const mapper = vtkMapper.newInstance();
+                mapper.setInputData(contour.getOutputData());
+            
+                const actor = vtkActor.newInstance();
+                actor.setMapper(mapper);
+                actor.getProperty().setColor(...color);
+                return actor;
+              }
+            
+              async function loadAndRender(filename) {
                 renderer.removeAllViewProps();
             
                 const reader = vtkXMLImageDataReader.newInstance();
-                await reader.setUrl(fileName, { loadData: true });
-                const imageData = reader.getOutputData();
+                await reader.setUrl(filename, { loadData: true });
+                const imageData = reader.getOutputData(0);
             
                 const scalars = imageData.getPointData().getScalars();
                 const [min, max] = scalars.getRange();
                 const mid = (min + max) / 2;
             
-                const contour = vtkContourFilter.newInstance();
-                contour.setInputData(imageData);
-                contour.setGenerateTriangles(true);
-                contour.setComputeNormals(true);
-                contour.setNumberOfContours(2);
-                contour.setValue(0, mid * 0.6); // positive lobe
-                contour.setValue(1, mid * -0.6); // negative lobe
+                // Volume rendering
+                const volumeMapper = vtkVolumeMapper.newInstance();
+                volumeMapper.setInputData(imageData);
             
-                const mapper = vtkMapper.newInstance();
-                mapper.setInputConnection(contour.getOutputPort());
+                const volume = vtkVolume.newInstance();
+                volume.setMapper(volumeMapper);
             
-                actor = vtkActor.newInstance();
-                actor.setMapper(mapper);
+                const ctfun = vtkColorTransferFunction.newInstance();
+                const ofun = vtkPiecewiseFunction.newInstance();
             
-                const lut = vtkColorTransferFunction.newInstance();
-                lut.addRGBPoint(mid * -0.6, 0.0, 0.0, 1.0); // blue
-                lut.addRGBPoint(mid * 0.6, 1.0, 0.0, 0.0); // red
+                ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
+                ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
+                ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
             
-                mapper.setLookupTable(lut);
-                mapper.setColorModeToMapScalars();
-                mapper.setScalarRange(min, max);
+                ofun.addPoint(min, 0.0);
+                ofun.addPoint(mid, 0.05);
+                ofun.addPoint(max, 0.2);
             
-                renderer.addActor(actor);
+                const prop = volume.getProperty();
+                prop.setRGBTransferFunction(0, ctfun);
+                prop.setScalarOpacity(0, ofun);
+                prop.setScalarOpacityUnitDistance(0, 1.0);
+                prop.setInterpolationTypeToLinear();
+                prop.setShade(true);
+                prop.setAmbient(0.2);
+                prop.setDiffuse(0.8);
+                prop.setSpecular(0.3);
+                prop.setSpecularPower(10.0);
+            
+                // Contours
+                const isoLevel = 0.02 * (max - min);
+                const posContour = createContourActor(imageData, +isoLevel, [1, 1, 0]);  // yellow
+                const negContour = createContourActor(imageData, -isoLevel, [0, 1, 1]);  // cyan
+            
+                renderer.addVolume(volume);
+                renderer.addActor(posContour);
+                renderer.addActor(negContour);
                 renderer.resetCamera();
                 renderWindow.render();
               }
             
-              dropdown.addEventListener('change', () => {
-                const selectedFile = dropdown.value;
-                loadOrbital(selectedFile);
+              // Populate dropdown
+              dropdown.innerHTML = '';
+              orbitalFiles.forEach(file => {
+                const opt = document.createElement('option');
+                opt.value = file;
+                opt.text = file;
+                dropdown.appendChild(opt);
               });
             
-              // Load initial orbital
-              loadOrbital(dropdown.value);
+              dropdown.addEventListener('change', (e) => {
+                loadAndRender(e.target.value);
+              });
+            
+              // Initial load
+              loadAndRender(orbitalFiles[0]);
             </script>
         </section>
         <section class="content-section section-theme-orange" id="DataScience">

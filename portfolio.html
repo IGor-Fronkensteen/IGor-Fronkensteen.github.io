@@ -87,83 +87,77 @@
             </div>
         </section>
         <section class="content-section section-theme-orange">
+            <select id="orbital-selector">
+              <option value="canonical_0.vti">Orbital 0</option>
+              <option value="canonical_1.vti">Orbital 1</option>
+              <option value="canonical_7.vti" selected>Orbital 7</option>
+            </select>
             <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
             <script type="module">
               import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
               import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
               import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
-              import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
-              import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
+              import vtkMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Mapper';
+              import vtkActor from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Actor';
               import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
-              import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
+              import vtkContourFilter from 'https://cdn.skypack.dev/@kitware/vtk.js/Filters/General/ContourFilter';
             
-              document.addEventListener('DOMContentLoaded', async () => {
-                const container = document.getElementById('vtk-viewer');
-                if (!container) {
-                  console.error("VTK container not found.");
-                  return;
-                }
+              const container = document.getElementById('vtk-viewer');
+              const dropdown = document.getElementById('orbital-selector');
             
-                const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
-                genericRenderWindow.setContainer(container);
-                genericRenderWindow.resize();
+              const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
+              genericRenderWindow.setContainer(container);
+              genericRenderWindow.resize();
+              const renderer = genericRenderWindow.getRenderer();
+              const renderWindow = genericRenderWindow.getRenderWindow();
             
-                const renderer = genericRenderWindow.getRenderer();
-                const renderWindow = genericRenderWindow.getRenderWindow();
+              let actor = null;
             
-                try {
-                  const reader = vtkXMLImageDataReader.newInstance();
-                  await reader.setUrl('canonical_07.vti', { loadData: true });
+              async function loadOrbital(fileName) {
+                renderer.removeAllViewProps();
             
-                  const imageData = reader.getOutputData(0);
-
-                  let scalars = imageData.getPointData().getScalars();
-                  if (!scalars) {
-                    console.warn("No point data found. Attempting to load cell data...");
-                    scalars = imageData.getCellData().getScalars();
-                  }
-                  if (!scalars) {
-                    throw new Error("No scalar data found in the VTI file (neither point nor cell).");
-                  }
+                const reader = vtkXMLImageDataReader.newInstance();
+                await reader.setUrl(fileName, { loadData: true });
+                const imageData = reader.getOutputData();
             
-                  const [min, max] = scalars.getRange();
-                  const mid = (min + max) / 2;
+                const scalars = imageData.getPointData().getScalars();
+                const [min, max] = scalars.getRange();
+                const mid = (min + max) / 2;
             
-                  const mapper = vtkVolumeMapper.newInstance();
-                  mapper.setInputData(imageData);
+                const contour = vtkContourFilter.newInstance();
+                contour.setInputData(imageData);
+                contour.setGenerateTriangles(true);
+                contour.setComputeNormals(true);
+                contour.setNumberOfContours(2);
+                contour.setValue(0, mid * 0.6); // positive lobe
+                contour.setValue(1, mid * -0.6); // negative lobe
             
-                  const actor = vtkVolume.newInstance();
-                  actor.setMapper(mapper);
+                const mapper = vtkMapper.newInstance();
+                mapper.setInputConnection(contour.getOutputPort());
             
-                  const ctfun = vtkColorTransferFunction.newInstance();
-                  const ofun = vtkPiecewiseFunction.newInstance();
+                actor = vtkActor.newInstance();
+                actor.setMapper(mapper);
             
-                  ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
-                  ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
-                  ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
+                const lut = vtkColorTransferFunction.newInstance();
+                lut.addRGBPoint(mid * -0.6, 0.0, 0.0, 1.0); // blue
+                lut.addRGBPoint(mid * 0.6, 1.0, 0.0, 0.0); // red
             
-                  ofun.addPoint(min, 0.0);
-                  ofun.addPoint(max, 0.5);
+                mapper.setLookupTable(lut);
+                mapper.setColorModeToMapScalars();
+                mapper.setScalarRange(min, max);
             
-                  const prop = actor.getProperty();
-                  prop.setRGBTransferFunction(0, ctfun);
-                  prop.setScalarOpacity(0, ofun);
-                  prop.setScalarOpacityUnitDistance(0, 2.5);
-                  prop.setInterpolationTypeToLinear();
-                  prop.setShade(true);
-                  prop.setAmbient(0.2);
-                  prop.setDiffuse(0.7);
-                  prop.setSpecular(0.3);
-                  prop.setSpecularPower(8.0);
+                renderer.addActor(actor);
+                renderer.resetCamera();
+                renderWindow.render();
+              }
             
-                  renderer.addVolume(actor);
-                  renderer.resetCamera();
-                  renderWindow.render();
-            
-                } catch (err) {
-                  console.error("Error loading and rendering VTI:", err);
-                }
+              dropdown.addEventListener('change', () => {
+                const selectedFile = dropdown.value;
+                loadOrbital(selectedFile);
               });
+            
+              // Load initial orbital
+              loadOrbital(dropdown.value);
             </script>
         </section>
         <section class="content-section section-theme-orange" id="DataScience">

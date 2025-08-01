@@ -88,8 +88,6 @@
             </div>
         </section>
         <section class="content-section section-theme-orange">
-            <div id="viewer" style="width: 100%; height: 600px; position: relative;"></div>
-            
             <label for="orbital-selector">Choose an orbital:</label>
             <select id="orbital-selector">
               <option value="canonical_00.cube">Orbital 0</option>
@@ -101,62 +99,70 @@
               <option value="canonical_06.cube">Orbital 6</option>
               <option value="canonical_07.cube" selected>Orbital 7</option>
             </select>
-           
+            
             <label for="iso-value">Isovalue:</label>
-            <input type="range" id="iso-value" min="0.01" max="0.3" step="0.01" value="0.05">
-            <span id="iso-value-label">0.05</span>
+            <input type="range" id="iso-value" min="0.001" max="0.05" step="0.001" value="0.02">
+            <span id="iso-value-label">0.02</span>
+            
+            <div id="viewer" style="width: 100%; height: 600px; position: relative;"></div>
             <script>
               const viewer = $3Dmol.createViewer("viewer", { backgroundColor: "black" });
               const selector = document.getElementById("orbital-selector");
               const isoSlider = document.getElementById("iso-value");
               const isoLabel = document.getElementById("iso-value-label");
             
-              function loadOrbital(cubeFile, isovalue) {
-                fetch(cubeFile)
-                  .then(response => {
-                    if (!response.ok) throw new Error(`Failed to load ${cubeFile}`);
-                    return response.text();
-                  })
-                  .then(data => {
-                    viewer.clear();
-                    viewer.addModel(data, "cube");
-                    viewer.setStyle({}, { stick: {} });
+              let volumetricData = null;
             
-                    // Positive isosurface
-                    viewer.addVolumetricIsosurface(data, {
-                      isoval: isovalue,
-                      color: "blue",
-                      opacity: 0.6,
-                      smoothness: 5
-                    });
+              async function loadOrbital(cubeFile, isovalue) {
+                try {
+                  const response = await fetch(cubeFile);
+                  if (!response.ok) throw new Error(`Failed to load ${cubeFile}`);
+                  const cubeText = await response.text();
             
-                    // Negative isosurface
-                    viewer.addVolumetricIsosurface(data, {
-                      isoval: -isovalue,
-                      color: "red",
-                      opacity: 0.6,
-                      smoothness: 5
-                    });
-            
-                    viewer.zoomTo();
-                    viewer.render();
-                  })
-                  .catch(err => {
-                    console.error("Error loading orbital:", err);
+                  viewer.clear();
+                  volumetricData = viewer.addVolumetricData(cubeText, "cube", {
+                    voxel: true,
+                    style: "orbital"
                   });
+            
+                  // Positive lobe
+                  viewer.addIsosurface(volumetricData, {
+                    isoval: isovalue,
+                    color: "blue",
+                    opacity: 0.6,
+                    smoothness: 5
+                  });
+            
+                  // Negative lobe
+                  viewer.addIsosurface(volumetricData, {
+                    isoval: -isovalue,
+                    color: "red",
+                    opacity: 0.6,
+                    smoothness: 5
+                  });
+            
+                  viewer.zoomTo();
+                  viewer.render();
+                } catch (err) {
+                  console.error("Error loading orbital:", err);
+                }
               }
             
-              // Load initial orbital
+              // Initial render
               loadOrbital(selector.value, parseFloat(isoSlider.value));
             
-              // Event listeners
+              // Dropdown handler
               selector.addEventListener("change", () => {
                 loadOrbital(selector.value, parseFloat(isoSlider.value));
               });
             
+              // Slider handler
               isoSlider.addEventListener("input", () => {
                 isoLabel.textContent = isoSlider.value;
-                loadOrbital(selector.value, parseFloat(isoSlider.value));
+                if (selector.value && volumetricData) {
+                  // Re-render current orbital with updated isovalue
+                  loadOrbital(selector.value, parseFloat(isoSlider.value));
+                }
               });
             </script>
         </section>

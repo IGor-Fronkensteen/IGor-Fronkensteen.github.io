@@ -6,6 +6,7 @@
     <title>Dom Colosimo - Portfolio</title>
     <script src="prism.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://3dmol.org/build/3Dmol-min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="prism-solarized-dark-atom.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -87,114 +88,77 @@
             </div>
         </section>
         <section class="content-section section-theme-orange">
+            <div id="viewer" style="width: 100%; height: 600px; position: relative;"></div>
+            
             <label for="orbital-selector">Choose an orbital:</label>
-            <select id="orbital-selector"></select>
-            <div id="vtk-viewer" style="width: 100%; height: 600px; background: black; margin: 1rem 0;"></div>
-            <script type="module">
-              import 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/OpenGL';
-              import vtkGenericRenderWindow from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Misc/GenericRenderWindow';
-              import vtkXMLImageDataReader from 'https://cdn.skypack.dev/@kitware/vtk.js/IO/XML/XMLImageDataReader';
-              import vtkVolume from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Volume';
-              import vtkVolumeMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/VolumeMapper';
-              import vtkColorTransferFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/ColorTransferFunction';
-              import vtkPiecewiseFunction from 'https://cdn.skypack.dev/@kitware/vtk.js/Common/DataModel/PiecewiseFunction';
-              import vtkMapper from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Mapper';
-              import vtkActor from 'https://cdn.skypack.dev/@kitware/vtk.js/Rendering/Core/Actor';
-              import vtkImageMarchingCubes from 'https://cdn.skypack.dev/@kitware/vtk.js/Filters/General/ImageMarchingCubes';
+            <select id="orbital-selector">
+              <option value="canonical_00.cube">Orbital 0</option>
+              <option value="canonical_01.cube">Orbital 1</option>
+              <option value="canonical_02.cube">Orbital 2</option>
+              <option value="canonical_03.cube">Orbital 3</option>
+              <option value="canonical_04.cube">Orbital 4</option>
+              <option value="canonical_05.cube">Orbital 5</option>
+              <option value="canonical_06.cube">Orbital 6</option>
+              <option value="canonical_07.cube" selected>Orbital 7</option>
+            </select>
+           
+            <label for="iso-value">Isovalue:</label>
+            <input type="range" id="iso-value" min="0.01" max="0.3" step="0.01" value="0.05">
+            <span id="iso-value-label">0.05</span>
+            <script>
+              const viewer = $3Dmol.createViewer("viewer", { backgroundColor: "black" });
+              const selector = document.getElementById("orbital-selector");
+              const isoSlider = document.getElementById("iso-value");
+              const isoLabel = document.getElementById("iso-value-label");
             
-              const orbitalFiles = ['canonical_01.vti', 'canonical_07.vti']; // Add more here
+              function loadOrbital(cubeFile, isovalue) {
+                fetch(cubeFile)
+                  .then(response => {
+                    if (!response.ok) throw new Error(`Failed to load ${cubeFile}`);
+                    return response.text();
+                  })
+                  .then(data => {
+                    viewer.clear();
+                    viewer.addModel(data, "cube");
+                    viewer.setStyle({}, { stick: {} });
+                    viewer.mapData(data, "cube", { isoval: isovalue });
             
-              const container = document.getElementById('vtk-viewer');
-              const dropdown = document.getElementById('orbital-selector');
+                    // Positive isosurface
+                    viewer.addVolumetricIsosurface(data, {
+                      isoval: isovalue,
+                      color: "blue",
+                      opacity: 0.6,
+                      smoothness: 5
+                    });
             
-              const genericRenderWindow = vtkGenericRenderWindow.newInstance({ background: [0, 0, 0] });
-              genericRenderWindow.setContainer(container);
-              genericRenderWindow.resize();
-              const renderer = genericRenderWindow.getRenderer();
-              const renderWindow = genericRenderWindow.getRenderWindow();
+                    // Negative isosurface
+                    viewer.addVolumetricIsosurface(data, {
+                      isoval: -isovalue,
+                      color: "red",
+                      opacity: 0.6,
+                      smoothness: 5
+                    });
             
-              function createContourActor(imageData, isoValue, color) {
-                const contour = vtkImageMarchingCubes.newInstance();
-                contour.setInputData(imageData);
-                contour.setContourValue(0, isoValue);
-                contour.update();
-            
-                const mapper = vtkMapper.newInstance();
-                mapper.setInputData(contour.getOutputData());
-            
-                const actor = vtkActor.newInstance();
-                actor.setMapper(mapper);
-                actor.getProperty().setColor(...color);
-                return actor;
+                    viewer.zoomTo();
+                    viewer.render();
+                  })
+                  .catch(err => {
+                    console.error("Error loading orbital:", err);
+                  });
               }
             
-              async function loadAndRender(filename) {
-                renderer.removeAllViewProps();
+              // Load initial orbital
+              loadOrbital(selector.value, parseFloat(isoSlider.value));
             
-                const reader = vtkXMLImageDataReader.newInstance();
-                await reader.setUrl(filename, { loadData: true });
-                const imageData = reader.getOutputData(0);
-            
-                const scalars = imageData.getPointData().getScalars();
-                const [min, max] = scalars.getRange();
-                const mid = (min + max) / 2;
-            
-                // Volume rendering
-                const volumeMapper = vtkVolumeMapper.newInstance();
-                volumeMapper.setInputData(imageData);
-            
-                const volume = vtkVolume.newInstance();
-                volume.setMapper(volumeMapper);
-            
-                const ctfun = vtkColorTransferFunction.newInstance();
-                const ofun = vtkPiecewiseFunction.newInstance();
-            
-                ctfun.addRGBPoint(min, 0.0, 0.0, 1.0);
-                ctfun.addRGBPoint(mid, 1.0, 1.0, 1.0);
-                ctfun.addRGBPoint(max, 1.0, 0.0, 0.0);
-            
-                ofun.addPoint(min, 0.0);
-                ofun.addPoint(mid, 0.05);
-                ofun.addPoint(max, 0.2);
-            
-                const prop = volume.getProperty();
-                prop.setRGBTransferFunction(0, ctfun);
-                prop.setScalarOpacity(0, ofun);
-                prop.setScalarOpacityUnitDistance(0, 1.0);
-                prop.setInterpolationTypeToLinear();
-                prop.setShade(true);
-                prop.setAmbient(0.2);
-                prop.setDiffuse(0.8);
-                prop.setSpecular(0.3);
-                prop.setSpecularPower(10.0);
-            
-                // Contours
-                const isoLevel = 0.02 * (max - min);
-                const posContour = createContourActor(imageData, +isoLevel, [1, 1, 0]);  // yellow
-                const negContour = createContourActor(imageData, -isoLevel, [0, 1, 1]);  // cyan
-            
-                renderer.addVolume(volume);
-                renderer.addActor(posContour);
-                renderer.addActor(negContour);
-                renderer.resetCamera();
-                renderWindow.render();
-              }
-            
-              // Populate dropdown
-              dropdown.innerHTML = '';
-              orbitalFiles.forEach(file => {
-                const opt = document.createElement('option');
-                opt.value = file;
-                opt.text = file;
-                dropdown.appendChild(opt);
+              // Event listeners
+              selector.addEventListener("change", () => {
+                loadOrbital(selector.value, parseFloat(isoSlider.value));
               });
             
-              dropdown.addEventListener('change', (e) => {
-                loadAndRender(e.target.value);
+              isoSlider.addEventListener("input", () => {
+                isoLabel.textContent = isoSlider.value;
+                loadOrbital(selector.value, parseFloat(isoSlider.value));
               });
-            
-              // Initial load
-              loadAndRender(orbitalFiles[0]);
             </script>
         </section>
         <section class="content-section section-theme-orange" id="DataScience">

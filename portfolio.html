@@ -107,11 +107,10 @@
             <div id="viewer" style="width: 100%; height: 600px; position: relative;"></div>
             <script>
               const viewer = $3Dmol.createViewer("viewer", { backgroundColor: "black" });
+            
               const selector = document.getElementById("orbital-selector");
               const isoSlider = document.getElementById("iso-value");
               const isoLabel = document.getElementById("iso-value-label");
-            
-              let volumetricData = null;
             
               async function loadOrbital(cubeFile, isovalue) {
                 try {
@@ -120,49 +119,55 @@
                   const cubeText = await response.text();
             
                   viewer.clear();
-                  volumetricData = viewer.addVolumetricData(cubeText, "cube", {
-                    voxel: true,
-                    style: "orbital"
+            
+                  // Wrap volumetric loading in a Promise
+                  await new Promise((resolve, reject) => {
+                    viewer.addVolumetricData(cubeText, "cube", {
+                      voxel: true,
+                      style: "orbital"
+                    }, () => {
+                      try {
+                        // Add positive isosurface
+                        viewer.addIsosurface(undefined, {
+                          isoval: isovalue,
+                          color: "blue",
+                          opacity: 0.6,
+                          smoothness: 5
+                        });
+            
+                        // Add negative isosurface
+                        viewer.addIsosurface(undefined, {
+                          isoval: -isovalue,
+                          color: "red",
+                          opacity: 0.6,
+                          smoothness: 5
+                        });
+            
+                        viewer.zoomTo();
+                        viewer.render();
+                        resolve();
+                      } catch (e) {
+                        reject(e);
+                      }
+                    });
                   });
             
-                  // Positive lobe
-                  viewer.addIsosurface(null, {
-                    isoval: isovalue,
-                    color: "blue",
-                    opacity: 0.6,
-                    smoothness: 5
-                  });
-            
-                  // Negative lobe
-                  viewer.addIsosurface(null, {
-                    isoval: -isovalue,
-                    color: "red",
-                    opacity: 0.6,
-                    smoothness: 5
-                  });
-            
-                  viewer.zoomTo();
-                  viewer.render();
                 } catch (err) {
                   console.error("Error loading orbital:", err);
                 }
               }
             
-              // Initial render
+              // Initial load
               loadOrbital(selector.value, parseFloat(isoSlider.value));
             
-              // Dropdown handler
+              // Event handlers
               selector.addEventListener("change", () => {
                 loadOrbital(selector.value, parseFloat(isoSlider.value));
               });
             
-              // Slider handler
               isoSlider.addEventListener("input", () => {
                 isoLabel.textContent = isoSlider.value;
-                if (selector.value && volumetricData) {
-                  // Re-render current orbital with updated isovalue
-                  loadOrbital(selector.value, parseFloat(isoSlider.value));
-                }
+                loadOrbital(selector.value, parseFloat(isoSlider.value));
               });
             </script>
         </section>

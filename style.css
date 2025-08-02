@@ -380,7 +380,7 @@ body.light-mode #theme-toggle:hover {
     font-size: 0.7em; /* Make it even smaller, adjust as needed */
     line-height: 0;
     position: relative;
-    top: +0.2em; /* Adjust vertical position further, make it more negative */
+    /* top: +0.2em; Adjust vertical position further, make it more negative */
 }
 
 .tagline1 {

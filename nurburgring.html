@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nürburgring Lap Time Predictor | Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-mono leading-relaxed tracking-wide">
+
+  <header class="bg-gray-800 p-6 shadow-md">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold">Nürburgring Lap Time Predictor</h1>
+      <p class="text-gray-400 mt-2">Predicting performance from raw specs using machine learning.</p>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto p-6 space-y-12">
+
+    <!-- Summary -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-2">🚗 Overview</h2>
+      <p>
+        This project builds a predictive model for lap times on the Nürburgring Nordschleife using real-world vehicle specifications like weight, horsepower, wheelbase, and more.
+        The goal: explore how machine learning can map engineering parameters to real-world track performance.
+      </p>
+    </section>
+
+    <!-- Approach -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-2">🧪 Approach</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Data collection:</strong> Scraped vehicle spec and lap time data from FastestLaps.com</li>
+        <li><strong>Preprocessing:</strong> Feature extraction (e.g. power-to-weight), outlier handling, log-transform of lap time</li>
+        <li><strong>Modeling:</strong> Baseline Linear Regression, then Ridge/Lasso/Random Forest with hyperparameter tuning</li>
+        <li><strong>Evaluation:</strong> R², residual plots, SHAP analysis for model interpretability</li>
+      </ul>
+    </section>
+
+    <!-- Results -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-2">📊 Key Results</h2>
+      <p>
+        The best model (Random Forest with tuned hyperparameters) achieved an R² of <strong>0.94</strong>, accurately capturing the impact of power-to-weight ratio, drag, and downforce.
+        SHAP plots revealed that weight and specific power were the top contributors.
+      </p>
+      <img src="/assets/nurburgring/shap_plot.png" alt="SHAP Summary Plot" class="my-4 rounded-lg shadow-lg">
+    </section>
+
+    <!-- Reflection -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-2">🔍 What I Learned</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Feature engineering is crucial—raw horsepower isn’t as telling as power-to-weight</li>
+        <li>Model interpretability (e.g. SHAP) builds trust in predictive systems</li>
+        <li>Model performance isn’t just about accuracy—it’s about domain insight</li>
+      </ul>
+    </section>
+
+    <!-- Links -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-2">🔗 Explore</h2>
+      <ul class="space-y-1 underline text-blue-300">
+        <li><a href="https://github.com/IGor-Fronkensteen/NurbLapLab_001" target="_blank">📁 GitHub Repository</a></li>
+        <li><a href="https://nbviewer.org/github/IGor-Fronkensteen/NurbLapLab_001/blob/main/NurbLapLab_Storybook.ipynb" target="_blank">📓 Project Notebook</a></li>
+        <!-- <li><a href="https://your-demo-link.com" target="_blank">🌐 Live Demo</a></li> -->
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="bg-gray-800 p-4 text-center text-gray-500">
+    &copy; 2025 Dominick Colosimo
+  </footer>
+
+</body>
+</html>

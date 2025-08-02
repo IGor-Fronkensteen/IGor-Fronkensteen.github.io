@@ -3,75 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nürburgring Lap Time Predictor | Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <title>Nürburgring Lap Time Predictor</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-900 text-white font-mono leading-relaxed tracking-wide">
 
-  <header class="bg-gray-800 p-6 shadow-md">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-3xl font-bold">Nürburgring Lap Time Predictor</h1>
-      <p class="text-gray-400 mt-2">Predicting performance from raw specs using machine learning.</p>
-    </div>
+<body>
+  <header class="main-header">
+    <header class="header-left">
+      <div>
+        <a href="index.html" class="nav-home-button site-logo-text">Home</a>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle light or dark mode">
+        <span class="icon-dark-mode">☀️</span> <span class="icon-light-mode" style="display: none;">🌙</span>
+      </button>
+    </header>
+    <header class="header-right">
+      <button class="hamburger-menu-toggle" aria-label="Toggle navigation menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+      <nav class="main-nav-links" id="mainNavLinks">
+        <div class="nav-link-item"><a href="aboutme.html">About Me</a></div>
+        <div class="nav-link-item"><a href="resume.html">Resume</a></div>
+        <div class="nav-link-item"><a href="interests.html">Interests</a></div>
+        <div class="nav-link-item"><a href="portfolio.html">Portfolio</a></div>
+        <div class="nav-contact-button-wrapper">
+          <a href="index.html#contact-me" class="action-button-orange">Contact Me</a>
+        </div>
+      </nav>
+    </header>
   </header>
 
-  <main class="max-w-4xl mx-auto p-6 space-y-12">
+  <main class="main-content">
 
-    <!-- Summary -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-2">🚗 Overview</h2>
-      <p>
-        This project builds a predictive model for lap times on the Nürburgring Nordschleife using real-world vehicle specifications like weight, horsepower, wheelbase, and more.
-        The goal: explore how machine learning can map engineering parameters to real-world track performance.
+    <!-- Hero Section -->
+    <section class="content-section section-theme-blue">
+      <h1 class="tagline1 pastel-accent3">🏁 Nürburgring Lap Time Predictor</h1>
+      <p class="pedantic">
+        Predicting Nordschleife lap times from raw vehicle specs using machine learning and feature engineering.
       </p>
     </section>
 
-    <!-- Approach -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-2">🧪 Approach</h2>
-      <ul class="list-disc list-inside space-y-2">
-        <li><strong>Data collection:</strong> Scraped vehicle spec and lap time data from FastestLaps.com</li>
-        <li><strong>Preprocessing:</strong> Feature extraction (e.g. power-to-weight), outlier handling, log-transform of lap time</li>
-        <li><strong>Modeling:</strong> Baseline Linear Regression, then Ridge/Lasso/Random Forest with hyperparameter tuning</li>
-        <li><strong>Evaluation:</strong> R², residual plots, SHAP analysis for model interpretability</li>
+    <!-- Overview -->
+    <section class="content-section section-theme-blue">
+      <h2 class="pastel-accent3">🚘 Project Overview</h2>
+      <p>
+        This project predicts lap times on the Nürburgring Nordschleife using real-world car specs.
+        It’s a study in how physical parameters like power, weight, and aerodynamics map to real-world racetrack performance.
+        The goal was to create an intuitive model that could not only predict, but also explain.
+      </p>
+    </section>
+
+    <!-- Methodology -->
+    <section class="content-section section-theme-blue">
+      <h2 class="pastel-accent3">🛠️ Methodology</h2>
+      <ul style="text-align: left; margin: 0 auto; max-width: 800px;">
+        <li><strong>Data Scraping:</strong> Gathered car specs and lap times from <em>FastestLaps.com</em></li>
+        <li><strong>Feature Engineering:</strong> Calculated power-to-weight, log-transform of lap time, etc.</li>
+        <li><strong>Modeling:</strong> Linear regression → Ridge → Random Forest</li>
+        <li><strong>Evaluation:</strong> R², residuals, and SHAP values for model explainability</li>
       </ul>
     </section>
 
     <!-- Results -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-2">📊 Key Results</h2>
+    <section class="content-section section-theme-blue">
+      <h2 class="pastel-accent3">📊 Key Findings</h2>
       <p>
-        The best model (Random Forest with tuned hyperparameters) achieved an R² of <strong>0.94</strong>, accurately capturing the impact of power-to-weight ratio, drag, and downforce.
-        SHAP plots revealed that weight and specific power were the top contributors.
+        The tuned Random Forest achieved an R² of <strong>0.94</strong> with good generalization.
+        SHAP analysis revealed specific power and weight were the most influential features—validating core race engineering intuition.
       </p>
-      <img src="/assets/nurburgring/shap_plot.png" alt="SHAP Summary Plot" class="my-4 rounded-lg shadow-lg">
+      <img src="/assets/nurburgring/shap_plot.png" alt="SHAP Summary Plot" style="max-width: 100%; border-radius: 5px; margin-top: 20px;" />
     </section>
 
     <!-- Reflection -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-2">🔍 What I Learned</h2>
-      <ul class="list-disc list-inside space-y-2">
-        <li>Feature engineering is crucial—raw horsepower isn’t as telling as power-to-weight</li>
-        <li>Model interpretability (e.g. SHAP) builds trust in predictive systems</li>
-        <li>Model performance isn’t just about accuracy—it’s about domain insight</li>
+    <section class="content-section section-theme-blue">
+      <h2 class="pastel-accent3">🔍 What I Learned</h2>
+      <ul style="text-align: left; margin: 0 auto; max-width: 800px;">
+        <li>Feature selection is the heart of predictive modeling</li>
+        <li>Log-transforms can linearize complex physical relationships</li>
+        <li>Interpretability (SHAP) makes results trustworthy and insightful</li>
       </ul>
     </section>
 
     <!-- Links -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-2">🔗 Explore</h2>
-      <ul class="space-y-1 underline text-blue-300">
+    <section class="content-section section-theme-blue">
+      <h2 class="pastel-accent3">🔗 Explore</h2>
+      <ul style="list-style: none; padding: 0; margin-top: 10px;">
         <li><a href="https://github.com/IGor-Fronkensteen/NurbLapLab_001" target="_blank">📁 GitHub Repository</a></li>
         <li><a href="https://nbviewer.org/github/IGor-Fronkensteen/NurbLapLab_001/blob/main/NurbLapLab_Storybook.ipynb" target="_blank">📓 Project Notebook</a></li>
-        <!-- <li><a href="https://your-demo-link.com" target="_blank">🌐 Live Demo</a></li> -->
       </ul>
     </section>
 
   </main>
 
-  <footer class="bg-gray-800 p-4 text-center text-gray-500">
-    &copy; 2025 Dominick Colosimo
+  <footer class="social-links-footer pedfoot">
+    <span>&copy; 2025 Dominick Colosimo</span>
   </footer>
 
+  <script>
+    const hamburger = document.querySelector(".hamburger-menu-toggle");
+    const navLinks = document.getElementById("mainNavLinks");
+
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+      hamburger.classList.toggle("active");
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        if (navLinks.classList.contains("active")) {
+          navLinks.classList.remove("active");
+          hamburger.classList.remove("active");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
+

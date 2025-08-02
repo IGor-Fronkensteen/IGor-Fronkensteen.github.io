@@ -76,20 +76,30 @@ body.light-mode .portfolio-notice-box {
 body.light-mode .site-logo-container svg .cls-1 {
     fill: #F0EFE0; /* Change logo fill to dark for light mode */
 }
+body.light-mode .about-image-column img {
+    border-color: #DDD;
+}
 
 body.light-mode .main-header,
 body.light-mode .main-nav-links {
     background-color: #FFFFFF; /* White header/sidebar */
+}
+body.light-mode .main-header {
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 body.light-mode .main-header a,
 body.light-mode .main-nav-links a {
     color: #333; /* Dark text for header links */
 }
 body.light-mode .main-header a.action-button-orange {
+    background-color: rgba(250, 200, 152, 0.9);
     color: #fff; /* Keep white text for action buttons */
 }
 body.light-mode .main-header a:hover {
-    background-color: rgba(30,30,30,0.05); /* Light hover background */
+    background-color: rgba(0, 0, 0, 0.05);
+}
+body.light-mode .main-header .action-button-orange:hover {
+    background-color: rgba(250, 200, 152, 1);
 }
 body.light-mode .main-header .site-logo-text {
     border-color: #333;
@@ -152,8 +162,9 @@ body.light-mode .iframe-preview {
     background-color: transparent;
     border: 1px solid #FFF;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    margin-top: 1px;
+    width: 33px;
+    height: 33px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -242,15 +253,19 @@ body.light-mode #theme-toggle:hover {
 /* Specific theme colors for section borders */
 .section-theme-green { /* Renamed from .confused1, .confused11 */
     border: 3px solid #90EE90;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 .section-theme-pink { /* Renamed from .confused2, .confused22 */
     border: 3px solid #FFC0CB;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 .section-theme-blue { /* Renamed from .confused3, .confused33 */
     border: 3px solid #87CEEA;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 .section-theme-orange { /* Renamed from .confused4, .confused44 */
     border: 3px solid #FAC898;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 
 /* For section headings (e.g., h2, h3 within a section) */
@@ -260,10 +275,18 @@ body.light-mode #theme-toggle:hover {
     border-radius: 7px;
     text-align: center;
 }
-.section-heading-container.section-theme-green { border: 3px solid #90EE90; }
-.section-heading-container.section-theme-pink { border: 3px solid #FFC0CB; }
-.section-heading-container.section-theme-blue { border: 3px solid #87CEEA; }
-.section-heading-container.section-theme-orange { border: 3px solid #FAC898; }
+.section-heading-container.section-theme-green {
+    border: 3px solid #90EE90;
+}
+.section-heading-container.section-theme-pink {
+    border: 3px solid #FFC0CB;
+}
+.section-heading-container.section-theme-blue {
+    border: 3px solid #87CEEA;
+}
+.section-heading-container.section-theme-orange {
+    border: 3px solid #FAC898;
+}
 
 
 /* Specific section layouts */
@@ -275,6 +298,7 @@ body.light-mode #theme-toggle:hover {
     padding: 20px;
     text-align: center;
     background-color: #1a1a1a;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 
 .about-summary-container { /* Renamed from .about-box */
@@ -288,14 +312,17 @@ body.light-mode #theme-toggle:hover {
 }
 
 .about-image-column { /* Renamed from .oneone */
-    padding: 25px;
+    margin: 25px;
 }
 
 .about-image-column img {
     max-width: 100%;
+    border: 3px solid #FAC898;
+    border-radius: 7px;
     height: auto;
     display: block;
     vertical-align: middle;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 
 .about-text-column { /* Renamed from .twotwo */
@@ -306,6 +333,7 @@ body.light-mode #theme-toggle:hover {
     background-color: #1a1a1a;
     flex: 1 1 400px; /* Allows flexibility, 400px is base width */
     min-width: 300px; /* Prevents text column from getting too small */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 
 .portfolio-notice-box { /* Renamed from .iluvmorgam */
@@ -320,15 +348,15 @@ body.light-mode #theme-toggle:hover {
 }
 
 .skills-logos-container { /* Renamed from .custom1, .confused5 */
-    max-width: 1000px;
+    max-width: 700px;
     margin: 50px auto;
-    border: 3px solid #87CEEA; /* Using a default theme color, or specify a new one */
+    border: 3px solid black;  /* #87CEEA; Using a default theme color, or specify a new one */
     border-radius: 7px;
-    background-color: white;
+    background-color: #fff;
     padding: 20px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     gap: 20px;
     height: auto;
 }
@@ -353,6 +381,12 @@ body.light-mode #theme-toggle:hover {
     background-color: #d3d3d3;
     margin: 50px auto;
     max-width: 155px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+}
+.social-links-footer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -377,7 +411,7 @@ body.light-mode #theme-toggle:hover {
 
 .pedfoot sup {
     vertical-align: super;
-    font-size: 0.7em; /* Make it even smaller, adjust as needed */
+    font-size: 0.8em; /* Make it even smaller, adjust as needed */
     line-height: 0;
     position: relative;
     /* top: +0.2em; Adjust vertical position further, make it more negative */
@@ -400,6 +434,7 @@ body.light-mode #theme-toggle:hover {
     flex-shrink: 0;
 }
 .action-button-orange:hover {
+    color: #fff;
     background-color: rgba(250, 200, 152, 1);
 }
 
@@ -454,8 +489,8 @@ body.light-mode #theme-toggle:hover {
     padding: 6px;
     margin-right: 15px;
     background-color: rgba(65, 65, 65, 1);
-    border-radius: 3px;
-    border: 2px solid #fff; /* White border */
+    border-radius: 2px;
+    border: 1px solid #fff; /* White border */
     color: #fff; /* Ensure text is white */
     text-decoration: none; /* Remove underline */
     line-height: 1; /* Helps reduce inherent text spacing */
@@ -577,7 +612,9 @@ body.light-mode #theme-toggle:hover {
     line-height: 1; /* NEW: Remove extra text line height */
 }
 
-/* --- Orbital Viewer Content --- */
+/* --- Portfolio Content --- */
+
+/* Orbital Viewer Content */
 #orbital-selector {
   color: white;
   background-color: #222; /* optional: dark background for contrast */
@@ -593,6 +630,13 @@ body.light-mode #theme-toggle:hover {
 
 label[for="orbital-selector"] {
   color: white;
+}
+
+/* Hover functionality for project cards */
+.project-card:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-2px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 /* --- Mobile/Small Screen Media Queries --- */

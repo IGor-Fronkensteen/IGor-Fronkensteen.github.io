@@ -638,11 +638,42 @@ label[for="orbital-selector"] {
   color: white;
 }
 
-/* Hover functionality for project cards */
-.project-card:hover {
-    background-color: #2a2a2a;
-    transform: translateY(-2px);
-    transition: transform 0.2s ease, background-color 0.2s ease;
+/* --- Project Cards --- */
+.project-card {
+  display: block;
+  text-align: left;
+  width: 300px;
+  padding: 20px;
+  border-radius: 7px;
+  background-color: #1a1a1a; /* dark mode default */
+  transition: background-color 0.3s, border-color 0.3s;
+  border: 3px solid transparent;
+}
+
+.project-title {
+  margin-bottom: 10px;
+}
+
+.project-description {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+/* Light mode overrides */
+body.light-mode .project-card {
+  background-color: #f5f5f5;
+}
+
+body.light-mode .project-description {
+  color: #444;
+}
+
+/* Accent Borders */
+.accent-blue {
+  border-color: #87CEEA;
+}
+.accent-pink {
+  border-color: #FFC0CB;
 }
 
 /* --- Mobile/Small Screen Media Queries --- */

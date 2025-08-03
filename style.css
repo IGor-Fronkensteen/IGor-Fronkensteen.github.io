@@ -436,6 +436,7 @@ body.light-mode #theme-toggle:hover {
 .action-button-orange:hover {
     color: #fff;
     background-color: rgba(250, 200, 152, 1);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .action-button-green { /* Renamed from .button */
@@ -448,6 +449,7 @@ body.light-mode #theme-toggle:hover {
 }
 .action-button-green:hover {
     background-color: rgba(90, 238, 90, 1);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 
@@ -497,6 +499,7 @@ body.light-mode #theme-toggle:hover {
     display: flex; /* Make the link itself a flex container */
     align-items: center; /* Vertically center its content (the text) */
     justify-content: center; /* Horizontally center its content (the text) */
+    transition: background-color 0.3s, border-color 0.3s;
 }
 .header-left .site-logo-text:hover {
     background-color: rgba(85, 85, 85, 1); /* Hover effect from old .hbutt */
@@ -539,10 +542,12 @@ body.light-mode #theme-toggle:hover {
     align-items: center; /* NEW: Vertically center text within link */
     justify-content: center; /* NEW: Horizontally center text within link */
     line-height: 1; /* NEW: Remove extra text line height */
+    transition: background-color 0.3s, border-color 0.3s;
 }
 .main-nav-links .nav-link-item > a:hover {
     background-color: rgba(255, 255, 255, 0.2);
     text-decoration: none;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 
@@ -574,6 +579,7 @@ body.light-mode #theme-toggle:hover {
 .dropdown-content a:hover {
     background-color: rgba(135, 206, 234, 0.2); /* Light transparent pastel blue */
     color: #87CEEA; /* Change text color on hover for dropdown */
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 
@@ -716,6 +722,10 @@ label[for="orbital-selector"] {
     /* Tagline font size reduction */
     .tagline1 {
         font-size: 2rem; /* Reduce font size for smaller screens */
+    }
+    /* Hide dropdown children in mobile hamburger menu */
+    .main-nav-links.active .dropdown-content {
+        display: none !important;
     }
     /* .tagline { /* If tagline ever becomes used */
     /* font-size: 2rem; */

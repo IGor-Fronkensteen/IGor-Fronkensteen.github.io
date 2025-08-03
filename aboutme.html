@@ -133,21 +133,69 @@ Check out the following links to explore my About Me section, see my Resume, lea
         </section>
     </main>
     <script>
-        const hamburger = document.querySelector(".hamburger-menu-toggle");
-        const navLinks = document.getElementById("mainNavLinks");
-
-        hamburger.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
-            hamburger.classList.toggle("active");
-        });
-
-        navLinks.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                if (navLinks.classList.contains("active")) {
-                    navLinks.classList.remove("active");
-                    hamburger.classList.remove("active");
+        document.addEventListener("DOMContentLoaded", () => {
+   
+            // === Dark/Light Mode Toggle JavaScript ===
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            // Only proceed if the theme toggle button exists (it's optional in HTML)
+            if (themeToggleBtn) {
+                const darkModeIcon = document.querySelector('#theme-toggle .icon-dark-mode');
+                const lightModeIcon = document.querySelector('#theme-toggle .icon-light-mode');
+    
+                // Check for saved preference
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme) {
+                    document.body.classList.add(savedTheme);
+                    if (savedTheme === 'light-mode') {
+                        if (darkModeIcon) darkModeIcon.style.display = 'none';
+                        if (lightModeIcon) lightModeIcon.style.display = 'inline';
+                    } else {
+                        if (darkModeIcon) darkModeIcon.style.display = 'inline';
+                        if (lightModeIcon) lightModeIcon.style.display = 'none';
+                    }
+                } else {
+                    // Default to dark mode (your current theme) if no preference saved
+                    document.body.classList.remove('light-mode');
+                    if (darkModeIcon) darkModeIcon.style.display = 'inline';
+                    if (lightModeIcon) lightModeIcon.style.display = 'none';
                 }
-            });
+    
+                // Add event listener for the toggle button
+                themeToggleBtn.addEventListener('click', () => {
+                    if (document.body.classList.contains('light-mode')) {
+                        document.body.classList.remove('light-mode');
+                        localStorage.setItem('theme', 'dark-mode');
+                        if (darkModeIcon) darkModeIcon.style.display = 'inline';
+                        if (lightModeIcon) lightModeIcon.style.display = 'none';
+                    } else {
+                        document.body.classList.add('light-mode');
+                        localStorage.setItem('theme', 'light-mode');
+                        if (darkModeIcon) darkModeIcon.style.display = 'none';
+                        if (lightModeIcon) lightModeIcon.style.display = 'inline';
+                    }
+                });
+            }
+    
+    
+            // === Hamburger Menu JavaScript ===
+            const hamburger = document.querySelector(".hamburger-menu-toggle");
+            const navLinks = document.getElementById("mainNavLinks");
+    
+            if (hamburger && navLinks) { // Ensure both elements exist before adding listeners
+                hamburger.addEventListener("click", () => {
+                    navLinks.classList.toggle("active");
+                    hamburger.classList.toggle("active");
+                });
+    
+                navLinks.querySelectorAll("a").forEach(link => {
+                    link.addEventListener("click", () => {
+                        if (navLinks.classList.contains("active")) {
+                            navLinks.classList.remove("active");
+                            hamburger.classList.remove("active");
+                        }
+                    });
+                });
+            }
         });
     </script>
 </body>

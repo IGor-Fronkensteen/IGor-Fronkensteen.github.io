@@ -67,6 +67,7 @@ body.light-mode a:hover {
 body.light-mode .content-section,
 body.light-mode .news-section,
 body.light-mode .about-text-column,
+body.light-mode .about-text-column-main,
 body.light-mode .portfolio-notice-box {
     background-color: #FFFFFF; /* White background for content boxes */
     border-color: #DDD; /* Lighter border */
@@ -312,7 +313,7 @@ body.light-mode #theme-toggle:hover {
 }
 
 .about-image-column { /* Renamed from .oneone */
-    margin: 25px;
+    /* margin: 25px; */
 }
 
 .about-image-column img {
@@ -335,9 +336,8 @@ body.light-mode #theme-toggle:hover {
     min-width: 300px; /* Prevents text column from getting too small */
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
-hiweird
 .about-image-column-main { /* Renamed from .oneone */
-    margin: 25px;
+    /* margin: 25px; */
 }
 
 .about-image-column-main img {

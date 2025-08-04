@@ -317,7 +317,7 @@ body.light-mode #theme-toggle:hover {
 
 .about-image-column img {
     max-width: 100%;
-    border: 3px solid #FAC898;
+    border: 3px solid #90EE90;
     border-radius: 7px;
     height: auto;
     display: block;
@@ -326,6 +326,31 @@ body.light-mode #theme-toggle:hover {
 }
 
 .about-text-column { /* Renamed from .twotwo */
+    text-align: center;
+    padding: 15px;
+    border: 3px solid #90EE90;
+    border-radius: 7px;
+    background-color: #1a1a1a;
+    flex: 1 1 400px; /* Allows flexibility, 400px is base width */
+    min-width: 300px; /* Prevents text column from getting too small */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+}
+hiweird
+.about-image-column-main { /* Renamed from .oneone */
+    margin: 25px;
+}
+
+.about-image-column-main img {
+    max-width: 100%;
+    border: 3px solid #FAC898;
+    border-radius: 7px;
+    height: auto;
+    display: block;
+    vertical-align: middle;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+}
+
+.about-text-column-main { /* Renamed from .twotwo */
     text-align: center;
     padding: 15px;
     border: 3px solid #FAC898;
@@ -356,9 +381,10 @@ body.light-mode #theme-toggle:hover {
     padding: 20px;
     display: flex;
     justify-content: center;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
     gap: 20px;
     height: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 
 .skills-logos-container img {

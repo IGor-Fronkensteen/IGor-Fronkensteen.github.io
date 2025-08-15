@@ -49,6 +49,10 @@ a:hover {
     /* Main content wrapper - no specific styles needed yet */
 }
 
+section {
+  scroll-margin-top: 70px; /* adjust to taste */
+}
+
 
 /* --- Theme Styles (Light Mode) --- */
 body.light-mode {
@@ -113,10 +117,22 @@ body.light-mode .main-header .site-logo-text {
 body.light-mode .main-header .site-logo-text:hover {
     background-color: rgba(0,0,0,0.1);
 }
+body.light-mode .main-footer {
+  background-color: #fff;
+}
 
 body.light-mode .glow-text {
   color: #222; /* Dark text for content boxes */
   text-shadow: 
+    0 0 5px #777, /* Horizontal offset, vertical offset, blur radius, color */
+    0 0 10px #777,
+    0 0 15px #777;
+}
+
+body.light-mode .long-line {
+  color: #222; /* Dark text for content boxes */
+  border: 3px solid #fff;
+  box-shadow: 
     0 0 5px #777, /* Horizontal offset, vertical offset, blur radius, color */
     0 0 10px #777,
     0 0 15px #777;
@@ -262,12 +278,23 @@ body.light-mode #theme-toggle:hover {
     background-color: #1a1a1a; /* Dark background for content boxes */
 }
 
-/* --- Fancy Glow Arrow --- */
+/* --- Fancy Glow Arrow and Horizontal Line --- */
 .glow-text {
   font-size: 80px;
   color: #fff; /* Color of the text itself */
   margin: 2px;
   text-shadow: 
+    0 0 5px #FAC898, /* Horizontal offset, vertical offset, blur radius, color */
+    0 0 10px #FAC898,
+    0 0 15px #FAC898;
+}
+.long-line {
+  width: 700px; /* Adjust as needed, can also be in pixels */
+  color: #fff; /* Color of the text itself */
+  border: 3px solid #fff;
+  border-radius: 7px;
+  margin: auto;
+  box-shadow: 
     0 0 5px #FAC898, /* Horizontal offset, vertical offset, blur radius, color */
     0 0 10px #FAC898,
     0 0 15px #FAC898;
@@ -435,6 +462,80 @@ body.light-mode #theme-toggle:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* ===== Footer (single bordered container) ===== */
+.main-footer {
+  background-color: #262626;
+  border: 3px solid #000;
+  border-radius: 8px;
+  padding: 20px 12px;             /* more vertical padding for taller footer */
+  max-width: 700px;
+  margin: 24px auto 24px auto;    /* auto left/right centers the footer */
+}
+
+/* Use a single source of truth for button/icon height to match the nav button */
+:root {
+  --footer-btn-h: 40px;           /* adjust if you want even taller buttons */
+}
+
+/* ===== Grid layout inside footer ===== */
+.footer-trio {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  column-gap: 24px;
+}
+
+/* Cap child height and center content */
+.footer-trio > .footer-col {
+  max-height: 80px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Center block: keep its original border, allow icons to grow */
+.footer-trio > .social-links-footer.footer-col {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* Remove stray margins on first-level children */
+.footer-trio > .footer-col > * {
+  margin-block: 0;
+}
+
+/* Icons */
+.footer-trio img {
+  display: block;
+  height: 48px; /* explicit size for icons, can adjust */
+  width: auto;
+}
+
+/* Footer buttons match nav button look */
+.footer-trio .action-button-orange {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--footer-btn-h);
+  line-height: 1;
+  padding: 0 14px;
+  white-space: nowrap;
+}
+
+/* Mobile stacking */
+@media (max-width: 640px) {
+  .footer-trio {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
 }
 
 
@@ -694,8 +795,15 @@ label[for="orbital-selector"] {
   padding: 20px;
   border-radius: 7px;
   background-color: #1a1a1a; /* dark mode default */
-  transition: background-color 0.3s, border-color 0.3s;
   border: 3px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s, transform 0.3s ease;
+  transform: scale(1); /* default size */
+}
+
+.project-card:hover {
+  transform: scale(1.05); /* grow by 5% on hover */
+  border-color: #ff9900; /* optional: highlight border on hover */
+  background-color: #222; /* optional: subtle background change */
 }
 
 .project-title {
@@ -722,6 +830,9 @@ body.light-mode .project-description {
 }
 .accent-pink {
   border-color: #FFC0CB;
+}
+.accent-orange {
+  border-color: #FAC898;
 }
 
 /* --- Mobile/Small Screen Media Queries --- */

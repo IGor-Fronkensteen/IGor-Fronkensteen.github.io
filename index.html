@@ -124,10 +124,89 @@
                     <p>I am a data scientist, and I enjoy the <span class-"pedantic">process</span> of solving challenging problems. I have an academic background in <a href="https://en.wikipedia.org/wiki/Theoretical_chemistry">theoretical chemistry</a> and <a href="https://en.wikipedia.com/wiki/Computational_physics">computational physics</a>, which gives me a unique skillset and a fresh approach to solving problems.<span class="pedfoot"><sup>&dagger;</sup></span> One direct benefit of my training is that I can explain my results to <span class="pedantic">nearly</span> anyone,<span class="pedfoot"><sup>&Dagger;</sup></span>  and help insights to emerge from information like a story.</p>
                     <p>I have always been authentically interested in the art of data vizualization, and it has shown up regularly as a major player in my work. I take pride in designing interactive, aesthetic, and user-friendly interfaces. Lastly, while I have always found myself to be more productive within a team environment, I have learned that I am still quite effective working independently.</p>
                     <p>Check out the following links to explore my <a href="aboutme.html" class="pastel-accent">About Me</a> section, see my <a href="resume.html" class="pastel-accent2">Resume</a>, learn more about my <a href="interests.html" class="pastel-accent3">Interests</a>, and check out my portfolio of <a href="portfolio.html" class="pastel-accent4">Projects</a>.</p>
-                </div></div>
+	<br>
+        <p>
+          <a href="#projects" class="action-button-orange">View Projects</a>
+          <a href="#contact-me" class="action-button-orange">Contact Me</a>
+        </p>
+	</section>
+	<section>
         <div class="content-section section-theme-orange"><span class="pedfoot"><sup>&dagger;</sup></span> For more on this opinion, check out the chapter 'A Different Box of Tools' in Richard Feynman's autobiography, <i>Surely You're Joking, Mr. Feynman!</i><br><br><span class="pedfoot"><sup>&Dagger;</sup></span> During my time teaching University Chemistry, I learned that a student has to be both <span class="pedantic">awake</span> and <span class="pedantic">engaged</span> in order to learn anything</div> </section>
-        <section class="social-links-footer" id="contact-me"> <a href="https://www.linkedin.com/in/dominick-colosimo/"><img src="LinkedIn_icon.svg" height=50px></a> <a href="https://www.github.com/IGor-Fronkensteen"><img src="Octicons-mark-github.svg" height=50px></a>
+	</section>
+	<br>
+	<hr class="long-line">
+	<br>
+        <section class="content-section section-theme-orange" id="projects">
+          <h2 class="tagline1" style="font-size:2rem;">Featured Projects</h2>
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:30px; margin-top: 20px;">
+            <a href="#nurburgring" class="project-card accent-orange">
+              <h3 class="project-title pastel-accent1">Nürburgring Predictor</h3>
+              <p class="project-description">Predicting Nordschleife lap times from vehicle specs. Feature engineering + SHAP interpretability.</p>
+            </a>
+            <a href="#lyriqs" class="project-card accent-orange">
+              <h3 class="project-title pastel-accent1">LyrIQs: Lyric Analysis</h3>
+              <p class="project-description">NLP-based analysis of rhyme density, lexical entropy, and poetic structure.</p>
+            </a>
+          </div>
         </section>
+        
+            
+        <section class="content-section section-theme-orange" id="nurburgring">
+          <h2 class="tagline1" style="font-size:2rem;">Nürburgring Lap Time Predictor</h2>
+          <p class="pedantic">Predicting Nordschleife lap times from raw vehicle specs using machine learning and feature engineering.</p>
+          <h3>Overview</h3>
+          <p>This project maps physical parameters like power and weight to racetrack performance with intuitive, explainable models.</p>
+          <h3>Key Takeaways</h3>
+          <ul style="text-align:left; margin:0 auto; max-width:800px;">
+            <li>Tuned Random Forest reached strong R² with good generalization.</li>
+        <li>Specific power and weight dominate importance (per SHAP).</li>
+        <li>Log-transforms help linearize physical relationships.</li>
+          </ul>
+          <p style="margin-top:12px;">
+            <a href="https://github.com/IGor-Fronkensteen/nurburgring-lap-predictor" target="_blank">GitHub</a> · <a href="https://nbviewer.org/github/IGor-Fronkensteen/nurburgring-lap-predictor/blob/main/notebooks/1_Data_Cleaning_and_EDA.ipynb" target="_blank">Notebook</a>
+          </p>
+        </section>
+        
+            
+        <section class="content-section section-theme-orange" id="lyriqs">
+          <h2 class="tagline1" style="font-size:2rem;">LyrIQs — Aesop Rock Lyric Intelligence</h2>
+          <p class="pedantic">A data‑rich exploration of poetic complexity, rhyme density, and linguistic entropy in rap lyrics—starting with Aesop Rock.</p>
+          <h3>Overview</h3>
+          <p>LyrIQs evaluates poetic and technical depth using linguistics, information theory, and ML—to quantify rhyme structures, vocabulary richness, and semantic complexity across artists.</p>
+          <h3>Key Takeaways</h3>
+          <ul style="text-align:left; margin:0 auto; max-width:800px;">
+            <li>Top-tier across vocabulary depth, rhyme density, and syntactic entropy.</li>
+        <li><em>Nightlight</em> highlights sentiment inversion with sustained structural complexity.</li>
+        <li>Metric choice shapes narrative; no single number defines lyricism.</li>
+          </ul>
+          <p style="margin-top:12px;">
+            <a href="https://github.com/IGor-Fronkensteen/LyrIQs" target="_blank">GitHub</a> · <a href="https://nbviewer.org/github/IGor-Fronkensteen/LyrIQs/blob/main/LyrIQs_Demo.ipynb" target="_blank">Notebook</a>
+          </p>
+        </section>
+                </div></div>
+        <footer class="main-footer" aria-label="Site footer">
+          <section class="footer-trio">
+            <!-- Left -->
+            <section class="footer-col">
+              <a href="mailto:colosimodominick@gmail.com" class="action-button-orange">Contact Me</a>
+            </section>
+        
+            <!-- Center -->
+            <section class="social-links-footer footer-col" id="contact-me">
+              <a href="https://www.linkedin.com/in/dominick-colosimo/">
+                <img src="LinkedIn_icon.svg" height="50" alt="LinkedIn">
+              </a>
+              <a href="https://www.github.com/IGor-Fronkensteen">
+                <img src="Octicons-mark-github.svg" height="50" alt="GitHub">
+              </a>
+            </section>
+        
+            <!-- Right -->
+            <section class="footer-col">
+              <a href="terms.html" class="action-button-orange">Terms of Service</a>
+            </section>
+          </section>
+        </footer>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>

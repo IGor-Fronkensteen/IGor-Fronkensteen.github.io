@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    margin-top: 110px; /* Space for fixed header on large screens */
+    margin-top: 100px; /* Space for fixed header on large screens */
     background-color: #333; /* Dark background color */
     color: #fff; /* Default text color */
     font-family: Arial, sans-serif;
@@ -78,10 +78,10 @@ body.light-mode .site-logo-container svg .cls-1 {
     fill: #F0EFE0; /* Change logo fill to dark for light mode */
 }
 body.light-mode .about-image-column img {
-    border-color: #DDD;
+    border-color: #818181;
 }
 body.light-mode .about-image-column-main img {
-    border-color: #DDD;
+    border-color: #818181;
 }
 
 body.light-mode .main-header,
@@ -112,6 +112,14 @@ body.light-mode .main-header .site-logo-text {
 }
 body.light-mode .main-header .site-logo-text:hover {
     background-color: rgba(0,0,0,0.1);
+}
+
+body.light-mode .glow-text {
+  color: #222; /* Dark text for content boxes */
+  text-shadow: 
+    0 0 5px #777, /* Horizontal offset, vertical offset, blur radius, color */
+    0 0 10px #777,
+    0 0 15px #777;
 }
 
 body.light-mode .hamburger-menu-toggle .bar {
@@ -200,7 +208,7 @@ body.light-mode #theme-toggle:hover {
 
 /* --- Logo & Chalkboard Hero Section --- */
 .chalkboard-hero { /* Renamed from .moreganoooo */
-    max-width: 750px;
+    max-width: 600px;
     margin: 20px auto;
     background-color: #38404B; /* Dark slate grey chalkboard color */
     border: 3px solid #A9A9A9; /* Metallic grey border */
@@ -252,6 +260,17 @@ body.light-mode #theme-toggle:hover {
     padding: 20px;
     border-radius: 7px;
     background-color: #1a1a1a; /* Dark background for content boxes */
+}
+
+/* --- Fancy Glow Arrow --- */
+.glow-text {
+  font-size: 80px;
+  color: #fff; /* Color of the text itself */
+  margin: 2px;
+  text-shadow: 
+    0 0 5px #FAC898, /* Horizontal offset, vertical offset, blur radius, color */
+    0 0 10px #FAC898,
+    0 0 15px #FAC898;
 }
 
 /* Specific theme colors for section borders */

@@ -32,13 +32,21 @@
 
   --ring: 0 0 0 3px rgba(250,200,152,.35);
 
-  /* Subtle, modern glow (DARK) */
+  /* Glow tokens (DARK) */
   --glow-fg: #ffd9b3;
   --glow-s1: rgba(250,200,152,.50);
   --glow-s2: rgba(250,200,152,.28);
   --glow-s3: rgba(250,200,152,.18);
   --glow-outline: rgba(0,0,0,.22);
+
   --section-tint: var(--surface);
+
+  /* Modal tokens */
+  --modal-bg: #161616;
+  --modal-border: #333;
+  --input-bg: #0f0f10;
+  --input-border: #363c43;
+  --toast-bg: rgba(0,0,0,.85);
 }
 
 body.light-mode {
@@ -70,13 +78,20 @@ body.light-mode {
   --footer-bg: #ffffff;
   --footer-border: #e5e7eb;
 
-  /* Make the arrow/divider pop a bit more in LIGHT */
+  /* Make arrow/divider pop in LIGHT */
   --glow-fg: #ffe6cc;
   --glow-s1: rgba(250,200,152,.62);
   --glow-s2: rgba(250,200,152,.38);
   --glow-s3: rgba(250,200,152,.26);
   --glow-outline: rgba(0,0,0,.12);
+
   --section-tint: #fafafa;
+
+  --modal-bg: #ffffff;
+  --modal-border: #e5e7eb;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --toast-bg: rgba(17,24,39,.92);
 }
 
 /* ===========================
@@ -186,16 +201,11 @@ body.light-mode .main-nav-links a:hover { background: rgba(0,0,0,.06); }
 .pedfoot sup { vertical-align: super; font-size:.8em; line-height: 0; position: relative; }
 .tagline1 { font-family: "Proxima Nova", Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
 
-/* Subtle modern glow + micro-outline + light-theme halo */
-@keyframes floatArrow {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(6px); }
-}
+/* Arrow glow + halo */
+@keyframes floatArrow { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 .glow-text {
-  position: relative;
-  z-index: 0;
-  font-size: 80px;
-  color: var(--glow-fg);
+  position: relative; z-index: 0;
+  font-size: 80px; color: var(--glow-fg);
   margin: 4px 0 2px;
   text-shadow:
     0 0 6px var(--glow-s1),
@@ -208,26 +218,16 @@ body.light-mode .main-nav-links a:hover { background: rgba(0,0,0,.06); }
   animation: floatArrow 3.6s ease-in-out infinite;
 }
 body.light-mode .glow-text::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-35%);
-  width: 140px;
-  height: 48px;
-  pointer-events: none;
+  content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-35%);
+  width: 140px; height: 48px; pointer-events: none;
   background: radial-gradient(ellipse at center,
               rgba(250,200,152,.35) 0%,
               rgba(250,200,152,.18) 45%,
               rgba(250,200,152,0) 70%);
-  filter: blur(8px);
-  z-index: -1; /* halo sits behind glyph */
+  filter: blur(8px); z-index: -1;
 }
 .long-line {
-  width: 700px;
-  border:3px solid var(--glow-fg);
-  border-radius:7px;
-  margin: 22px auto 24px;
+  width: 700px; border:3px solid var(--glow-fg); border-radius:7px; margin: 22px auto 24px;
   box-shadow:
     0 0 6px var(--glow-s1),
     0 0 12px var(--glow-s2),
@@ -245,16 +245,9 @@ body.light-mode .glow-text::after {
 }
 .section-title { font-size: 2rem; }
 
-/* Highlights: force 2×2 on tablet/desktop, 1-col on phones */
-.highlight-grid {
-  display: grid;
-  gap: 18px;
-  margin-top: 14px;
-  grid-template-columns: 1fr; /* phones */
-}
-@media (min-width: 760px) {
-  .highlight-grid { grid-template-columns: 1fr 1fr; } /* 2 x 2 */
-}
+/* Highlights: strict 2×2 (≥760px), 1-col on phones */
+.highlight-grid { display: grid; gap: 18px; margin-top: 14px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .highlight-grid { grid-template-columns: 1fr 1fr; } }
 .highlight-card {
   text-align: left; padding: 16px; border-radius: 12px; background: var(--card-bg);
   border: 1px solid var(--card-border); box-shadow: var(--elev-card);
@@ -309,6 +302,38 @@ body.light-mode .glow-text::after {
 .action-button-outline:hover { background: rgba(255,255,255,.08); text-decoration:none; }
 body.light-mode .action-button-outline:hover { background: rgba(0,0,0,.06); }
 
+/* Linkish (inline buttons) */
+.linkish {
+  background: none; border: none; color: var(--link); padding: 0; cursor: pointer; font: inherit;
+}
+.linkish:hover { color: var(--link-hover); text-decoration: underline; }
+/* Normalize <button> and <a> so CTAs match exactly */
+.action-button-orange,
+.action-button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+
+  /* lock in identical height + text metrics */
+  min-height: 44px;            /* uniform height */
+  padding: 0 20px;             /* vertical height from min-height, horizontal from padding */
+  line-height: 1;              /* kill UA differences */
+  font: inherit;               /* same font on <a> and <button> */
+
+  /* remove default button styling variances */
+  -webkit-appearance: none;
+  appearance: none;
+  border-width: 1px;
+  box-sizing: border-box;
+}
+
+/* Make sure orange button still has a border to avoid 1px jumps */
+.action-button-orange { border: 1px solid transparent; }
+
+/* Optional: keep outline button text from shifting by font smoothing */
+.action-button-outline { -webkit-font-smoothing: antialiased; }
+
 /* ===========================
    PROJECT GRID + CARDS
    =========================== */
@@ -357,29 +382,62 @@ body.light-mode .action-button-outline:hover { background: rgba(0,0,0,.06); }
 .footer-links a { color: var(--text); }
 .footer-links a:hover { text-decoration: underline; }
 
-.footer-social {
-  display:flex; align-items:center; justify-content:flex-start; gap: 14px;
-}
-.footer-social img {
-  height: 42px;
-  width: auto;
-  transition: filter .25s, transform .15s ease;
-}
-.footer-social a:hover img {
-  filter: drop-shadow(0 0 8px var(--accent-strong)) brightness(1.05);
-  transform: translateY(-1px);
-}
+.footer-social { display:flex; align-items:center; justify-content:flex-start; gap: 14px; }
+.footer-social img { height: 42px; width: auto; transition: filter .25s, transform .15s ease; }
+.footer-social a:hover img { filter: drop-shadow(0 0 8px var(--accent-strong)) brightness(1.05); transform: translateY(-1px); }
 /* Invert GitHub on dark theme only */
 body:not(.light-mode) .footer-social img[alt="GitHub"] { filter: invert(1); }
-body:not(.light-mode) .footer-social a:hover img[alt="GitHub"] {
-  filter: invert(1) drop-shadow(0 0 8px var(--accent-strong)) brightness(1.07);
-}
+body:not(.light-mode) .footer-social a:hover img[alt="GitHub"] { filter: invert(1) drop-shadow(0 0 8px var(--accent-strong)) brightness(1.07); }
 
 .footer-meta {
   max-width: 1000px; margin: 8px auto 0;
   display:flex; justify-content:center; gap: 10px; color: var(--muted-text); font-size: .95rem;
 }
 .footer-meta .dot { opacity:.6; }
+
+/* ===========================
+   MODAL + FORM + TOAST
+   =========================== */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.45);
+  display: none; align-items: center; justify-content: center; padding: 16px; z-index: 200;
+}
+.modal-overlay.visible { display: flex; }
+.modal {
+  background: var(--modal-bg);
+  color: var(--text);
+  border: 1px solid var(--modal-border);
+  border-radius: 12px;
+  width: 100%; max-width: 640px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.35);
+  padding: 16px 16px 18px;
+  text-align: left;
+}
+.modal h2 { margin: 4px 4px 2px; font-size: 1.4rem; }
+.modal-sub { color: var(--muted-text); margin: 0 4px 10px; }
+.modal-close {
+  position: absolute; right: 22px; top: 14px; width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border); background: transparent; color: var(--text); cursor: pointer;
+}
+.modal-close:hover { background: rgba(255,255,255,.08); }
+.form-row { display: grid; gap: 6px; margin: 10px 4px; }
+.form-row label { font-size: .95rem; color: var(--muted-text); }
+.form-row input, .form-row textarea {
+  background: var(--input-bg); color: var(--text);
+  border: 1px solid var(--input-border); border-radius: 8px; padding: 10px 12px;
+}
+.form-row input:focus, .form-row textarea:focus { outline: none; box-shadow: var(--ring); }
+
+.modal-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 4px 6px; }
+.modal-meta { margin: 6px 4px 2px; color: var(--muted-text); display: flex; align-items: center; gap: 10px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+  background: var(--toast-bg); color: #fff; padding: 10px 14px; border-radius: 8px; opacity: 0; pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 250; box-shadow: 0 6px 24px rgba(0,0,0,.25);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ===========================
    MOBILE

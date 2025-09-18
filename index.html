@@ -49,7 +49,7 @@
       <a href="#projects">Projects</a>
       <a href="#about">About</a>
       <a href="#contact-me">Contact</a>
-      <a href="Dominick_Colosimo_Resume.pdf" class="resume-link">Resume</a>
+      <a href="Colosimo_Dominick_Data_Scientist_and_Engineer_Sept_2025.pdf" class="resume-link">Resume</a>
     </nav>
   </header>
 
@@ -72,8 +72,9 @@
         2× U.S. patent co-inventor • Built ML for critical infrastructure (mIQroTech) • Computational chemistry background (PSU)
       </p>
       <p class="hero-ctas">
-        <a href="mailto:colosimodominick@gmail.com" class="action-button-orange">Email Me</a>
-        <a href="Dominick_Colosimo_Resume.pdf" class="action-button-outline">Download Resume</a>
+        <button id="open-contact" class="action-button-orange">Email Me</button>
+        <button id="copy-email" class="action-button-outline" data-email="colosimodominick@gmail.com" title="Copy email to clipboard">Copy Email</button>
+        <a href="Colosimo_Dominick_Data_Scientist_and_Engineer_Sept_2025.pdf" class="action-button-outline">Download Resume</a>
       </p>
     </section>
 
@@ -202,8 +203,8 @@
           simpler—not more complex—than when I arrived.
         </p>
         <p class="about-ctas">
-          <a href="#contact-me" class="action-button-orange">Let’s talk</a>
-          <a href="Dominick_Colosimo_Resume.pdf" class="action-button-outline">Resume</a>
+          <button class="action-button-orange" id="open-contact-2">Let’s talk</button>
+          <a href="Colosimo_Dominick_Data_Scientist_and_Engineer_Sept_2025.pdf" class="action-button-outline">Resume</a>
         </p>
       </div>
     </section>
@@ -215,8 +216,8 @@
           <h2 class="footer-title">Let’s build something useful.</h2>
           <p class="footer-subtitle">Applied ML for IoT & time-series • 2× U.S. patent co-inventor</p>
           <div class="footer-actions">
-            <a href="mailto:colosimodominick@gmail.com" class="action-button-orange">Email Me</a>
-            <a href="Dominick_Colosimo_Resume.pdf" class="action-button-outline">Resume</a>
+            <button class="action-button-orange" id="open-contact-3">Email Me</button>
+            <button class="action-button-outline" id="copy-email-2" data-email="colosimodominick@gmail.com">Copy Email</button>
           </div>
         </div>
 
@@ -246,10 +247,56 @@
     </footer>
   </main>
 
-  <!-- GSAP (reduced-motion aware) -->
+  <!-- Contact Modal -->
+  <div class="modal-overlay" id="contact-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+      <h2 id="contact-title">Contact Dom</h2>
+      <p class="modal-sub">Write your message here—then choose how to send.</p>
+
+      <form id="contact-form">
+        <div class="form-row">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Jane Recruiter"/>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="jane@company.com"/>
+        </div>
+
+        <div class="form-row">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="Exploring a Data Scientist role"/>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" placeholder="Hi Dom — I’m reaching out regarding..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="action-button-orange" id="compose-gmail">Open Gmail</button>
+          <button type="button" class="action-button-orange" id="compose-outlook">Open Outlook</button>
+          <button type="button" class="action-button-outline" id="copy-message">Copy Message</button>
+        </div>
+
+        <div class="modal-meta">
+          <button type="button" class="linkish" id="copy-email-3" data-email="colosimodominick@gmail.com">Copy Dom’s Email</button>
+          <span class="dot">•</span>
+          <button type="button" class="linkish" id="fallback-mailto">Use my default email app</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- GSAP -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 
-  <!-- Theme toggle + GSAP timeline -->
+  <!-- Theme toggle + GSAP + Contact UX -->
   <script>
     (function () {
       const body = document.body;
@@ -290,11 +337,94 @@
           .from(".hero .eyebrow", { opacity: 0, y: 10 }, "-=0.25")
           .from(".hero .tagline1", { opacity: 0, y: 12 }, "-=0.2")
           .from(".hero .trust-band", { opacity: 0, y: 8 }, "-=0.25")
-          .from(".hero-ctas a", { opacity: 0, y: 10, stagger: 0.08 }, "-=0.4")
+          .from(".hero-ctas a, .hero-ctas button", { opacity: 0, y: 10, stagger: 0.08 }, "-=0.4")
           .from(".glow-text", { opacity: 0 }, "-=0.5")
           .from(".highlight-card", { opacity: 0, y: 14, stagger: 0.06 }, "-=0.3")
           .from(".grid .card", { opacity: 0, y: 14, stagger: 0.06 }, "-=0.3");
       }
+
+      /* ============
+         CONTACT UX
+         ============ */
+      const modal = document.getElementById('contact-modal');
+      const openers = [document.getElementById('open-contact'), document.getElementById('open-contact-2'), document.getElementById('open-contact-3')].filter(Boolean);
+      const closeBtn = document.getElementById('modal-close');
+      const toast = document.getElementById('toast');
+
+      function showToast(text) {
+        toast.textContent = text;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1600);
+      }
+
+      function openModal() {
+        modal.classList.add('visible');
+        modal.setAttribute('aria-hidden', 'false');
+        // focus first field
+        const first = document.getElementById('name');
+        if (first) first.focus();
+        document.addEventListener('keydown', escClose);
+      }
+      function closeModal() {
+        modal.classList.remove('visible');
+        modal.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', escClose);
+      }
+      function escClose(e){ if (e.key === 'Escape') closeModal(); }
+
+      openers.forEach(btn => btn.addEventListener('click', openModal));
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // Copy email buttons
+      function copyText(text) {
+        navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
+      }
+      const copyEmailBtns = [document.getElementById('copy-email'), document.getElementById('copy-email-2'), document.getElementById('copy-email-3')].filter(Boolean);
+      copyEmailBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const email = btn.getAttribute('data-email') || 'colosimodominick@gmail.com';
+          copyText(email);
+        });
+      });
+
+      // Compose helpers
+      function getFormData() {
+        const name = (document.getElementById('name').value || '').trim();
+        const email = (document.getElementById('email').value || '').trim();
+        const subject = (document.getElementById('subject').value || 'Hello from your website').trim();
+        const message = (document.getElementById('message').value || '').trim();
+        const sig = email ? `\n\n— ${name || 'Recruiter'} (${email})` : (name ? `\n\n— ${name}` : '');
+        return { subject, body: `${message}${sig}` };
+      }
+
+      function openGmail() {
+        const { subject, body } = getFormData();
+        const url = `https://mail.google.com/mail/?view=cm&fs=1&to=colosimodominick@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(url, '_blank', 'noopener');
+      }
+      function openOutlook() {
+        const { subject, body } = getFormData();
+        const url = `https://outlook.office.com/mail/deeplink/compose?to=colosimodominick@gmail.com&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(url, '_blank', 'noopener');
+      }
+      function fallbackMailto() {
+        const { subject, body } = getFormData();
+        const url = `mailto:colosimodominick@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = url;
+      }
+
+      document.getElementById('compose-gmail').addEventListener('click', openGmail);
+      document.getElementById('compose-outlook').addEventListener('click', openOutlook);
+      document.getElementById('fallback-mailto').addEventListener('click', fallbackMailto);
+
+      // Copy message
+      document.getElementById('copy-message').addEventListener('click', () => {
+        const { subject, body } = getFormData();
+        copyText(`Subject: ${subject}\n\n${body}`);
+      });
     })();
   </script>
 </body>

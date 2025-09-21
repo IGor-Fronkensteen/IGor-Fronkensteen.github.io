@@ -44,14 +44,28 @@
         <span class="icon-light-mode" style="display:none;">🌙</span>
       </button>
     </div>
-    <nav class="header-right main-nav-links" aria-label="Primary">
-      <a href="#highlights">Highlights</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact-me">Contact</a>
-      <a href="Colosimo_Dominick_Data_Scientist_and_Engineer_Sept_2025.pdf" class="resume-link">Resume</a>
-    </nav>
+    <div class="header-right">
+      <nav class="main-nav-links" aria-label="Primary">
+        <a href="#highlights">Highlights</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact-me">Contact</a>
+        <a href="Colosimo_Dominick_Data_Scientist_and_Engineer_Sept_2025.pdf" class="resume-link">Resume</a>
+      </nav>
+      <button id="nav-toggle" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
   </header>
+
+  <!-- Mobile panel nav -->
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile">
+    <a href="#highlights" class="mobile-link">Highlights</a>
+    <a href="#projects" class="mobile-link">Projects</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#contact-me" class="mobile-link">Contact</a>
+    <a href="Colosimo_Dominick_Data_Scientist_and_Engineer_Sept_2025.pdf" class="mobile-link">Resume</a>
+  </nav>
 
   <!-- Hero / Chalkboard -->
   <div class="chalkboard-hero" id="home">
@@ -343,9 +357,7 @@
           .from(".grid .card", { opacity: 0, y: 14, stagger: 0.06 }, "-=0.3");
       }
 
-      /* ============
-         CONTACT UX
-         ============ */
+      /* ============ CONTACT UX ============ */
       const modal = document.getElementById('contact-modal');
       const openers = [document.getElementById('open-contact'), document.getElementById('open-contact-2'), document.getElementById('open-contact-3')].filter(Boolean);
       const closeBtn = document.getElementById('modal-close');
@@ -425,8 +437,34 @@
         const { subject, body } = getFormData();
         copyText(`Subject: ${subject}\n\n${body}`);
       });
+
+      /* ============ MOBILE NAV ============ */
+      const navToggle = document.getElementById('nav-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      const mobileLinks = mobileNav.querySelectorAll('a');
+
+      function closeNav() {
+        document.body.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded','false');
+      }
+      function openNav() {
+        document.body.classList.add('nav-open');
+        navToggle.setAttribute('aria-expanded','true');
+      }
+      navToggle.addEventListener('click', () => {
+        if (document.body.classList.contains('nav-open')) { closeNav(); } else { openNav(); }
+      });
+      // close when clicking a link
+      mobileLinks.forEach(a => a.addEventListener('click', closeNav));
+      // close on resize to desktop
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 901) closeNav();
+      });
+      // close on ESC
+      document.addEventListener('keydown', (e) => { 
+        if (e.key === 'Escape' && document.body.classList.contains('nav-open')) closeNav(); 
+      });
     })();
   </script>
 </body>
 </html>
-
